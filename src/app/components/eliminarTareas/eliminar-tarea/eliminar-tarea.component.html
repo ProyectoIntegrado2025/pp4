@@ -1,0 +1,52 @@
+
+<div class="header">
+
+  <div class="headerL">
+    <h1>Eliminación de Tareas</h1> 
+    <button class="buttonActualizaTarea" (click)="loadTasks()">Actualizar <img class="iconActualizaTarea" src="../../../../assets/iconos/iconActualizaTarea.png" alt="Actualizar Tarea"></button>
+  </div>
+   
+
+  <div class="headerR">
+    <p class="headerRBuscar">Buscar:</p>
+     <input type="text" placeholder="Asignado a..." (input)="buscarTarea($event)">
+  </div>
+
+</div>
+   
+
+<!-- 
+<div class="container" >
+    <div class="card" *ngFor="let tarea of tareas">
+        <ul class="list-group list-group-flush" >
+            <li class="list-group-item"><span class="spanLi">Titulo</span> {{tarea.titulo}}</li>
+            <li class="list-group-item"><span class="spanLi">Descripción</span> {{tarea.descripcion}}</li>
+            <li class="list-group-item"><span class="spanLi">Asignado a</span> {{tarea.asignado}}</li>
+            <li class="list-group-item"><span class="spanLi">Fecha de cierre</span> {{tarea.fecha_fin}}</li>
+            <li class="list-group-item"><span class="spanLi">Estado</span> {{tarea.estado}}</li>
+        </ul>
+        <button class="button" (click)="eliminarTarea(tarea._id)">Eliminar</button>
+    </div>
+</div> -->
+
+<div class="container">
+  <div class="card" *ngFor="let tarea of tareas" > 
+    
+      <div class="top">
+          <img src="../../../assets/imgTop1.jpg" alt="">
+      </div>
+      <div class="mid"> 
+          <li><span class="spanLi spanLiTareaID">Tarea ID: {{tarea._id}}</span></li>
+          <li><span class="spanLi spanLiAsig">{{tarea.asignado}}</span></li>
+          <li><span class="spanLi spanLiTitulo">{{tarea.titulo}} </span> </li>
+          <li><span class="spanLi spanLiDescrip">{{tarea.descripcion}}</span></li>
+          <li [ngClass]="cambiarColorEstado(tarea.estado)"  class="list-group-item"><span class="spanLi spanLiEstado">{{tarea.estado}}</span></li>
+      </div>
+      <div class="bot">
+        <button class="buttonEliminarTarea" (click)="deleteTask(tarea._id)">
+          <img class="iconEliminarTarea" src="../../../../assets/iconos/iconEliminarTarea.png" alt="Eliminar Tarea">
+        </button>
+      </div> 
+
+  </div>
+</div>

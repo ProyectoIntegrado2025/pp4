@@ -1,0 +1,167 @@
+<head>
+  <!-- Link al swiper cnd -->
+  <link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+</head>
+<body>
+
+
+<div *ngIf="error" class="bg-dark add-container d-flex justify-content-center align-content-center">
+  <div class="alert alert-danger d-flex align-items-center mt-5 w-75 alerta-container" role="alert">
+    <div class="m-auto">
+      <span class="fw-bold">Ocurrió un error al cargar las tareas.</span>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="!error"></div>
+  <br>
+  <h2 class="headerTareas">Tareas</h2>
+  <div class="d-flex justify-content-center">
+    <div class="m-3">
+      <p class="headerBuscar">Buscar</p>
+      <input class="form-control" type="text" placeholder="Asignado a..." (input)="buscarTarea($event)">
+    </div>
+  </div>
+
+
+  <div *ngIf="cargando" class="d-flex justify-content-center mt-3 text-primary add-container">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+  </div>
+
+
+
+  <!-- TAREAS DIVIDIAS POR ESTADOS, ESTADO 1 FINALIZADO -->
+  
+ <h2 class="titleCard">Tareas Finalizadas</h2> 
+  <swiper-container class="container" 
+  slides-per-view="auto"
+  pagination="bullets" 
+  effect="slide"
+  centered-slides="true" 
+  initial-slide="3"
+  > 
+    
+      <swiper-slide class="card" *ngFor="let tarea of obtenerTareasFinalizadas()" [id]="'tarea-'+ tarea._id">
+        <div class="top">
+          <img src="../../../assets/imgTop1.jpg" alt="">
+        </div>
+        <div class="mid">
+          <li><span class="spanLi spanLiTareaID">Tarea ID: {{tarea._id}}</span></li>
+          <li><span class="spanLi spanLiAsig">{{tarea.asignado}}</span></li>
+          <li><span class="spanLi spanLiTitulo">{{tarea.titulo}} </span></li>
+          <li><span class="spanLi spanLiDescrip">{{tarea.descripcion}}</span></li>
+          <li><span class="spanLi spanLiFecha">Finalización: {{formatearFecha(tarea.fecha_fin)}}</span></li>
+          <li [ngClass]="cambiarColorEstado(tarea.estado)" class="list-group-item"><span class="spanLi spanLiEstado">{{tarea.estado}}</span></li>
+        </div>
+        <div class="bot">
+          <button class="buttonTareaFuncion">
+            <img class="iconTareaFuncion" src="../../../assets/iconos/iconSubirPDF.png" alt="Up PDF">
+          </button>
+          <button class="buttonTareaFuncion">
+            <img class="iconTareaFuncion" src="../../../assets/iconos/iconDescargarPDF.png" alt="Down PDF">
+          </button>
+          <button class="buttonTareaFuncion" (click)="editarTarea(tarea)" *ngIf="tarea._id">
+            <img class="iconTareaFuncion" src="../../../assets/iconos/iconEditarTarea.png" alt="Editar Tarea">
+          </button>
+          <button class="buttonTareaFuncion" (click)="capturarYCompartir(tarea._id)">
+            <img class="iconTareaFuncion" src="../../../assets/iconos/iconDescargarTarea.png" alt="Compartir Tarea" />
+          </button>
+        </div>
+      </swiper-slide>
+    
+  </swiper-container>
+  
+
+  
+ <!-- TAREAS DIVIDIAS POR ESTADOS, ESTADO 2 EN PROCESO --> 
+  
+<h2 class="titleCard">Tareas En Proceso</h2>
+<swiper-container class="container"  
+  slides-per-view="auto"
+  pagination="bullets" 
+  effect="slide"
+  centered-slides="true" 
+  initial-slide="3"
+> 
+ 
+    <swiper-slide class="card cardContainer" *ngFor="let tarea of obtenerTareasEnProceso()" [id]="'tarea-'+ tarea._id">
+      <div class="top">
+        <img src="../../../assets/imgTop1.jpg" alt="">
+      </div>
+      <div class="mid">
+        <li><span class="spanLi spanLiTareaID">Tarea ID: {{tarea._id}}</span></li>
+        <li><span class="spanLi spanLiAsig">{{tarea.asignado}}</span></li>
+        <li><span class="spanLi spanLiTitulo">{{tarea.titulo}} </span></li>
+        <li><span class="spanLi spanLiDescrip">{{tarea.descripcion}}</span></li>
+        <li><span class="spanLi spanLiFecha">Finalización: {{formatearFecha(tarea.fecha_fin)}}</span></li>
+        <li [ngClass]="cambiarColorEstado(tarea.estado)" class="list-group-item"><span class="spanLi spanLiEstado">{{tarea.estado}}</span></li>
+      </div>
+      <div class="bot">
+        <button class="buttonTareaFuncion">
+          <img class="iconTareaFuncion" src="../../../assets/iconos/iconSubirPDF.png" alt="Up PDF">
+        </button>
+        <button class="buttonTareaFuncion">
+          <img class="iconTareaFuncion" src="../../../assets/iconos/iconDescargarPDF.png" alt="Down PDF">
+        </button>
+        <button class="buttonTareaFuncion" (click)="editarTarea(tarea)" *ngIf="tarea._id">
+          <img class="iconTareaFuncion" src="../../../assets/iconos/iconEditarTarea.png" alt="Editar Tarea">
+        </button>
+        <button class="buttonTareaFuncion" (click)="capturarYCompartir(tarea._id)">
+          <img class="iconTareaFuncion" src="../../../assets/iconos/iconDescargarTarea.png" alt="Compartir Tarea" />
+        </button>
+      </div>
+    </swiper-slide>
+  
+</swiper-container>
+
+
+
+<!-- TAREAS DIVIDIAS POR ESTADOS, ESTADO 3 CANCELADO --> 
+
+<h2 class="titleCard">Tareas Canceladas</h2>
+<swiper-container class="container" 
+  slides-per-view="auto"
+  pagination="bullets" 
+  effect="slide"
+  centered-slides="true" 
+  initial-slide="3"
+  >
+    
+    <swiper-slide class="card" *ngFor="let tarea of obtenerTareasCanceladas()" [id]="'tarea-'+ tarea._id">
+      <div class="top">
+        <img src="../../../assets/imgTop1.jpg" alt="">
+      </div>
+      <div class="mid">
+        <li><span class="spanLi spanLiTareaID">Tarea ID: {{tarea._id}}</span></li>
+        <li><span class="spanLi spanLiAsig">{{tarea.asignado}}</span></li>
+        <li><span class="spanLi spanLiTitulo">{{tarea.titulo}} </span></li>
+        <li><span class="spanLi spanLiDescrip">{{tarea.descripcion}}</span></li>
+        <li><span class="spanLi spanLiFecha">Finalización: {{formatearFecha(tarea.fecha_fin)}}</span></li>
+        <li [ngClass]="cambiarColorEstado(tarea.estado)" class="list-group-item"><span class="spanLi spanLiEstado">{{tarea.estado}}</span></li>
+      </div>
+      <div class="bot">
+        <button class="buttonTareaFuncion">
+          <img class="iconTareaFuncion" src="../../../assets/iconos/iconSubirPDF.png" alt="Up PDF">
+        </button>
+        <button class="buttonTareaFuncion">
+          <img class="iconTareaFuncion" src="../../../assets/iconos/iconDescargarPDF.png" alt="Down PDF">
+        </button>
+        <button class="buttonTareaFuncion" (click)="editarTarea(tarea)" *ngIf="tarea._id">
+          <img class="iconTareaFuncion" src="../../../assets/iconos/iconEditarTarea.png" alt="Editar Tarea">
+        </button>
+        <button class="buttonTareaFuncion" (click)="capturarYCompartir(tarea._id)">
+          <img class="iconTareaFuncion" src="../../../assets/iconos/iconDescargarTarea.png" alt="Compartir Tarea" />
+        </button>
+      </div>
+    </swiper-slide>
+  
+</swiper-container> 
+
+  
+</body>

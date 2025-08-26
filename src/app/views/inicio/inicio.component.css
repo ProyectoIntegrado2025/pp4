@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Inconsolata:wght@200..900&display=swap');
+
+/* Para cuando no se carga el back sale este modal en la parte t */
+.add-container{
+    height: 100vh;
+}
+.alerta-container{
+    height: 75px;
+}
+
+
+.headerTareas{
+    margin-left: 8%;
+    font-size: 300%;
+}
+.headerBuscar{
+    font-size: 125%;
+}
+.titleCard{
+    font-size: 200%;
+    text-align: center;
+}
+.container{
+    min-width: 92%;
+    
+}
+.card{
+    border-radius: 5%;
+    overflow: hidden;
+    
+    width: 300px;
+    min-width: 280px;
+    height: 100%;
+    min-height: 470px;  
+
+    margin: 10px 10px 30px 10px;
+
+
+    
+    display: grid;
+    grid-template-areas: "top"
+                         "mid"
+                         "bot";
+}
+.top {
+    grid-area: top;
+}
+.top img{
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+    height: 100%;
+}
+.mid {
+    grid-area: mid; 
+    text-align: center;
+}
+.bot {
+    grid-area: bot; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid rgb(196, 196, 196);
+    gap: 1.3%;
+}
+
+.spanLi{
+    font-optical-sizing: auto; /* para fuentes q soporten la propeidad, ajustará automáticamente la apariencia de la fuente según el tamaño en que se use. Esto puede mejorar la legibilidad y la estética*/
+}
+
+.spanLiTareaID{
+    font-size: 70%;
+}
+.spanLiAsig{ 
+    font-size: 80%;
+    display: block;
+    margin-top: 3%;
+}
+.spanLiTitulo{
+    font-size: 119%;
+    font-family: "Charm", cursive;
+    font-weight: 700;
+    display: block;
+    margin: 2.5% 1% 3% 1%;
+
+}
+.spanLiDescrip{
+    font-size: 93%;
+    display: block;
+    margin: 0% 1% 0% 1%;
+}
+.spanLiFecha{
+    display: block;
+    margin-top: 5%;
+}
+.buttonTareaFuncion {
+    background-color: transparent; /* Elimina el fondo gris */
+    border: 1px solid rgb(226, 226, 226); /* Elimina el borde */
+    padding: 0px; /* Elimina el relleno interno para reducir el ancho */
+    border-radius: 15%;
+    width: 11.5%;
+    transition: transform 90ms;
+}
+.buttonTareaFuncion:hover{
+    transform: scale(1.10);
+}
+.iconTareaFuncion{
+    width: 100%;
+}
+

@@ -1,0 +1,39 @@
+<div class="formularioCrear">
+<form [formGroup] = "formulario" (ngSubmit)="enviar()">
+    
+    <div>
+      <label for="titulo" class="form-label">Titulo</label>
+      <input [ngClass]="{'is-invalid' : tieneErrores('titulo', 'required')}" type="text" class="form-control" id="titulo" formControlName="titulo">
+      <div class="form-text">Indique un titulo descriptivo del proyecto/tarea</div>
+      <div class ="text-danger" *ngIf="tieneErrores('titulo','required')">
+        Campo obligatorio
+      </div>
+
+      <label for="descripcion" class="form-label">Descripción</label>
+      <input [ngClass]="{'is-invalid' : tieneErrores('descripcion', 'required')}" type="text" class="form-control" id="descripcion" formControlName="descripcion" maxLength="200">
+      <div class ="text-danger" *ngIf="tieneErrores('descripcion','required')">
+        Campo obligatorio
+      </div>
+      <br>
+      <label for="asignado" class="form-label">Asignado a: </label>
+      <input [ngClass]="{'is-invalid' : tieneErrores('asignado', 'required')}" type="text" class="form-control" id="asignado" formControlName="asignado">
+      <div class ="text-danger" *ngIf="tieneErrores('asignado','required')">
+        Campo obligatorio
+      </div>
+      <br>
+      <label for="fecha_fin" class="form-label">Fecha fin: </label>
+      <input [ngClass]="{'is-invalid' : tieneErrores('fecha_fin', 'required')}" type="date" class="form-control" id="fecha_fin" formControlName="fecha_fin" maxLength="10">
+      <div class ="text-danger" *ngIf="tieneErrores('fecha_fin','required')">
+        Campo obligatorio
+      </div>
+      <br>
+      <label for="Estado" class="form-label">Estado</label>
+      <div class="form-control" id="Estado">{{ usuarioActivo.estado }}</div>
+      <br>
+    </div>
+    <button type="submit" class="btn btn-primary">Crear</button>
+  </form>
+  <br>
+  <div class="alert alert-success" role="alert" *ngIf="alerta">
+    Se ha creado la tarea "{{this.formulario.value.titulo}}" con éxito.</div>
+</div>

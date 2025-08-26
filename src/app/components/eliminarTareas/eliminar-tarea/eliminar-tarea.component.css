@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
+
+
+.header{
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.headerL{
+    padding: 0px;
+    display: flex;
+    align-items: center;
+    margin: 2% 0% 5% 5%;
+}
+.headerL button{
+    margin-left: 1em;
+    margin-right: 1em;
+    border-radius: .7em;
+    padding-bottom: .8%;
+    width: 21%;
+}
+
+
+.headerR{
+    display: flex;
+    align-items: center;
+    margin: 2% 5% 5% 5%;
+}
+.headerRBuscar{
+    font-size: 120%;
+    margin-right: .4em;
+    position: relative;
+    top: 5px;
+}
+.header input{
+    min-width: 35%;
+}
+
+
+
+/* .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    align-self: start; 
+    min-width: 250px;
+    max-width: 20%;
+    margin: 10px 20px 30px 20px;
+}
+.spanLi{
+    font-family: "Inconsolata", monospace;
+    font-optical-sizing: auto;
+    font-weight: bold;
+    text-decoration: underline;
+    display: block;
+    text-align: center;
+    font-size: 110%;
+}
+
+
+
+.button{
+    border: 2px outset black;
+    transition: background-color .3s,
+                color .3s,
+                font-weight .3s;
+}
+
+.button:hover{
+    background-color: rgb(146, 0, 0);
+    color: white;
+    font-weight: bold;
+} */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Inconsolata:wght@200..900&display=swap');
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.card{
+    border-radius: 5%;
+    overflow: hidden;
+    
+    width: 300px;
+    min-width: 200px;
+    height: 100%;
+    min-height: 400px;  
+
+    margin: 10px 10px 30px 10px;
+
+
+    /* grilla donde se ubicaran las class top, mid y boy del hmtl */
+    display: grid;
+    /* grid-template-rows:150px 300px 50px; */
+    grid-template-areas: "top"
+                         "mid"
+                         "bot";
+}
+.top {
+    grid-area: top;
+}
+.top img{
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
+    height: 100%;
+}
+.mid {
+    grid-area: mid; 
+    text-align: center;
+}
+.bot {
+    grid-area: bot; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid rgb(196, 196, 196);
+}
+
+.spanLi{
+    font-optical-sizing: auto; /* para fuentes q soporten la propeidad, ajustará automáticamente la apariencia de la fuente según el tamaño en que se use. Esto puede mejorar la legibilidad y la estética*/
+}
+
+.spanLiTareaID{
+    font-size: 70%;
+}
+.spanLiAsig{
+    font-size: 80%;
+    display: block;
+    margin-top: 3%;
+}
+.spanLiTitulo{
+    font-size: 111%;
+    font-family: "Charm", cursive;
+    font-weight: 700;
+    display: block;
+    margin: 2.5% 1% 3% 1%;
+
+}
+.spanLiDescrip{
+    font-size: 93%;
+    display: block;
+    margin: 0% 1% 0% 1%;
+}
+
+
+/* I    C   O   N   O   S */
+.buttonActualizaTarea {
+    background-color: transparent; /* Elimina el fondo gris */
+    border: 1px solid rgb(226, 226, 226); /* Elimina el borde */
+    border-radius: 15%;
+    margin-left: 220%;
+    width: 30%;
+    transition: transform .1s;
+  }
+.buttonActualizaTarea:hover{
+    transform: scale(1.06);
+}
+.iconActualizaTarea{
+    width: 20%;
+}
+
+
+.buttonEliminarTarea {
+    background-color: transparent; /* Elimina el fondo gris */
+    border: 1px solid rgb(226, 226, 226); /* Elimina el borde */
+    padding: 0px; /* Elimina el relleno interno para reducir el ancho */
+    border-radius: 15%;
+    width: 11.2%;
+    transition: transform .1s;
+  }
+.iconEliminarTarea{
+    width: 100%;
+}
+.buttonEliminarTarea:hover{
+    transform: scale(1.06);
+}

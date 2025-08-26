@@ -1,0 +1,28 @@
+<div class="container">
+  <h1>Editar Tarea</h1>
+  <form (ngSubmit)="editarTarea()">
+    <div class="mb-3">
+      <label for="titulo" class="form-label">Título:</label>
+      <input id="titulo" [(ngModel)]="tarea.titulo" name="titulo" required class="form-control" disabled>
+    </div>
+    <div class="mb-3">
+      <label for="descripcion" class="form-label">Descripción:</label>
+      <textarea id="descripcion" [(ngModel)]="tarea.descripcion" name="descripcion" required class="form-control" disabled></textarea>
+    </div>
+    <div class="mb-3">
+      <label for="asignado" class="form-label">Asignado a:</label>
+      <input id="asignado" [(ngModel)]="tarea.asignado" name="asignado" required class="form-control" disabled>
+    </div>
+    <div class="mb-3">
+      <label for="fecha_fin" class="form-label">Fecha de Finalización:</label>
+      <input id="fecha_fin" [(ngModel)]="tarea.fecha_fin" name="fecha_fin" required class="form-control" type="date" disabled>
+    </div>
+    <div class="mb-3">
+      <label for="estado" class="form-label">Estado:</label>
+      <select id="estado" [(ngModel)]="tarea.estado" name="estado" class="form-select" required>
+        <option *ngFor="let estado of estados" [value]="estado">{{estado}}</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+  </form>
+</div>

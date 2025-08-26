@@ -1,0 +1,100 @@
+/* .card-container{
+    background-color: rgb(203, 219, 234);
+    border: 50% 50%;
+    width: 30%;
+    height: 150%;
+}
+
+ul li{
+    background-color: rgb(203, 219, 234);;
+    border-bottom: 1px solid black;
+}
+ */
+
+/* 
+
+ .container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card{
+    width: 10%;
+    min-width: 50%;
+    
+    height: 20em;
+    background-color: red;
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Inconsolata:wght@200..900&display=swap');
+
+
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.card{
+    border-radius: 5%;
+    overflow: hidden;
+    
+    width: 300px;
+    min-width: 200px;
+    height: 100%;
+    min-height: 400px;  
+
+    margin: 10px 10px 30px 10px;
+
+
+    /* grilla donde se ubicaran las class top, mid y boy del hmtl */
+    display: grid;
+    /* grid-template-rows:150px 300px 50px; */
+    grid-template-areas: "top"
+                         "mid"
+                         "bot";
+}
+.top {
+    grid-area: top;
+}
+.top img{
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+.mid {
+    grid-area: mid; 
+    text-align: center;
+    
+}
+.bot {
+    grid-area: bot; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spanLi{
+    font-optical-sizing: auto; /* para fuentes q soporten la propeidad, ajustará automáticamente la apariencia de la fuente según el tamaño en que se use. Esto puede mejorar la legibilidad y la estética*/
+}
+.spanLiAsig{
+    font-size: 80%;
+    display: block;
+    margin-top: 3%;
+
+}
+.spanLiTitulo{
+    font-size: 111%;
+    font-family: "Charm", cursive;
+    font-weight: 700;
+    display: block;
+    margin: 2.5% 1% 3% 1%;
+
+}
+.spanLiDescrip{
+    font-size: 93%;
+    display: block;
+    margin: 0% 1% 0% 1%;
+}
