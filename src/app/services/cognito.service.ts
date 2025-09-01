@@ -41,7 +41,7 @@ export class AuthenticateService {
       },
       // First time login attempt
       newPasswordRequired: () => {
-        this.router.navigate(["/newPasswordRequire"]);
+        this.router.navigate(["/newPasswordRequired"]);
       },
       onFailure: (error: any) => {
         console.log("error", error);
