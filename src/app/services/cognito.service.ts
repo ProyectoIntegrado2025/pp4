@@ -47,7 +47,7 @@ export class AuthenticateService {
     // First time login attempt
     // PASO: pasamos la referencia del cognitoUser y los atributos del challenge por router.state
       newPasswordRequired: (userAttributes: any, requiredAttributes: any) => {
-        console.log('[LOGIN] NEW_PASSWORD_REQUIRED - cognitoUser exists?', this.cognitoUser);
+        console.log('[LOGIN] NEW_PASSWORD_REQUIRED - cognitoUser exists?', !!this.cognitoUser);
         console.log('[LOGIN] userAttributes:', userAttributes, 'required:', requiredAttributes);
 
         // Guardamos la referencia en el service antes de navegar
