@@ -34,7 +34,7 @@ export class AuthenticateService {
 
   this.username = emailaddress;
   this.userPool = new CognitoUserPool(poolData);
-  const userData = { Username: emailaddress, Pool: this.userPool };
+  let userData = { Username: emailaddress, Pool: this.userPool };
   this.cognitoUser = new CognitoUser(userData);
 
     this.cognitoUser.authenticateUser(authenticationDetails, {
