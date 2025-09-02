@@ -19,35 +19,44 @@ export class AuthenticateService {
 
   // Login
   login(emailaddress: any, password: any) {
-    let authenticationDetails = new AuthenticationDetails({
-      Username: emailaddress,
-      Password: password,
-    });
+  const authenticationDetails = new AuthenticationDetails({
+    Username: emailaddress,
+    Password: password,
+  });
 
-    let poolData = {
-      UserPoolId: environment.cognitoUserPoolId,
-      ClientId: environment.cognitoAppClientId,
-    };
+  const poolData = {
+    UserPoolId: environment.cognitoUserPoolId,
+    ClientId: environment.cognitoAppClientId,
+  };
 
-    this.username = emailaddress;
-    this.userPool = new CognitoUserPool(poolData);
-    let userData = { Username: emailaddress, Pool: this.userPool };
-    this.cognitoUser = new CognitoUser(userData);
+  this.username = emailaddress;
+  this.userPool = new CognitoUserPool(poolData);
+  const userData = { Username: emailaddress, Pool: this.userPool };
+  this.cognitoUser = new CognitoUser(userData);
 
-    this.cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: (result: any) => {
-        localStorage.setItem("user", emailaddress);
-        this.router.navigate(["/inicio"]);
-      },
-      // First time login attempt
-      newPasswordRequired: () => {
-        this.router.navigate(["/newPasswordRequired"]);
-      },
-      onFailure: (error: any) => {
-        console.log("error", error);
-      },
-    });
-  }
+  this.cognitoUser.authenticateUser(authenticationDetails, {
+    onSuccess: (result: any) => {
+      localStorage.setItem("user", emailaddress);
+      this.router.navigate(["/inicio"]);
+    },
+
+    // First time login attempt
+    // PASO: pasamos la referencia del cognitoUser y los atributos del challenge por router.state
+    newPasswordRequired: (userAttributes: any, requiredAttributes: any) => {
+      this.router.navigate(["/newPasswordRequired"], {
+        state: {
+          cognitoUser: this.cognitoUser,
+          userAttributes: userAttributes || {},
+          requiredAttributes: requiredAttributes || {}
+        }
+      });
+    },
+
+    onFailure: (error: any) => {
+      console.log("error", error);
+    },
+  });
+}
 
   // First time login attempt - New password require
   changePassword(
