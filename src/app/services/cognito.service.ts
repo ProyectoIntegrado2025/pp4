@@ -15,6 +15,9 @@ export class AuthenticateService {
   cognitoUser: any;
   username: string = "";
 
+  // cognito.service.ts
+  private tempCognitoUser: CognitoUser | null = null;
+
   constructor(private router: Router) {}
 
   // Login
@@ -42,13 +45,10 @@ export class AuthenticateService {
 
     // First time login attempt
     // PASO: pasamos la referencia del cognitoUser y los atributos del challenge por router.state
-    newPasswordRequired: (userAttributes: any, requiredAttributes: any) => {
-      this.router.navigate(["/newPasswordRequired"], {
-        state: {
-          cognitoUser: this.cognitoUser,
-          userAttributes: userAttributes || {},
-          requiredAttributes: requiredAttributes || {}
-        }
+      newPasswordRequired: (userAttributes: any, requiredAttributes: any) => {
+        this.setTempUser(this.cognitoUser);
+        this.router.navigate(["/newPasswordRequired"], {
+        state: { userAttributes, requiredAttributes }
       });
     },
 
@@ -111,4 +111,15 @@ export class AuthenticateService {
       return true;
     }
   }
+
+
+
+  setTempUser(user: CognitoUser) {
+    this.tempCognitoUser = user;
+  }
+
+  getTempUser(): CognitoUser | null {
+    return this.tempCognitoUser;
+  }
+
 }
