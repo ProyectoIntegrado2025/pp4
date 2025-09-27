@@ -52,34 +52,21 @@
 </section> 
 </main> -->
 
-
-
-<!--               <form [formGroup]="loginForm" (ngSubmit)="userLogin()">
-                <div class="form-outline form-white mb-4">
-                  <input type="email" placeholder="Email" id="email" formControlName="email" class="form-control form-control-lg" />
-                  <label class="form-label d-none" for="email">Email</label>
-                </div>
-
-                <div class="form-outline form-white mb-4">
-                  <input type="password" placeholder="Password" id="password" formControlName="password" class="form-control form-control-lg" />
-                  <label class="form-label d-none" for="password">Password</label>
-                </div>
-                
-                <button [disabled]="loginForm.invalid || cargando" type="submit" class="btn btn-outline-light btn-lg px-5">Login</button>
-              </form> -->
             
 
             
 
 <main id="login-main">
 
-                <!-- Muestra mensajes de estado y errores -->
+                <!-- Muestra mensajes de estado y errores luego del submit del correo y contraseña -->
               <div *ngIf="cargando" class="alert alert-info" role="alert">
                 Cargando...
               </div>
               <div *ngIf="mensajeError" class="alert alert-danger" role="alert">
                 {{ mensajeError }}
               </div>
+
+             
 
               <!-- Contenedor tarjeta login -->
     <div class="cardLogin">
@@ -90,21 +77,22 @@
         <img class="icon_userLogin" src="../../../assets/img/loginUser.png" alt=""/>
         <!-- Contenedor de login -->
         <div class="cardLogin_Inputs">
+          
             <form [formGroup]="loginForm" (ngSubmit)="userLogin()">
-              <label class="cardLogin_Labelinput" for="email">
+              <label  class="cardLogin_Labelinput" for="email">
                 Correo
-                <input type="text" id="email" name="email" formControlName="email">   
+                <input type="email" id="email" name="email" formControlName="email"> 
               </label>
-            
+               
               <label class="cardLogin_Labelinput" for="password">
                 Contraseña
-                <input type="text" id="password" name="password" formControlName="password">   
+                <input type="password" id="password" name="password" formControlName="password">   
               </label>
                 <!-- botón login -->
                 <button class="btnLogin" [disabled]="loginForm.invalid || cargando" type="submit">Ingresar</button> 
             </form>
         </div>
-        <!-- Reestablecer contraseña y Registrarse -->
+        <!-- Reestablecer contraseña y Registrarse  -->
         <div class="cardLogin_bttnlink">
             <a class="forgetPW" href="">Olvidé mi contraseña</a>
             <a [routerLink]="['/sign-up']" class="text-white-50 fw-bold">Regístrate aquí</a>
