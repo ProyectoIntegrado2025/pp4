@@ -1,0 +1,10 @@
+/* src/app/shared/theme-toggle/theme-toggle.component.css */
+.theme-toggle-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+.theme-toggle-btn img {
+  width: 82%; /* del 100% que ocupe el 82% */
+}
