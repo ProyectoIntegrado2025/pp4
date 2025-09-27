@@ -6,7 +6,28 @@
 />
 </head>
 <body>
-
+<!-- 1. MODAL DE CONFIRMACIÓN DE CIERRE DE SESIÓN -->
+<!-- Al colocarlo como el primer elemento del body, se asegura que sea la capa base de la aplicación. -->
+<div *ngIf="mostrarModalConfirmacion" class="modal-overlay d-flex justify-content-center align-items-center">
+  <div class="modal-dialog modal-md" role="document"> <!-- CAMBIADO A modal-md -->
+    <div class="modal-content bg-dark text-white" style="border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+      <div class="modal-header border-bottom-0">
+        <h5 class="modal-title">Confirmación</h5>
+        <!-- Botón para cerrar/cancelar el modal -->
+        <button type="button" class="btn-close btn-close-white" (click)="cancelLogout()" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>¿Estás seguro de que quieres cerrar tu sesión actual?</p>
+      </div>
+      <div class="modal-footer d-flex justify-content-between border-top-0">
+        <!-- Botón para cancelar el cierre de sesión -->
+        <button type="button" class="btn btn-outline-secondary flex-fill me-2" (click)="cancelLogout()">Cancelar</button>
+        <!-- Botón para confirmar el cierre de sesión -->
+        <button type="button" class="btn btn-danger flex-fill" (click)="confirmLogout()">Cerrar Sesión</button>
+      </div>
+    </div>
+  </div>
+</div>
 <nav class="navbar navbar-dark bg-dark justify-content-between p-3">
   <a class="navbar-brand">TaskFlow</a>
   <button class="btn btn-outline-danger" (click)="onLogout()">Cerrar Sesión</button>

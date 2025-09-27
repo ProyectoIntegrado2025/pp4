@@ -108,3 +108,12 @@
     width: 100%;
 }
 
+.modal-overlay {
+  position: fixed; /* Esto asegura que el modal ignore el scroll y la ubicación en el body */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Lo hice un poco más oscuro (0.8) para el efecto de "alerta general" */
+  z-index: 1050; 
+}

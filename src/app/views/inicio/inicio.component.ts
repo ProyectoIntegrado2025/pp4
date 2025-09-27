@@ -28,6 +28,7 @@ export class InicioComponent implements OnInit, OnDestroy {
 
   private authSubscription!: Subscription; // Variable para la suscripción
   user: AuthenticatedUser | null = null;
+  mostrarModalConfirmacion: boolean = false;
   constructor(private apiTareasService: ApiTareasService, private datePipe: DatePipe, private authService: AuthService, private router: Router, private apiGatewayService: ApiGatewayService) { }
 
   ngOnInit() {
@@ -165,16 +166,36 @@ export class InicioComponent implements OnInit, OnDestroy {
   }
 
   onLogout(): void {
-    const confirmacion = window.confirm('¿Estás seguro de que quieres cerrar tu sesión?');
+    // Abre el modal en lugar de usar window.confirm()
+    this.mostrarModalConfirmacion = true;
+  }
 
-    if (confirmacion) {
-      this.authService.logout().then(() => {
-        console.log('Cierre de sesión exitoso.');
-      }).catch(error => {
-        console.error('Error al cerrar sesión:', error);
-      });
-    } else {
-      console.log('Cierre de sesión cancelado.');
+  /**
+   * Oculta el modal (si el usuario cancela el cierre de sesión).
+   */
+  cancelLogout(): void {
+    this.mostrarModalConfirmacion = false;
+    console.log('Cierre de sesión cancelado por el usuario.');
+  }
+
+  /**
+   * Ejecuta la lógica de cierre de sesión si el usuario confirma en el modal.
+   * Reemplaza la lógica de window.confirm()
+   */
+  async confirmLogout(): Promise<void> {
+    this.mostrarModalConfirmacion = false; // Oculta el modal inmediatamente
+
+    try {
+      // 1. Llama a la función de logout del servicio de autenticación
+      await this.authService.logout();
+
+      // 2. Si es exitoso, redirige al login con un parámetro de éxito.
+      this.router.navigate(['/login'], { queryParams: { logoutSuccess: true } });
+
+      console.log('Cierre de sesión exitoso y redirección con notificación.');
+    } catch (error) {
+      console.error('Error al intentar cerrar sesión:', error);
+      // Aquí podrías añadir lógica si el logout falla, aunque es raro.
     }
   }
 
