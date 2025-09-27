@@ -72,7 +72,7 @@ enviar(){
         console.error('Error al crear la tarea:', error);
       }
     );
-    console.log('Terminado');
+    console.log('terminar repo');
 
     /*this.apiTareasService.createTarea(nuevaTarea).subscribe(response => {
       console.log('Tarea creada:', response);
