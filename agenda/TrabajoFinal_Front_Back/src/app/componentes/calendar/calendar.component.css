@@ -1,0 +1,97 @@
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 200px);
+  gap: 6px;
+  justify-content: center; 
+  margin: 20px auto;
+}
+
+
+
+.day {
+  height: 100px;
+  width: 200px;  
+  padding: 8px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid black; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;     
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.day ul {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0 0;
+  max-height: 60px;        
+  overflow: hidden;
+}
+
+
+.day:hover {
+  background-color: #dbeafe;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 4px;
+}
+
+.evento-panel {
+  background-color: #333;
+  color: white;
+  padding: 12px;
+  margin: 20px auto;
+  max-width: 500px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.evento-panel input {
+  padding: 6px;
+  margin-right: 6px;
+  border-radius: 4px;
+  border: 1px solid black;
+}
+
+.evento-panel button {
+  padding: 6px 12px;
+  border: 1px solid white;
+  background-color: #555;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 4px 3px; 
+}
+
+.evento-panel button:hover {
+  background-color: #777;
+}
+
+.botonera {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.evento {
+  background-color: #67e690 !important;
+  border: 2px solid #38a169;
+  font-weight: bold;
+}
+
+.hoy {
+  background-color: #ddae14 !important;
+  border: 3px solid #633790;
+  font-weight: bold;
+}

@@ -1,0 +1,63 @@
+
+@urlcalendario = http://127.0.0.1:3000/api/calendario
+###
+
+GET {{urlcalendario}} HTTP/1.1
+
+###
+
+GET {{urlcalendario}}/julio HTTP/1.1
+
+###
+GET {{urlcalendario}}/agosto HTTP/1.1
+
+###
+POST {{urlcalendario}}/agosto HTTP/1.1
+Content-Type: application/json
+
+{
+  "dia": 1,
+  "mes": 8,
+  "horario": "12:30",
+  "actividad": "Medico"
+}
+
+###
+POST {{urlcalendario}}/julio HTTP/1.1
+Content-Type: application/json
+
+{
+  "dia": 2,
+  "mes": 7,
+  "horario": "13:40",
+  "actividad": "pagar cuota colegio"
+}
+
+###
+
+PATCH {{urlcalendario}}/julio/25
+Content-Type: application/json
+
+{
+  "horario": "12:00",
+  "actividad": "vacaciones con la familia"
+}
+
+###
+
+PATCH {{urlcalendario}}/agosto/5
+Content-Type: application/json
+
+{
+  "horario": "20:30",
+  "actividad": "asadito con amigos!!"
+
+}
+
+###
+DELETE {{urlcalendario}}/julio/10 HTTP/1.1
+
+
+###
+DELETE {{urlcalendario}}/agosto/3 HTTP/1.1
+
