@@ -1,10 +1,13 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { Tarea } from 'src/app/models/tarea';
 import { ApiTareasService } from 'src/app/services/api-tareas.service';
-import { AuthenticateService } from 'src/app/services/cognito.service';
+//import { AuthenticateService } from 'src/app/services/cognito.service';//
 import { Router } from "@angular/router";
 import { ApiGatewayService } from 'src/app/services/api.gateway.service';
 import { DatePipe } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { AuthService, AuthenticatedUser } from 'src/app/services/authServices/auth.service';
+
 
 import html2canvas from 'html2canvas';
 
@@ -14,41 +17,47 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./inicio.component.css']
 })
 
-export class InicioComponent {
-  tareas: Tarea[]=[];
-  tareasTotal: Tarea[]=[];
+export class InicioComponent implements OnInit, OnDestroy {
+  tareas: Tarea[] = [];
+  tareasTotal: Tarea[] = [];
   cargando: Boolean = true;
   error: Boolean = false;
-  user: any;
+
   group: string = "TaskFlowTeamBack";
   @ViewChild('errorModal') errorModal?: ElementRef;
-  
-  constructor(private apiTareasService: ApiTareasService, private datePipe: DatePipe, private authService: AuthenticateService, private router: Router, private apiGatewayService: ApiGatewayService){}
 
-  ngOnInit(){
-    if(!this.authService.isAuthenticated()){
-      this.router.navigate(["/login"]);
-    }else{
-      //this.cargarTareas();
-      this.user = localStorage.getItem("user");
-      this.loadTasks();
-    }
-  }
+  private authSubscription!: Subscription; // Variable para la suscripción
+  user: AuthenticatedUser | null = null;
+  constructor(private apiTareasService: ApiTareasService, private datePipe: DatePipe, private authService: AuthService, private router: Router, private apiGatewayService: ApiGatewayService) { }
 
-  cargarTareas(){
-    this.apiTareasService.getTareas().subscribe({
-      next:res=>{
-      this.tareas = res;
-      this.tareasTotal = res;
-      this.cargando = false;
-    },
-    error: err=>{
-      console.log("Error al obtener tareas: " + err.message);
-      this.error = true;
-      this.cargando = false;
-    }});
+  ngOnInit() {
+    this.authSubscription = this.authService.authenticatedUser$.subscribe(authenticatedUser => {
+      this.user = authenticatedUser;
+      if (this.user) {
+        console.log('¡Login exitoso! El usuario ha sido autenticado. Nombre de usuario:', this.user?.email);
+        this.loadTasks(); 
+      } else {
+        console.log('Usuario no autenticado. Redirigiendo a /login.');
+
+      }
+    });
   }
-  
+  /*
+   cargarTareas() {
+     this.apiTareasService.getTareas().subscribe({
+       next: res => {
+         this.tareas = res;
+         this.tareasTotal = res;
+         this.cargando = false;
+       },
+       error: err => {
+         console.log("Error al obtener tareas: " + err.message);
+         this.error = true;
+         this.cargando = false;
+       }
+     });
+   }
+ */
 
   obtenerTareasFinalizadas(): Tarea[] {
     return this.tareas.filter(tarea => tarea.estado === 'Finalizado');
@@ -62,15 +71,16 @@ export class InicioComponent {
     return this.tareas.filter(tarea => tarea.estado === 'Cancelado');
   }
 
-  
 
-  loadTasks(){
+
+  loadTasks() {
+    console.log("Usuario autenticado. Cargando tareas para: ", this.user?.email);
     this.apiGatewayService.getTask(this.group).subscribe(
       data => {
         var dataJson = JSON.parse(data.body);
         const tasks = dataJson.Items;
 
-        for(var task of tasks){
+        for (var task of tasks) {
           var tareaAux: Tarea = {
             _id: task.taskId,
             titulo: task.tittle,
@@ -101,10 +111,10 @@ export class InicioComponent {
       }
     }
   }
-    
-  formatearFecha(fecha: Date):string{   
+
+  formatearFecha(fecha: Date): string {
     let fechaFormateada = this.datePipe.transform(fecha, "dd/MM/yy")
-    if(!fechaFormateada){
+    if (!fechaFormateada) {
       fechaFormateada = "";
     }
     return fechaFormateada;
@@ -126,8 +136,8 @@ export class InicioComponent {
     }
   }
 
-  cambiarColorEstado(estado: string){
-    switch(estado) {
+  cambiarColorEstado(estado: string) {
+    switch (estado) {
       case 'Finalizado':
         return 'text-success';
       case 'En proceso':
@@ -147,5 +157,26 @@ export class InicioComponent {
     console.log("Editar tarea:", tarea);
     this.router.navigate(['/editar', tarea._id]);
   }
+
+  ngOnDestroy() {
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
+  }
+
+  onLogout(): void {
+    const confirmacion = window.confirm('¿Estás seguro de que quieres cerrar tu sesión?');
+
+    if (confirmacion) {
+      this.authService.logout().then(() => {
+        console.log('Cierre de sesión exitoso.');
+      }).catch(error => {
+        console.error('Error al cerrar sesión:', error);
+      });
+    } else {
+      console.log('Cierre de sesión cancelado.');
+    }
+  }
+
 
 }

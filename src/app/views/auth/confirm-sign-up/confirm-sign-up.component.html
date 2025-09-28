@@ -1,0 +1,44 @@
+<section class="vh-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card bg-dark text-white" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+            <div class="mb-md-5 mt-md-4 pb-5">
+              <h2 class="fw-bold mb-2 text-uppercase">Confirmar Cuenta</h2>
+              <p class="text-white-50 mb-5">Ingresa el código que recibiste en tu email.</p>
+
+              <form [formGroup]="confirmForm" (ngSubmit)="confirmSignUp()">
+                <!-- Campo de Email -->
+                <div class="form-outline form-white mb-4">
+                  <input type="email" placeholder="Email" id="email" formControlName="email" class="form-control form-control-lg" />
+                  <label class="form-label d-none" for="email">Email</label>
+                </div>
+                <!-- Campo de Código de Confirmación -->
+                <div class="form-outline form-white mb-4">
+                  <input type="text" placeholder="Código de 6 dígitos" id="code" formControlName="code" class="form-control form-control-lg" />
+                  <label class="form-label d-none" for="code">Código de Confirmación</label>
+                </div>
+                
+                <button [disabled]="confirmForm.invalid || cargando" type="submit" class="btn btn-outline-light btn-lg px-5">
+                  <span *ngIf="!cargando">Confirmar Cuenta</span>
+                  <div *ngIf="cargando" class="spinner-border spinner-border-sm" role="status">
+                    <span class="visually-hidden">Cargando...</span>
+                  </div>
+                </button>
+              </form>
+            </div>
+            
+            <div>
+              <p class="mb-0">¿No recibiste el código? 
+                 <a [ngClass]="{'cursor-not-allowed': cargando}" (click)="resendCode()" class="text-white-50 fw-bold" style="cursor: pointer;">Reenviar</a>
+              </p>
+              <div *ngIf="cargando" class="text-white-50 mt-2">Reenviando código...</div>
+              <p class="mb-0 mt-2">¿Ya tienes una cuenta? <a [routerLink]="['/login']" class="text-white-50 fw-bold">Inicia sesión aquí</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

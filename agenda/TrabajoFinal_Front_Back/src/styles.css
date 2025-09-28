@@ -1,0 +1,17 @@
+body {
+    /* background-image: url('./imagenes/fondo.jpg');  */
+    font-family: fantasy;
+}
+.app{
+    color: white;
+    background-color: rgb(92, 38, 0);
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+}
+
+div {
+  text-align: center;
+}
+

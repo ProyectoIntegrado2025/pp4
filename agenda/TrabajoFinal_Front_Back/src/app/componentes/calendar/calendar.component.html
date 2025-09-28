@@ -1,0 +1,36 @@
+<div style="text-align: center; margin-bottom: 10px;">
+  <button (click)="prevMonth()">«</button>
+  <strong>{{ currentDate | date: 'MMMM yyyy' }}</strong>
+  <button (click)="nextMonth()">»</button>
+</div>
+
+<div class="grid">
+  <div *ngFor="let day of days"
+       class="day"
+       [class.evento]="getEvent(day)"
+       [class.hoy]="isToday(day)"
+       (click)="selectDate(day)">
+    <div>{{ day.getDate() }}</div>
+    <ul>
+      <li *ngIf="getEvent(day) as event">
+        • {{ event.horario }} - {{ event.actividad }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div *ngIf="selectedDate" class="evento-panel">
+  <h4>Evento para {{ selectedDate | date }}</h4>
+
+  <input type="time" [(ngModel)]="editTime" />
+  <input type="text" [(ngModel)]="editTitle" placeholder="Título del evento" />
+
+  <div class="botonera" style="margin-top:10px;">
+    <button *ngIf="!eventExists()" (click)="addOrUpdateEvent()">Agregar</button>
+    <button *ngIf="eventExists()" (click)="addOrUpdateEvent()">Actualizar</button>
+    <button (click)="deleteEvent()" [disabled]="!eventExists()">Eliminar</button>
+  </div>
+</div>
+
+
+

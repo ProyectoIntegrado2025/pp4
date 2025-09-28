@@ -7,6 +7,16 @@
 </head>
 <body>
 
+<nav class="navbar navbar-dark bg-dark justify-content-between p-3">
+  <a class="navbar-brand">TaskFlow</a>
+  <button class="btn btn-outline-danger" (click)="onLogout()">Cerrar Sesión</button>
+</nav>
+<!-- LOG OUT -->
+<hr>
+
+<div *ngIf="error" class="bg-dark add-container d-flex justify-content-center align-content-center">
+  </div>
+
 
 <div *ngIf="error" class="bg-dark add-container d-flex justify-content-center align-content-center">
   <div class="alert alert-danger d-flex align-items-center mt-5 w-75 alerta-container" role="alert">
@@ -163,5 +173,6 @@
   
 </swiper-container> 
 
-  
+
+
 </body>
