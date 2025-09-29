@@ -77,17 +77,29 @@
         <img class="icon_userLogin" src="../../../assets/img/loginUser.png" alt=""/>
         <!-- Contenedor de login -->
         <div class="cardLogin_Inputs">
-          
+            <!-- Formm para logear -->
             <form [formGroup]="loginForm" (ngSubmit)="userLogin()">
+              <!-- Label / Input email -->  
               <label  class="cardLogin_Labelinput" for="email">
                 Correo
-                <input type="email" id="email" name="email" formControlName="email"> 
+                <input type="email" id="email" name="email" formControlName="email">
               </label>
-               
+                                  <!-- Validators email --> 
+                  <div class="validatorsLogin" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)" class="text-danger">
+                    <div *ngIf="loginForm.get('email')?.errors?.['required']">El email es obligatorio.</div>
+                    <div *ngIf="loginForm.get('email')?.errors?.['email']">Email inválido.</div>
+                  </div>
+              <!-- Label / Input password -->    
               <label class="cardLogin_Labelinput" for="password">
                 Contraseña
-                <input type="password" id="password" name="password" formControlName="password">   
+                <input type="password" id="password" name="password" formControlName="password"> 
               </label>
+                                  <!-- Validators password --> 
+                  <div class="validatorsLogin" *ngIf="errorControl['password'].touched && errorControl['password'].invalid" class="text-danger">
+                    <div *ngIf="errorControl['password'].errors?.['required']">Contraseña requerida.</div>
+                    <div *ngIf="errorControl['password'].errors?.['pattern']">La contraseña debe tener:<br>- Al menos 8 caracteres.<br>- Al menos una mayúscula.<br>- Al menos un número.<br>- Al menos un símbolo.</div>
+                  </div>
+
                 <!-- botón login -->
                 <button class="btnLogin" [disabled]="loginForm.invalid || cargando" type="submit">Ingresar</button> 
             </form>
