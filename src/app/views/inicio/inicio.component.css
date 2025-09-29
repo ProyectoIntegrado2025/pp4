@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Inconsolata:wght@200..900&display=swap');
 
 /* Para cuando no se carga el back sale este modal en la parte t */
-.add-container{
-    height: 100vh;
+main{
+    min-height: 100dvh; /* principal */
+    min-height: 100vh; /* respaldo */
+    width: 100%;
+}
+.conteinerTasks{
+    height: auto;
 }
 .alerta-container{
-    height: 75px;
+    display: flex;
 }
 
 

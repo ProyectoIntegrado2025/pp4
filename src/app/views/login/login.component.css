@@ -53,6 +53,11 @@ main{
     font-size: clamp(.85em, 1.05vmax, 4vmax);
     margin: 3% 0% 3% 0%;
 }
+/* Validadores */
+.validatorsLogin{
+    font-size: .65rem;
+    color:red;
+}
 /* Inputs */
 .cardLogin_Labelinput input {
     flex: 1;
