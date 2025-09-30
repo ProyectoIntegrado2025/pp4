@@ -9,22 +9,51 @@
 
               <h2 class="fw-bold mb-2 text-uppercase">TaskFlow</h2>
               <p class="text-white-50 mb-5">Ingrese su email y contraseña</p>
-              <form (submit)="onSignIn(signInForm)" #signInForm="ngForm">
-                <div data-mdb-input-init class="form-outline form-white mb-4">
-                  <input type="email" placeholder="Email" id="email" name="email" ngModel #emailInput="ngModel"
-                  [(ngModel)]="emailaddress" class="form-control form-control-lg" />
+
+              <!-- Muestra mensajes de estado y errores -->
+              <div *ngIf="cargando" class="alert alert-info" role="alert">
+                Cargando...
+              </div>
+              <div *ngIf="mensajeError" class="alert alert-danger" role="alert">
+                {{ mensajeError }}
+              </div>
+
+              <form [formGroup]="loginForm" (ngSubmit)="userLogin()">
+                <div class="form-outline form-white mb-4">
+                  <input type="email" placeholder="Email" id="email" formControlName="email"
+                    class="form-control form-control-lg" />
                   <label class="form-label d-none" for="email">Email</label>
                 </div>
-  
-                <div data-mdb-input-init class="form-outline form-white mb-4">
-                  <input type="password" placeholder="Password" id="password" name="password" ngModel #passwordInput="ngModel"
-                  [(ngModel)]="password" class="form-control form-control-lg" />
+
+                <div class="form-outline form-white mb-4">
+                  <input type="password" placeholder="Password" id="password" formControlName="password"
+                    class="form-control form-control-lg" />
                   <label class="form-label d-none" for="password">Password</label>
                 </div>
-                <button *ngIf="!cargando" data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+
+                <button [disabled]="loginForm.invalid || cargando" type="submit"
+                  class="btn btn-outline-light btn-lg px-5">Login</button>
               </form>
             </div>
 
+            <div class="d-flex justify-content-center text-center mt-4 pt-1">
+              <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
+              <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
+              <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
+            </div>
+
+            <div class="mt-4">
+              <p class="mb-0 text-white-75">¿No tienes una cuenta? <a [routerLink]="['/sign-up']"
+                  class="text-sky-400 hover:text-sky-500 transition duration-200 fw-bold">Regístrate aquí</a></p>
+            </div>
+
+            <div class="text-right">
+              <a [routerLink]="['/reset-password']"
+                class="text-sm text-sky-400 hover:text-sky-500 transition duration-200 cursor-pointer fw-bold">
+                <!-- AÑADIDO fw-bold -->
+                ¿Olvidaste tu Contraseña?
+              </a>
+            </div>
           </div>
         </div>
       </div>

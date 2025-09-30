@@ -7,20 +7,28 @@ import { EditarComponent } from './components/editar/editar.component';
 import { LoginComponent } from './views/login/login.component';
 import { NewPasswordComponent } from './views/new-password/new-password.component';
 
+import { AuthGuard } from './guards/auth.guard';
 
+import { SignUpComponent } from './views/auth/sign-up/sign-up.component';
+import { ConfirmSignUpComponent } from './views/auth/confirm-sign-up/confirm-sign-up.component';
+import { ResetPasswordComponent } from './views/auth/reset-password/reset-password.component';
 
 const routes: Routes = [
-  { path:'', redirectTo:'login', pathMatch:'full' },
-  { path: 'login', component: LoginComponent },
-  { path:'inicio', component: InicioComponent },
-  { path:'crear', component: CrearComponent },
-  { path: 'editar/:id', component: EditarComponent },
-  { path:'eliminar', component: EliminarTareaComponent},
-  { path: 'newPasswordRequired', component: NewPasswordComponent}
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent, data: { authRequired: false } },
+  { path: 'sign-up', component: SignUpComponent, data: { authRequired: false } },
+  { path: 'confirm-sign-up/:email', component: ConfirmSignUpComponent, data: { authRequired: false } },
+  { path: 'reset-password', component: ResetPasswordComponent, data: { authRequired: false } },
+  { path: 'inicio', component: InicioComponent, canActivate: [AuthGuard], data: { authRequired: true } },
+  { path: 'crear', component: CrearComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
+  { path: 'editar/:id', component: EditarComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
+  { path: 'eliminar', component: EliminarTareaComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
+  { path: 'newPasswordRequired', component: NewPasswordComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }
