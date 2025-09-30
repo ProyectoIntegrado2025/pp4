@@ -25,9 +25,6 @@ main{
     font-size: 200%;
     text-align: center;
 }
-.onLogout:hover{
-    
-}
 /* Toggle cambio de tema, componente theme-toggle */
 /* Toggle cambio de tema, componente theme-toggle */
 .global-toggle{
