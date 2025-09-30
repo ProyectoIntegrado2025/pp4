@@ -8,7 +8,21 @@ main{
     flex-direction: column;
     /* background: #eeecec; */
 }
-
+/* Toggle cambio de tema, componente theme-toggle */
+/* Toggle cambio de tema, componente theme-toggle */
+.global-toggle{
+    width: 2em;
+    position: absolute;
+    right: 7%;
+    top: 1%;
+    z-index: 1200
+}
+/* Validadore */
+.validatorsLogin{
+    color: red;
+    font-size: .7rem;
+}
+/* Contiene todo excepto "Olvidé mi contraseña" y "Registrate aqui" */
 .cardLogin{
     display: flex;
     flex-direction: column;
@@ -52,11 +66,6 @@ main{
     /* font-size: 3vmax; */
     font-size: clamp(.85em, 1.05vmax, 4vmax);
     margin: 3% 0% 3% 0%;
-}
-/* Validadores */
-.validatorsLogin{
-    font-size: .65rem;
-    color:red;
 }
 /* Inputs */
 .cardLogin_Labelinput input {

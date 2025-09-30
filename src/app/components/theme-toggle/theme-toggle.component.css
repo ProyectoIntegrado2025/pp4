@@ -1,3 +1,7 @@
+:host {
+  display: inline-block;   /* evita que el host sea block y ocupe todo el ancho */
+  width: 2em;              /* ancho por defecto del componente (ajustá a tu gusto) */
+}
 /* src/app/shared/theme-toggle/theme-toggle.component.css */
 .theme-toggle-btn {
   background: transparent;
@@ -6,5 +10,5 @@
   width: 100%;
 }
 .theme-toggle-btn img {
-  width: 82%; /* del 100% que ocupe el 82% */
+  width: 100%; /* del 100% que ocupe el 82% */
 }
