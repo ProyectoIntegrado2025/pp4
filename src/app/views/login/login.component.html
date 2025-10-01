@@ -51,7 +51,7 @@
             <div class="text-right">
               <a [routerLink]="['/reset-password']"
                 class="text-sm text-sky-400 hover:text-sky-500 transition duration-200 cursor-pointer fw-bold">
-                <!-- AÑADIDO fw-bold -->
+                <!-- AÑADIDO fw-bold 
                 ¿Olvidaste tu Contraseña?
               </a>
             </div>
@@ -118,7 +118,7 @@
         </div>
         <!-- Reestablecer contraseña y Registrarse  -->
         <div class="cardLogin_bttnlink">
-            <a class="forgetPW" href="">Olvidé mi contraseña</a>
+            <a class="forgetPW" [routerLink]="['/reset-password']">Olvidé mi contraseña</a>
             <a [routerLink]="['/sign-up']" class="text-white-50 fw-bold">Regístrate aquí</a>
         </div>
         
