@@ -91,3 +91,6 @@ main{
     margin: 1% 0% 8% 0%;
     font-size: clamp(.85em, 1.05vmax, 4vmax);;
 }
+.cardLogin_bttnlink a{
+    text-decoration: none;
+}

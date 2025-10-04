@@ -73,10 +73,10 @@ export class InicioComponent implements OnInit, OnDestroy {
   }
 
 
-
+/* ESTA FUNCIÓN SOLO FUNCIONA CON APIGATEWAY DEL TIPO REST APPI */
   loadTasks() {
     console.log("Usuario autenticado. Cargando tareas para: ", this.user?.email);
-    this.apiGatewayService.getTask(this.group).subscribe(
+    this.apiGatewayService.getTasks().subscribe(
       data => {
         var dataJson = JSON.parse(data.body);
         const tasks = dataJson.Items;
