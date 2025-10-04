@@ -51,7 +51,6 @@ import { ChatAssistantComponent } from './components/chat-assistant/chat-assista
     HttpClientModule,
     ReactiveFormsModule,
     HttpClientModule,
-    HttpClientModule,
     EditarComponent,
     FormsModule
   ],
