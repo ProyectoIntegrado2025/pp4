@@ -5,7 +5,18 @@
   href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
 />
 </head>
-<body>
+
+<main>
+<!-- navbar definido por bootstrap -->
+<nav class="navbar navbar-dark  bg-dark justify-content-between p-3 mb-2">
+    <a class="navbar-brand">Zenki</a>      
+    <button class="btn btn-outline-danger onLogout" (click)="onLogout()">Cerrar Sesión</button>
+</nav> 
+
+      <!-- Componente exportado theme-toggle -->
+     <app-theme-toggle class="global-toggle"></app-theme-toggle> 
+
+
 <!-- 1. MODAL DE CONFIRMACIÓN DE CIERRE DE SESIÓN -->
 <!-- Al colocarlo como el primer elemento del body, se asegura que sea la capa base de la aplicación. -->
 <div *ngIf="mostrarModalConfirmacion" class="modal-overlay d-flex justify-content-center align-items-center">
@@ -28,19 +39,20 @@
     </div>
   </div>
 </div>
-<nav class="navbar navbar-dark bg-dark justify-content-between p-3">
+<!-- <nav class="navbar navbar-dark bg-dark justify-content-between p-3">
   <a class="navbar-brand">TaskFlow</a>
   <button class="btn btn-outline-danger" (click)="onLogout()">Cerrar Sesión</button>
-</nav>
+</nav> -->
 <!-- LOG OUT -->
-<hr>
 
+
+
+
+
+
+                <!-- Error al cargar las tareas -->
 <div *ngIf="error" class="bg-dark add-container d-flex justify-content-center align-content-center">
-  </div>
-
-
-<div *ngIf="error" class="bg-dark add-container d-flex justify-content-center align-content-center">
-  <div class="alert alert-danger d-flex align-items-center mt-5 w-75 alerta-container" role="alert">
+  <div class="alert alert-danger d-flex align-items-center m-2 w-75 alerta-container" role="alert">
     <div class="m-auto">
       <span class="fw-bold">Ocurrió un error al cargar las tareas.</span>
     </div>
@@ -54,19 +66,19 @@
   <div class="d-flex justify-content-center">
     <div class="m-3">
       <p class="headerBuscar">Buscar</p>
-      <input class="form-control" type="text" placeholder="Asignado a..." (input)="buscarTarea($event)">
+      <input class="form-control" type="text" placeholder="Tarea ID..." (input)="buscarTarea($event)">
     </div>
   </div>
 
-
-  <div *ngIf="cargando" class="d-flex justify-content-center mt-3 text-primary add-container">
+                    <!-- Spinner de carga -->
+  <div *ngIf="cargando" class="d-flex justify-content-center mt-3 text-primary">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Cargando...</span>
       </div>
-  </div>
+  </div> 
 
 
-
+<div class="conteinerTasks"> 
   <!-- TAREAS DIVIDIAS POR ESTADOS, ESTADO 1 FINALIZADO -->
   
  <h2 class="titleCard">Tareas Finalizadas</h2> 
@@ -110,8 +122,7 @@
   
 
   
- <!-- TAREAS DIVIDIAS POR ESTADOS, ESTADO 2 EN PROCESO --> 
-  
+ <!-- TAREAS DIVIDIAS POR ESTADOS, ESTADO 2 EN PROCESO -->  
 <h2 class="titleCard">Tareas En Proceso</h2>
 <swiper-container class="container"  
   slides-per-view="auto"
@@ -193,7 +204,7 @@
     </swiper-slide>
   
 </swiper-container> 
+</div>
 
 
-
-</body>
+</main>

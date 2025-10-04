@@ -23,7 +23,8 @@ import { NewPasswordComponent } from './views/new-password/new-password.componen
 import '../aws.config';
 import { SignUpComponent } from './views/auth/sign-up/sign-up.component';
 import { ConfirmSignUpComponent } from './views/auth/confirm-sign-up/confirm-sign-up.component';
-import { ResetPasswordComponent } from './views/auth/reset-password/reset-password.component'; 
+import { ResetPasswordComponent } from './views/auth/reset-password/reset-password.component';
+import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component'; 
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { ResetPasswordComponent } from './views/auth/reset-password/reset-passwo
     NewPasswordComponent,
     SignUpComponent,
     ConfirmSignUpComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ThemeToggleComponent
   ],
   imports: [
     BrowserModule,

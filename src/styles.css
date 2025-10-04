@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --bg: #ffffff;
+  --fg: #111827;
+  --card-bg: #ffffff;
+}
+
+/* defecto */
+main, body {
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* tema claro/oscuro aplicable a <main> y fallback en <html> */
+main.theme-light, html.theme-light {
+  --bg: #f5f5f5;
+  --fg: #111827;
+  --card-bg: #ffffff;
+}
+
+main.theme-dark, html.theme-dark {
+  --bg: #0b0f17;
+  --fg: #e5e7eb;
+  --card-bg: #0d1329;
+}
+
+/* usar variables */
+main {
+  background: var(--bg);
+  color: var(--fg);
+  transition: background-color 500ms ease, color 1400ms ease;
+}
+.cardLogin {
+  background: var(--card-bg);
+  transition: background-color 500ms ease;
+}

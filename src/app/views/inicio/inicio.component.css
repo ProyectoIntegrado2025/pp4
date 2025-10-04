@@ -1,11 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Inconsolata:wght@200..900&display=swap');
 
 /* Para cuando no se carga el back sale este modal en la parte t */
-.add-container{
-    height: 100vh;
+main{
+    min-height: 100dvh; /* principal */
+    min-height: 100vh; /* respaldo */
+    width: 100%;
+}
+.conteinerTasks{
+    height: auto;
 }
 .alerta-container{
-    height: 75px;
+    display: flex;
 }
 
 
@@ -20,10 +25,18 @@
     font-size: 200%;
     text-align: center;
 }
+/* Toggle cambio de tema, componente theme-toggle */
+/* Toggle cambio de tema, componente theme-toggle */
+.global-toggle{
+  width: 2%; /* del 100% que ocupe el 82% */
+  min-width: 30px;
+}
+/* container del swiper-container*/
 .container{
     min-width: 92%;
     
 }
+/* card swiper-slide */
 .card{
     border-radius: 5%;
     overflow: hidden;
@@ -63,6 +76,8 @@
     border-top: 1px solid rgb(196, 196, 196);
     gap: 1.3%;
 }
+
+
 
 .spanLi{
     font-optical-sizing: auto; /* para fuentes q soporten la propeidad, ajustará automáticamente la apariencia de la fuente según el tamaño en que se use. Esto puede mejorar la legibilidad y la estética*/
