@@ -24,7 +24,8 @@ import '../aws.config';
 import { SignUpComponent } from './views/auth/sign-up/sign-up.component';
 import { ConfirmSignUpComponent } from './views/auth/confirm-sign-up/confirm-sign-up.component';
 import { ResetPasswordComponent } from './views/auth/reset-password/reset-password.component';
-import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component'; 
+import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
+import { ChatAssistantComponent } from './components/chat-assistant/chat-assistant.component'; 
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.com
     SignUpComponent,
     ConfirmSignUpComponent,
     ResetPasswordComponent,
-    ThemeToggleComponent
+    ThemeToggleComponent,
+    ChatAssistantComponent
   ],
   imports: [
     BrowserModule,

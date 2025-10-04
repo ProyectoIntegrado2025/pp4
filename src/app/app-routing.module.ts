@@ -13,6 +13,8 @@ import { SignUpComponent } from './views/auth/sign-up/sign-up.component';
 import { ConfirmSignUpComponent } from './views/auth/confirm-sign-up/confirm-sign-up.component';
 import { ResetPasswordComponent } from './views/auth/reset-password/reset-password.component';
 
+import { ChatAssistantComponent } from './components/chat-assistant/chat-assistant.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, data: { authRequired: false } },
@@ -23,7 +25,8 @@ const routes: Routes = [
   { path: 'crear', component: CrearComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   { path: 'editar/:id', component: EditarComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   { path: 'eliminar', component: EliminarTareaComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
-  { path: 'newPasswordRequired', component: NewPasswordComponent }
+  { path: 'newPasswordRequired', component: NewPasswordComponent },
+  { path: 'assistant', component: ChatAssistantComponent }
 ];
 
 @NgModule({
