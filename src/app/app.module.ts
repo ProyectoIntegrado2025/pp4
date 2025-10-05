@@ -19,8 +19,8 @@ import { EditarComponent } from './components/editar/editar.component';
 import { LoginComponent } from './views/login/login.component';
 import { NewPasswordComponent } from './views/new-password/new-password.component';
 
-// Importa el archivo de configuración de AWS Amplify
-//import '../aws.config';
+//Importa el archivo de configuración de AWS Amplify
+import '../aws.config';
 import { SignUpComponent } from './views/auth/sign-up/sign-up.component';
 import { ConfirmSignUpComponent } from './views/auth/confirm-sign-up/confirm-sign-up.component';
 import { ResetPasswordComponent } from './views/auth/reset-password/reset-password.component';
