@@ -84,9 +84,9 @@
     <div class="cardLogin">
 
         <!-- Logo texto -->
-        <div class="taskflow">Zenki</div>
+        <div class="zenkiflow"><img class="imgLogoLogin" src="../../../assets/logos/logo+Zenki.png" alt="Zenki"></div>
         <!-- Logo de usuario -->
-        <img class="icon_userLogin" src="../../../assets/img/loginUser.png" alt=""/>
+        <img class="icon_userLogin" src="../../../assets/login/loginUserGreen.png" alt="Login img"/>
         <!-- Contenedor de login -->
         <div class="cardLogin_Inputs">
             <!-- Formm para logear -->
@@ -113,11 +113,14 @@
                   </div>
 
                 <!-- botón login -->
-                <button class="btnLogin" [disabled]="loginForm.invalid || cargando" type="submit">Ingresar</button> 
+                <button class="btnLogin" [disabled]="loginForm.invalid || cargando" type="submit">
+                    <img class="imgLoginIngresar" src="../../../assets/login/botonLogin.png" alt="Ingresar">
+                    <p class="pIngresar">Ingresar</p>
+                </button> 
             </form>
         </div>
         <!-- Reestablecer contraseña y Registrarse  -->
-        <div class="cardLogin_bttnlink">
+        <div class="cardLogin_bttnlink"> 
             <a [routerLink]="['/reset-password']">Olvidé mi contraseña</a>
             <a [routerLink]="['/sign-up']">Regístrate aquí</a>
         </div>

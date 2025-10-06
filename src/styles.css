@@ -49,3 +49,34 @@ main {
   color: var(--fg);
   transition: background-color 500ms ease, color 1400ms ease;
 }
+
+
+
+
+/* DENEGACIÓN DE AUTO FILL DE LOS NAVEGADORES */
+/* DENEGACIÓN DE AUTO FILL DE LOS NAVEGADORES */
+/* DENEGACIÓN DE AUTO FILL DE LOS NAVEGADORES */
+/* DENEGACIÓN DE AUTO FILL DE LOS NAVEGADORES */
+
+/* Chrome, Edge, Opera */
+input:-webkit-autofill,  
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px #e5ffc8 inset !important;
+}
+
+/* Cuando el campo con autofill está enfocado */
+input:-webkit-autofill:focus, 
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill:focus {
+  box-shadow: 0 0 0px 1000px #f8fbff inset !important;
+}
+
+/* Firefox */
+input:-moz-autofill {
+  box-shadow: 0 0 0px 1000px #f8fbff inset !important;
+  -moz-text-fill-color: #00994f !important;
+}
+/* ------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------ */
