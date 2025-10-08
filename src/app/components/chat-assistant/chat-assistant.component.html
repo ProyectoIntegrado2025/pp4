@@ -4,7 +4,7 @@
   <textarea [(ngModel)]="question" rows="5" placeholder="Escribí tu consulta..."></textarea>
 
   <!-- Usá UNO de estos botones según el enfoque -->
-  <button (click)="sendNoAuth()" [disabled]="loading">Preguntar (MVP sin auth)</button>
+  <button (click)="sendNoAuth()" [disabled]="loading">Preguntar</button>
   <!-- <button (click)="sendWithJwt()" [disabled]="loading">Preguntar (con JWT)</button> -->
 
   <div *ngIf="loading">Consultando…</div>
