@@ -1,0 +1,49 @@
+<div class="h-screen flex flex-col overflow-hidden">
+  <section class="max-w-2xl mx-auto grid gap-3">
+    <h2>Asistente virtual</h2>
+
+    <textarea [(ngModel)]="question" rows="5" placeholder="Escribí tu consulta..."></textarea>
+
+    <!-- Usá UNO de estos botones según el enfoque -->
+    <button (click)="sendNoAuth()" [disabled]="loading">Preguntar</button>
+    <!-- <button (click)="sendWithJwt()" [disabled]="loading">Preguntar (con JWT)</button> -->
+
+    <div *ngIf="loading">Consultando…</div>
+
+    <article *ngIf="reply">
+      <h3>Respuesta</h3>
+      <pre style="white-space:pre-wrap">{{ reply }}</pre>
+    </article>
+  </section>
+</div>
+
+
+
+<div class="h-screen flex flex-col overflow-hidden">
+  <header class="bg-gray-200 p-4 flex items-center justify-end">
+
+  </header>
+  <div class="flex-1 p-4 overflow-y-auto flex flex-col gap-4">
+
+    <div class="flex items-center gap-4" *ngIf="question ? 'flex-row-reverse' : ''">
+      <div class="rounded-full font-semibold text-xl w-10 h-10 flex justify-center items-center"
+        *ngIf="question ? 'bg-blue-100' : 'bg-gray-200'">
+       J
+      </div>
+      <div class="bg-gray-200 min-h-10 rounded-md px-4 py-2" *ngIf="question ? 'bg-blue-100' : 'bg-gray-200'">
+        <p>{{question}}</p>
+
+    
+
+      </div>
+    </div>
+
+    <div class="flex gap-x-4 mt-4 p-4">
+      <input type="text" [(ngModel)]="question" class="w-full rounded-md border outline-none border-gray-200 p-2" />
+      
+      <button class="cursor-pointer bg-black px-4 py-2 rounded-md text-white" (click)="sendNoAuth()" [disabled]="loading">
+        Enviar
+      </button>
+    </div>
+  </div>
+</div>

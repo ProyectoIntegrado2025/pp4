@@ -12,7 +12,8 @@ import { AuthGuard } from './guards/auth.guard';
 import { SignUpComponent } from './views/auth/sign-up/sign-up.component';
 import { ConfirmSignUpComponent } from './views/auth/confirm-sign-up/confirm-sign-up.component';
 import { ResetPasswordComponent } from './views/auth/reset-password/reset-password.component';
-import { ChatComponent } from './chat/chat.component';
+
+import { ChatAssistantComponent } from './components/chat-assistant/chat-assistant.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -25,7 +26,7 @@ const routes: Routes = [
   { path: 'editar/:id', component: EditarComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   { path: 'eliminar', component: EliminarTareaComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   { path: 'newPasswordRequired', component: NewPasswordComponent },
-  { path: 'chat', component: ChatComponent, canActivate: [AuthGuard], data: { authRequired: true } },
+  { path: 'chat-assistant', component: ChatAssistantComponent }
 ];
 
 @NgModule({

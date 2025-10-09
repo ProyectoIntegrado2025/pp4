@@ -19,11 +19,13 @@ import { EditarComponent } from './components/editar/editar.component';
 import { LoginComponent } from './views/login/login.component';
 import { NewPasswordComponent } from './views/new-password/new-password.component';
 
-// Importa el archivo de configuración de AWS Amplify
+//Importa el archivo de configuración de AWS Amplify
 import '../aws.config';
 import { SignUpComponent } from './views/auth/sign-up/sign-up.component';
 import { ConfirmSignUpComponent } from './views/auth/confirm-sign-up/confirm-sign-up.component';
-import { ResetPasswordComponent } from './views/auth/reset-password/reset-password.component'; 
+import { ResetPasswordComponent } from './views/auth/reset-password/reset-password.component';
+import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
+import { ChatAssistantComponent } from './components/chat-assistant/chat-assistant.component'; 
 
 
 @NgModule({
@@ -39,14 +41,15 @@ import { ResetPasswordComponent } from './views/auth/reset-password/reset-passwo
     NewPasswordComponent,
     SignUpComponent,
     ConfirmSignUpComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ThemeToggleComponent,
+    ChatAssistantComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    HttpClientModule,
     HttpClientModule,
     EditarComponent,
     FormsModule
