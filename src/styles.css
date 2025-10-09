@@ -10,7 +10,7 @@
   --card-bg: #ffffff;
 }
 
-/* defecto *
+/* defecto 
 main, body {
   background: var(--bg);
   color: var(--fg);
@@ -29,7 +29,7 @@ main.theme-dark, html.theme-dark {
   --card-bg: #0d1329;
 }
 
-/* usar variables *
+/* usar variables 
 main {
   background: var(--bg);
   color: var(--fg);
@@ -38,4 +38,4 @@ main {
 .cardLogin {
   background: var(--card-bg);
   transition: background-color 500ms ease;
-}
+}*/

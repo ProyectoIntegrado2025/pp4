@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AssistantService } from '../../services/assistant.service';
 import { FormControl } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 // Si vas a usar JWT: importá tu CognitoService
 // import { CognitoService } from '../../services/cognito.service';
 
@@ -34,6 +35,13 @@ export class ChatAssistantComponent {
       error: (e) => { this.reply = `Error: ${e.message}`; this.loading = false; }
     });
   }
+
+  onKeyDown(event: KeyboardEvent) {
+  if (event.key === 'Enter' && !event.shiftKey) {
+    event.preventDefault();
+    this.sendNoAuth();
+  }
+}
 
    messageControl = new FormControl(this.question);
 
