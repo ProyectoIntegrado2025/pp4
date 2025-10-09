@@ -40,16 +40,16 @@ main{
     justify-content: center;
 }
 .imgLogoLogin{
-    width: 64%;
+    width: 70%;
 }
 /* icon usuario */
 .icon_userLogin{
-  max-width: 12%;
+  max-width: 11%;
   min-width: 27px;
 }
 
 .cardLogin_Inputs{
-    margin: 4% 5% 2% 5%;
+    margin: 2.7% 5% 2% 5%;
     max-width: 65vw;
     padding: 0% 1% 0% 1%;
     max-width: min(65vw, 68vh, 640px);
@@ -57,6 +57,9 @@ main{
 .cardLogin_Inputs form{
     display: flex;
     flex-direction: column;
+    width: 75%;
+    max-width: 640px; 
+    margin: auto;   
 }
 .cardLogin_Inputs form button{
     align-self: center;
@@ -68,8 +71,8 @@ main{
     gap: 3%;
     /* font-size: clamp(17px, 3vmin, 10vmin); */   
     /* font-size: 3vmax; */
-    font-size: clamp(1.1em, 1.2vmax, 1.3vmax);
-    margin: 3% 0% 3% 0%;
+    font-size: clamp(1.3em, 1.2vmax, 1.3vmax);
+    margin: 2% 0% 2% 0%;
 }
 /* Inputs */
 .cardLogin_Labelinput input {
@@ -83,36 +86,47 @@ label{
     /* color: rgb(0, 111, 67); */
     color: rgb(0, 111, 98);
 }
+.imgLabel{
+    width: 8%;
+    min-width: 27px;
+}
 input{
     padding: 0% 3% 0% 3%;
 }
-/* Botón Ingresar */
+/* Contenedor del botón ingresar y p "Ingresar" */
 .btnLogin{
-    width: 8vw;
-    min-width: 100px;
+    width: 7vw;
+    min-width: 110px;
     font-size: clamp(.9em, 1vmax, 4vmax);/* para etiquta p */
     border: none;
     background: transparent;  
     position: sticky;
+    cursor: pointer; 
+    margin-top: 1%;
+    transition: scale .15s;
 }
+    .btnLogin:hover{ 
+        scale: 1.04;
+    }
 /* imagen del botón ingresar */
 .imgLoginIngresar{
-    width: 100%;
+    width: 90%;
     background-position: center;
     background-repeat: no-repeat;
     background-size:auto;
+    opacity: 0.9; 
+    filter: drop-shadow(0em 0em .5em rgb(21, 248, 0));
 }
 /* etiqueta p con texto Ingresar */
 .pIngresar{
     position: absolute;
     display: inline;
-    left: 24%;
-    top: 33%;
-    /* color: rgb(0, 111, 67); */
+    left: 21%;
+    top: 32%;
     font-weight: 700;
     color: rgb(0, 104, 105);
     letter-spacing: 5%;
-    font-size: clamp(.95em, 1.05vmax, 4vmax);
+    font-size: clamp(1em, 1vmax, 3vmax);
 }
 /* Contenedor de "olvidé contraseña" y "Registrate aquí" */
 .cardLogin_bttnlink{
@@ -120,7 +134,7 @@ input{
     flex-direction: column;
     align-items: center;
     margin: 3% 0% 5.5% 0%;
-    font-size: clamp(.85em, 1.05vmax, 4vmax);
+    font-size: clamp(.79em, .89vmax, 4vmax);
 }
 .cardLogin_bttnlink a{
     text-decoration: none;

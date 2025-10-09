@@ -93,7 +93,7 @@
             <form [formGroup]="loginForm" (ngSubmit)="userLogin()">
               <!-- Label / Input email -->  
               <label  class="cardLogin_Labelinput" for="email">
-                Correo
+                <img class="imgLabel" src="../../../assets/login/correo.png" alt="correo">
                 <input type="email" id="email" name="email" formControlName="email">
               </label>
                                   <!-- Validators email --> 
@@ -102,8 +102,8 @@
                     <div *ngIf="loginForm.get('email')?.errors?.['email']">Email inválido</div>
                   </div>
               <!-- Label / Input password -->    
-              <label class="cardLogin_Labelinput" for="password">
-                Contraseña
+              <label class="cardLogin_Labelinput" for="password"> 
+                <img class="imgLabel" src="../../../assets/login/contraseña.png" alt="contraseña">
                 <input type="password" id="password" name="password" formControlName="password"> 
               </label>
                                   <!-- Validators password --> 
