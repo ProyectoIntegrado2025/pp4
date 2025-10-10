@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../../services/authServices/auth.service';
 import { AssistantService } from '../../services/assistant.service';
-// Si vas a usar JWT: importá tu CognitoService
-// import { CognitoService } from '../../services/cognito.service';
 
 @Component({
   selector: 'app-chat-assistant',
@@ -12,35 +11,23 @@ export class ChatAssistantComponent {
   question = '';
   reply = '';
   loading = false;
-  // Para MVP sin auth:
-  userIdDev = 'usuario123'; // Cambiá por tu lógica real cuando tengas Cognito integrado
 
   constructor(
     private assistant: AssistantService,
-    // private cognito: CognitoService
+    private auth: AuthService
   ) {}
 
-  // --- Opción 1: MVP sin authorizer ---
-  async sendNoAuth() {
+  async send() {
     if (!this.question.trim()) return;
     this.loading = true;
     this.reply = '';
-    this.assistant.askNoAuth(this.question, this.userIdDev).subscribe({
+
+    const token = await this.auth.getIdToken();
+    if (!token) { this.reply = 'No hay sesión iniciada.'; this.loading = false; return; }
+
+    this.assistant.askWithJwt(this.question, token).subscribe({
       next: (r) => { this.reply = r?.reply ?? 'Sin respuesta'; this.loading = false; },
       error: (e) => { this.reply = `Error: ${e.message}`; this.loading = false; }
     });
   }
-
-  // --- Opción 2: con Authorizer JWT ---
-  // async sendWithJwt() {
-  //   if (!this.question.trim()) return;
-  //   this.loading = true;
-  //   this.reply = '';
-  //   const token = await this.cognito.getIdToken();
-  //   if (!token) { this.reply = 'No hay token de usuario.'; this.loading = false; return; }
-  //   this.assistant.askWithJwt(this.question, token).subscribe({
-  //     next: (r) => { this.reply = r?.reply ?? 'Sin respuesta'; this.loading = false; },
-  //     error: (e) => { this.reply = `Error: ${e.message}`; this.loading = false; }
-  //   });
-  // }
 }
