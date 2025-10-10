@@ -21,9 +21,9 @@ main.theme-light, html.theme-light {
 }
 
 main.theme-dark, html.theme-dark {
-  --bg: #0b1321;
+  --bg: #0e0f0e;
   --fg: #e5e7eb;
-  --card-bgLogin: #0d1329;
+  --card-bgLogin: #191b19;
   --card-bgInicio: #0d1329;
 }
 
