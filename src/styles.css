@@ -7,11 +7,16 @@
 }
 
 /* defecto - combinación como si fuera tema ligth */
-main, body {
+main, body, app-root, app-view, app-auth {
+  height: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: block;
   background: var(--bg);
   color: var(--fg);
 }
-
+ 
 /* tema claro/oscuro aplicable a <main> y fallback en <html> */
 main.theme-light, html.theme-light {
   --bg: #f5f5f5;
@@ -69,12 +74,12 @@ select:-webkit-autofill {
 input:-webkit-autofill:focus, 
 textarea:-webkit-autofill:focus,
 select:-webkit-autofill:focus {
-  box-shadow: 0 0 0px 1000px #f8fbff inset !important;
+  box-shadow: 0 0 0px 1000px #e5ffc8 inset !important;
 }
 
 /* Firefox */
 input:-moz-autofill {
-  box-shadow: 0 0 0px 1000px #f8fbff inset !important;
+  box-shadow: 0 0 0px 1000px #e5ffc8 inset !important;
   -moz-text-fill-color: #00994f !important;
 }
 /* ------------------------------------------------------------------------------ */

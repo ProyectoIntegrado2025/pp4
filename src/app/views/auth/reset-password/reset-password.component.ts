@@ -21,6 +21,7 @@ export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): {
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.css']
 })
 export class ResetPasswordComponent implements OnInit {
 
@@ -108,8 +109,10 @@ export class ResetPasswordComponent implements OnInit {
 
       if (reenvio) {
         this.mensajeExito = '¡Código reenviado con éxito! Por favor revisa tu correo.';
+        setTimeout(() => this.mensajeExito = null, 3000);
       } else {
         this.mensajeExito = 'Código de verificación enviado a tu correo electrónico.';
+        setTimeout(() => this.mensajeExito = null, 3000);
       }
 
     } catch (error: any) {

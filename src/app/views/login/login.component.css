@@ -43,14 +43,18 @@ main{
     font-size: clamp(7vh, 20vw, 2.6vmax);
     display: flex;
     justify-content: center;
+    pointer-events: none;
+    user-select: none;
 }
 .imgLogoLogin{
     width: 69%;
 }
 /*img icon usuario */
 .icon_userLogin{
-  max-width: 10%;
-  min-width: 28px;
+    max-width: 10%;
+    min-width: 28px;
+    pointer-events: none;
+    user-select: none;
 }
 
 .cardLogin_Inputs{
@@ -97,13 +101,15 @@ label{
 .imgLabel{
     width: 10%;
     min-width: 30px;
+    pointer-events: none;
+    user-select: none;
 }
 input{
     padding: 0% 3% 0% 3%;
 }
 /* Contenedor del botón ingresar y p "Ingresar" */
 .btnLogin{  
-    width: clamp(75px, 7vw, 6vw);
+    width: clamp(70px, 7vw, 6vw);
     line-height: 0;  
     flex: 0 0 auto;         
     border: none;
@@ -119,6 +125,8 @@ input{
 /* imagen del botón ingresar */
 .imgLoginIngresar{
     width: 100%;
+    pointer-events: none;
+    user-select: none;
     opacity: 0.9; 
     filter: drop-shadow(0em 0em .2em rgb(21, 255, 0));
 }
