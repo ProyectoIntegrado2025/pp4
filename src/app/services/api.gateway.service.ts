@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -95,4 +96,14 @@ export class ApiGatewayService {
     const params = new HttpParams().set('id', taskId);
     return this.http.delete(`${this.apiUrl}${this.tasksUrl}`, { params });
   } */
+
+getAssistantReply(message: string, userId: string): Observable<any> {
+  const url = `${this.apiUrl}/assistant`;
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  const body = { message, userId };
+  return this.http.post(url, body, { headers });
 }
+
+}
+
+
