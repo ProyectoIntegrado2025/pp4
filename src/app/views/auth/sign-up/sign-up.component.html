@@ -1,4 +1,4 @@
-<section class="vh-100 gradient-custom">
+<!-- <section class="vh-100 gradient-custom">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -8,19 +8,19 @@
               <h2 class="fw-bold mb-2 text-uppercase">Crear Cuenta</h2>
               <p class="text-white-50 mb-5">Ingresa tu email y contraseña para registrarte</p>
 
-              <form [formGroup]="regForm" (ngSubmit)="registerUser()">
+              <form [formGroup]="regForm" (ngSubmit)="registerUser()"> -->
                 <!-- Campo de Email -->
-                <div class="form-outline form-white mb-4">
+<!--                 <div class="form-outline form-white mb-4">
                   <input type="email" placeholder="Email" id="email" formControlName="email" class="form-control form-control-lg" />
                   <label class="form-label d-none" for="email">Email</label>
                   <div *ngIf="errorControl['email'].touched && errorControl['email'].invalid" class="text-danger">
                     <div *ngIf="errorControl['email'].errors?.['required']">Email requerido.</div>
                     <div *ngIf="errorControl['email'].errors?.['email']">El email debe ser válido.</div>
                   </div>
-                </div>
+                </div> -->
 
                 <!-- Campo de Contraseña -->
-                <div class="form-outline form-white mb-4">
+<!--                 <div class="form-outline form-white mb-4">
                   <input type="password" placeholder="Contraseña" id="password" formControlName="password" class="form-control form-control-lg" />
                   <label class="form-label d-none" for="password">Contraseña</label>
                   <div *ngIf="errorControl['password'].touched && errorControl['password'].invalid" class="text-danger text-start">
@@ -41,4 +41,60 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
+
+
+<main>
+
+      <!-- Componente exportado theme-toggle -->
+      <app-theme-toggle class="global-toggle"></app-theme-toggle> 
+ 
+
+  <!-- Contiene Todo -->
+  <div class="cardSignUp cardLogin">
+
+      <!-- IMG DE FONDO -->
+      <img class="imglogoback" src="../../../../assets/logos/logo.png" alt="logo">
+      
+      <!-- Texto previo al registro y su form -->
+      <div class="cardSignUpText">
+          <h2>CREAR CUENTA</h2>
+          <p>Ingresa tu email y contraseña para registrarte</p>
+     </div>
+
+
+         <!-- Contiene el formulario y button -->
+      <div class="cardForm">
+          <form [formGroup]="regForm" (ngSubmit)="registerUser()">
+             <!-- Campo de Email -->
+              <input type="email" placeholder="Email" id="email" formControlName="email"/>
+              <label class="form-label d-none" for="email">Email</label>
+                  <div *ngIf="errorControl['email'].touched && errorControl['email'].invalid" class="validatorsLogin">
+                    <div *ngIf="errorControl['email'].errors?.['required']">Email requerido</div>
+                    <div *ngIf="errorControl['email'].errors?.['email']">El email debe ser válido</div>
+                  </div>
+
+
+              <!-- Campo de Contraseña -->
+              <input type="password" placeholder="Contraseña" id="password" formControlName="password"/>
+              <label class="form-label d-none" for="password">Contraseña</label>
+                  <div *ngIf="errorControl['password'].touched && errorControl['password'].invalid" class="validatorsLogin">
+                    <p *ngIf="errorControl['password'].errors?.['required']">Contraseña requerida</p>
+                    <p *ngIf="errorControl['password'].errors?.['pattern']">La contraseña debe tener:<br>- Al menos 8 caracteres<br>- Al menos una mayúscula<br>- Al menos un número<br>- Al menos un símbolo</p>
+                  </div>
+
+            
+              <button  class="btnRegistrarCod" [disabled]="regForm.invalid" type="submit">
+                  <img class="imgRegistrarCod" src="../../../../assets/login/botonRegistrar.png" alt="Registrar">
+              </button>
+          </form>
+      </div>  
+            
+            <div class="colorall">
+              <p>¿Ya tenes una cuenta? <a [routerLink]="['/login']">Iniciar sesión</a></p>
+            </div>
+
+  </div>
+
+
+</main>
