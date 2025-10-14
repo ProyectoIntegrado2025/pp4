@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, data: { authRequired: false } },
   { path: 'sign-up', component: SignUpComponent, data: { authRequired: false } },
+/*   { path: 'confirm-sign-up', component: ConfirmSignUpComponent, data: { authRequired: false } }, */ // ⬅️ alias dev PROVISIORIO
   { path: 'confirm-sign-up/:email', component: ConfirmSignUpComponent, data: { authRequired: false } },
   { path: 'reset-password', component: ResetPasswordComponent, data: { authRequired: false } },
   { path: 'inicio', component: InicioComponent, canActivate: [AuthGuard], data: { authRequired: true } },

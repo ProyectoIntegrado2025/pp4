@@ -35,7 +35,7 @@ main.theme-dark, html.theme-dark {
   --bg: #0e0f0e;
   --fg: #e5e7eb;
   --card-bgLogin: #191b19;
-  --card-bgInicio: #0d1329;
+  --card-bgInicio: #191b19;
 }
 
 /* usar variables */
