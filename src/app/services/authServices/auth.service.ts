@@ -188,4 +188,18 @@ export class AuthService {
       throw error;
     }
   }
+
+async getIdToken(): Promise<string | null> {
+  try {
+    const { tokens } = await fetchAuthSession();
+    // En Amplify, el ID Token suele estar en tokens.idToken
+    return tokens?.idToken?.toString() ?? null;
+  } catch (e) {
+    console.error('Error obteniendo ID Token:', e);
+    return null;
+  }
+}  
+
 }
+
+

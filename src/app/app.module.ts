@@ -27,6 +27,8 @@ import { ResetPasswordComponent } from './views/auth/reset-password/reset-passwo
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { ChatAssistantComponent } from './components/chat-assistant/chat-assistant.component'; 
 
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthTokenInterceptor } from './interceptors/auth-token.interceptor';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,10 @@ import { ChatAssistantComponent } from './components/chat-assistant/chat-assista
     EditarComponent,
     FormsModule
   ],
-  providers: [DatePipe],
+  providers: [
+    DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
