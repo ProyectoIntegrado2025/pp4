@@ -78,6 +78,72 @@
   </div> 
 
 
+
+
+  <!-- MOK DE TAREAS CON ESTRUCTURA FINAL -->
+<div class="conteinerRowTaks conteinerTasks" >
+  <h2 class="titleCard">Tareas Estructura Final</h2>
+                      <!-- container solo tiene ancho de ocupación del display -->
+  <swiper-container class="container"
+  slides-per-view="auto"
+  pagination="bullets" 
+  effect="slide"
+  centered-slides="true" 
+  initial-slide="3"
+  >
+    <swiper-slide class="card" ><!-- *ngFor="let tarea of obtenerTareasFinalizadas()" [id]="'tarea-'+ tarea._id" -->
+
+       
+
+    </swiper-slide>
+  </swiper-container>
+
+
+</div>
+<!-- Estructura de c/ Task -->
+ <div class="cardTask">
+
+        <!-- ID -->
+        <div class="area-id">
+          <strong>id:</strong>
+          <span class="id-text">#T-000123</span>
+        </div>
+        <!-- Punto (círculo con glow rojo) -->
+        <div class="area-point">
+          <span class="priority-dot" title="Alta"></span>
+        </div>
+        <!-- Título (sin la palabra “Título”) -->
+        <h3 class="area-tit">Configurar entorno de AWS</h3>
+        <!-- Estado -->
+        <div class="area-est"><strong>Estado:</strong> En Desarrollo</div>
+        <!-- Prioridad -->
+        <div class="area-pri"><strong>Prioridad:</strong> Alta</div>
+        <!-- Fechas -->
+        <div class="area-fchA">
+          <span class="label">Inicio</span>
+          <span class="date">10/10/2025</span>
+        </div>
+        <div class="area-fchB">
+          <span class="label">Fin</span>
+          <span class="date">15/10/2025</span>
+        </div>
+        <!-- Pasos -->
+        <div class="area-pso pasos-box">
+          <strong class="pasos-title">Pasos:</strong>
+          <ul class="pasos-list">
+            <li>Definir endpoints</li>
+            <li>Configurar Lambda</li>
+            <li>Conectar con DynamoDB</li>
+          </ul>
+        </div>
+      </div>
+
+
+
+
+
+
+
 <div class="conteinerTasks"> 
   <!-- TAREAS DIVIDIAS POR ESTADOS, ESTADO 1 FINALIZADO -->
   
