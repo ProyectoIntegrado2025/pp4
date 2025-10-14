@@ -1,7 +1,7 @@
 // src/app/services/auth/auth.service.ts
 import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, from, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {
   signUp,
   signIn,
@@ -12,8 +12,7 @@ import {
   resendSignUpCode,
   resetPassword,
   confirmResetPassword,
-  fetchUserAttributes,
-  signInWithRedirect
+  fetchUserAttributes
 } from 'aws-amplify/auth';
 import { Hub } from 'aws-amplify/utils';
 
@@ -28,6 +27,7 @@ export interface AuthenticatedUser {
 export class AuthService {
   private _isAuthenticated = new BehaviorSubject<boolean>(false);
   isAuthenticated = this._isAuthenticated.asObservable();
+
   private _authenticatedUser = new BehaviorSubject<AuthenticatedUser | null>(null);
   authenticatedUser$: Observable<AuthenticatedUser | null> = this._authenticatedUser.asObservable();
 
@@ -35,62 +35,84 @@ export class AuthService {
     private router: Router,
     private ngZone: NgZone
   ) {
+    // Escucha global de eventos de autenticación de Amplify
     Hub.listen('auth', ({ payload }) => {
       this.ngZone.run(() => {
         switch (payload.event) {
           case 'signedIn':
             this._isAuthenticated.next(true);
             this.updateAuthenticatedUser();
-            this.router.navigateByUrl('/inicio', { replaceUrl: true }).catch(error => {
-              console.error('ERROR de navegación a /inicio (Hub signedIn):', error);
-            });
+            this.router.navigateByUrl('/inicio', { replaceUrl: true }).catch(() => {});
             break;
+
           case 'signedOut':
             this._isAuthenticated.next(false);
             this._authenticatedUser.next(null);
-            this.router.navigateByUrl('/login', { replaceUrl: true });
+            this.router.navigateByUrl('/login', { replaceUrl: true }).catch(() => {});
             break;
+
           case 'signInWithRedirect_failure':
             this._isAuthenticated.next(false);
             this._authenticatedUser.next(null);
             this.router.navigateByUrl('/login', { replaceUrl: true });
             break;
-          case 'signInWithRedirect':
-            break;
+
           default:
             break;
         }
       });
     });
-    this.checkAuthState();
+
+    // Esperar un momento para que Amplify inicialice los tokens antes de validar sesión
+    setTimeout(() => {
+      this.checkAuthState();
+    }, 800);
   }
 
   async checkAuthState() {
     try {
-      const { tokens } = await fetchAuthSession();
+      const session = await fetchAuthSession();
+      const tokens = session?.tokens;
+
       this.ngZone.run(() => {
         if (tokens && tokens.accessToken) {
           this._isAuthenticated.next(true);
           this.updateAuthenticatedUser();
-          if (this.router.url.startsWith('/login') || this.router.url.startsWith('/sign-up') || this.router.url.startsWith('/reset-password') || this.router.url.startsWith('/auth/confirm-sign-up')) {
-            this.router.navigateByUrl('/inicio', { replaceUrl: true }).catch(error => {
-              console.error('ERROR de navegación a /inicio (checkAuthState):', error);
-            });
+
+          const currentRoute = this.router.url;
+          if (
+            currentRoute.startsWith('/login') ||
+            currentRoute.startsWith('/sign-up') ||
+            currentRoute.startsWith('/reset-password') ||
+            currentRoute.startsWith('/auth/confirm-sign-up')
+          ) {
+            this.router.navigateByUrl('/inicio', { replaceUrl: true }).catch(() => {});
           }
         } else {
           this._isAuthenticated.next(false);
           this._authenticatedUser.next(null);
-          if (!this.router.url.startsWith('/login') && !this.router.url.startsWith('/sign-up') && !this.router.url.startsWith('/reset-password') && !this.router.url.startsWith('/auth/confirm-sign-up')) {
+
+          if (
+            !this.router.url.startsWith('/login') &&
+            !this.router.url.startsWith('/sign-up') &&
+            !this.router.url.startsWith('/reset-password') &&
+            !this.router.url.startsWith('/auth/confirm-sign-up')
+          ) {
             this.router.navigateByUrl('/login', { replaceUrl: true });
           }
         }
       });
-    } catch (error) {
+    } catch {
       this.ngZone.run(() => {
         this._isAuthenticated.next(false);
         this._authenticatedUser.next(null);
-        console.error('AuthService: Error al verificar sesión o no hay sesión:', error);
-        if (!this.router.url.startsWith('/login') && !this.router.url.startsWith('/sign-up') && !this.router.url.startsWith('/reset-password') && !this.router.url.startsWith('/auth/confirm-sign-up')) {
+
+        if (
+          !this.router.url.startsWith('/login') &&
+          !this.router.url.startsWith('/sign-up') &&
+          !this.router.url.startsWith('/reset-password') &&
+          !this.router.url.startsWith('/auth/confirm-sign-up')
+        ) {
           this.router.navigateByUrl('/login', { replaceUrl: true });
         }
       });
@@ -105,8 +127,7 @@ export class AuthService {
         userId: user.userId,
         email: userAttributes.email || null
       });
-    } catch (error) {
-      console.error('AuthService: Error al obtener y actualizar info de usuario autenticado:', error);
+    } catch {
       this._authenticatedUser.next(null);
     }
   }
@@ -120,72 +141,44 @@ export class AuthService {
   }
 
   async logout(): Promise<void> {
-    console.log('AuthService: Iniciando proceso de signOut().');
     try {
       await signOut();
       this._authenticatedUser.next(null);
-      console.log('AuthService: signOut() completado exitosamente.');
     } catch (error: any) {
-      console.error('AuthService: Error durante signOut():', error);
       throw error;
     }
   }
 
   async userSignUp(email: string, password: string): Promise<any> {
-    try {
-      const result = await signUp({
-        username: email,
-        password: password,
-        options: {
-          userAttributes: {
-            email: email,
-          },
+    const result = await signUp({
+      username: email,
+      password: password,
+      options: {
+        userAttributes: {
+          email: email,
         },
-      });
-      return result;
-    } catch (error) {
-      console.error('Error in userSignUp:', error);
-      throw error;
-    }
+      },
+    });
+    return result;
   }
 
   async userConfirmSignUp(username: string, code: string): Promise<any> {
-    try {
-      const result = await confirmSignUp({ username: username, confirmationCode: code });
-      return result;
-    } catch (error) {
-      console.error('Error in userConfirmSignUp:', error);
-      throw error;
-    }
+    return await confirmSignUp({ username: username, confirmationCode: code });
   }
 
   async resendSignUpCode(username: string): Promise<any> {
-    try {
-      const result = await resendSignUpCode({ username: username });
-      return result;
-    } catch (error) {
-      console.error('Error in resendSignUpCode:', error);
-      throw error;
-    }
+    return await resendSignUpCode({ username: username });
   }
 
   async userResetPassword(username: string): Promise<any> {
-    try {
-      const result = await resetPassword({ username: username });
-      return result;
-    } catch (error) {
-      console.error('Error in userResetPassword:', error);
-      throw error;
-    }
+    return await resetPassword({ username: username });
   }
 
   async userConfirmResetPassword(username: string, confirmationCode: string, newPassword: string): Promise<any> {
-    try {
-      const result = await confirmResetPassword({ username: username, confirmationCode: confirmationCode, newPassword: newPassword });
-      return result;
-    } catch (error) {
-      console.error('Error in userConfirmResetPassword:', error);
-      throw error;
-    }
+    return await confirmResetPassword({
+      username: username,
+      confirmationCode: confirmationCode,
+      newPassword: newPassword,
+    });
   }
 }

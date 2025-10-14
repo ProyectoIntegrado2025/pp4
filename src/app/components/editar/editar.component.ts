@@ -1,85 +1,90 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Tarea } from '../../../models/tarea';
-import { CommonModule } from '@angular/common';
-import { ApiTareasService } from '../../services/api-tareas.service';
-import { FormsModule } from '@angular/forms';
-import { AuthenticateService } from 'src/app/services/cognito.service';
+import { ApiGatewayService } from 'src/app/services/api.gateway.service';
+import { Tarea } from 'src/app/models/tarea';
 
 @Component({
   selector: 'app-editar',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
   templateUrl: './editar.component.html',
   styleUrls: ['./editar.component.css']
 })
-export class EditarComponent {
+export class EditarComponent implements OnInit {
+  tarea: Tarea = new Tarea();
+  cargando = false;
+  error = false;
+  exito = false;
 
-  tarea: Tarea = {
-    _id: '',
-    titulo: '',
-    descripcion: '',
-    asignado: '',
-    fecha_fin: new Date(),
-    estado: ''
-  };
+  estados = ['Pendiente', 'En Desarrollo', 'Finalizado'];
+  prioridades = ['Baja', 'Media', 'Alta'];
 
-  estados: string[] = ['En proceso', 'Finalizado', 'Cancelado'];
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private apiGatewayService: ApiGatewayService
+  ) {}
 
-  apiServicio = inject(ApiTareasService);
-  ruta: ActivatedRoute = inject(ActivatedRoute)
+  async ngOnInit() {
+    const tareaId = this.route.snapshot.paramMap.get('id');
+    if (tareaId) {
+      await this.obtenerTarea(tareaId);
+    }
+  }
 
-  constructor(private enrutador: Router, private authService: AuthenticateService) { }
+  async obtenerTarea(id: string) {
+    this.cargando = true;
+    try {
+      const obs = await this.apiGatewayService.getTask(id);
+      obs.subscribe({
+        next: (res) => {
+          const dataJson = typeof res.body === 'string' ? JSON.parse(res.body) : res;
+          const tarea = dataJson.Item || dataJson; // Lambda puede devolver Item o el objeto plano
 
-  ngOnInit(): void {
-    if(!this.authService.isAuthenticated()){
-      this.enrutador.navigate(["/login"]);
-    }else{
-      this.ruta.params.subscribe({
-        next: params => {
-          const tareaID = params['id'];
-          if (tareaID) {
-            this.apiServicio.getTareaById(params['id']).subscribe({
-              next: (data: Tarea) => {
-                this.tarea = data;
-                console.log(this.tarea)
-              },
-              error: error => {
-                console.log(error)
-              }
-            });
-          }
+          this.tarea = {
+            UsuarioId: tarea.UsuarioId,
+            TareaId: tarea.TareaId,
+            Titulo: tarea.Titulo,
+            Estado: tarea.Estado,
+            Prioridad: tarea.Prioridad,
+            FechaInicio: tarea.FechaInicio,
+            FechaFin: tarea.FechaFin,
+            Pasos: tarea.Pasos || []
+          };
+
+          this.cargando = false;
         },
-        error: error => {
-          console.log(error);
+        error: (err) => {
+          console.error('❌ Error al obtener tarea:', err);
+          this.error = true;
+          this.cargando = false;
         }
       });
+    } catch (e) {
+      console.error('❌ Error inesperado:', e);
+      this.error = true;
+      this.cargando = false;
     }
   }
 
-
-  obtenerTareaPorId(id: string) {
-    this.apiServicio.getTareaById(id).subscribe({
-      next: data => {
-        this.tarea = data;
-      }
-    })
-  }
-
-
-  editarTarea() {
-    if (!this.tarea._id) {
-      console.log('Es necesario el ID de la tarea')
+  async editarTarea() {
+    this.cargando = true;
+    try {
+      const obs = await this.apiGatewayService.postTask(this.tarea); // Si usás PUT, reemplazá este método
+      obs.subscribe({
+        next: (res) => {
+          console.log('✅ Tarea actualizada:', res);
+          this.exito = true;
+          setTimeout(() => this.router.navigate(['/inicio']), 1500);
+        },
+        error: (err) => {
+          console.error('❌ Error al actualizar tarea:', err);
+          this.error = true;
+          this.cargando = false;
+        }
+      });
+    } catch (e) {
+      console.error('❌ Error inesperado:', e);
+      this.error = true;
+      this.cargando = false;
     }
-    this.apiServicio.editarTarea(this.tarea._id, this.tarea).subscribe({
-      next: (data: Tarea) => {
-        console.log('Tarea editada', data)
-        this.enrutador.navigate(['/']);
-      },
-      error: (error: any) => {
-        console.error('Error al editar la tarea:', error);
-      }
-    });
   }
-
 }
