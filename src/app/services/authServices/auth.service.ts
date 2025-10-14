@@ -72,7 +72,12 @@ export class AuthService {
         if (tokens && tokens.accessToken) {
           this._isAuthenticated.next(true);
           this.updateAuthenticatedUser();
-          if (this.router.url.startsWith('/login') || this.router.url.startsWith('/sign-up') || this.router.url.startsWith('/reset-password') || this.router.url.startsWith('/auth/confirm-sign-up')) {
+          if (
+            this.router.url.startsWith('/login') ||
+            this.router.url.startsWith('/sign-up') ||
+            this.router.url.startsWith('/reset-password') ||
+            this.router.url.startsWith('/auth/confirm-sign-up')
+          ) {
             this.router.navigateByUrl('/inicio', { replaceUrl: true }).catch(error => {
               console.error('ERROR de navegación a /inicio (checkAuthState):', error);
             });
@@ -80,7 +85,12 @@ export class AuthService {
         } else {
           this._isAuthenticated.next(false);
           this._authenticatedUser.next(null);
-          if (!this.router.url.startsWith('/login') && !this.router.url.startsWith('/sign-up') && !this.router.url.startsWith('/reset-password') && !this.router.url.startsWith('/auth/confirm-sign-up')) {
+          if (
+            !this.router.url.startsWith('/login') &&
+            !this.router.url.startsWith('/sign-up') &&
+            !this.router.url.startsWith('/reset-password') &&
+            !this.router.url.startsWith('/auth/confirm-sign-up')
+          ) {
             this.router.navigateByUrl('/login', { replaceUrl: true });
           }
         }
@@ -90,7 +100,12 @@ export class AuthService {
         this._isAuthenticated.next(false);
         this._authenticatedUser.next(null);
         console.error('AuthService: Error al verificar sesión o no hay sesión:', error);
-        if (!this.router.url.startsWith('/login') && !this.router.url.startsWith('/sign-up') && !this.router.url.startsWith('/reset-password') && !this.router.url.startsWith('/auth/confirm-sign-up')) {
+        if (
+          !this.router.url.startsWith('/login') &&
+          !this.router.url.startsWith('/sign-up') &&
+          !this.router.url.startsWith('/reset-password') &&
+          !this.router.url.startsWith('/auth/confirm-sign-up')
+        ) {
           this.router.navigateByUrl('/login', { replaceUrl: true });
         }
       });
@@ -189,16 +204,45 @@ export class AuthService {
     }
   }
 
-async getIdToken(): Promise<string | null> {
-  try {
-    const { tokens } = await fetchAuthSession();
-    // En Amplify, el ID Token suele estar en tokens.idToken
-    return tokens?.idToken?.toString() ?? null;
-  } catch (e) {
-    console.error('Error obteniendo ID Token:', e);
-    return null;
+  // === TOKENS ===
+
+  async getIdToken(): Promise<string | null> {
+    try {
+      const { tokens } = await fetchAuthSession();
+      return tokens?.idToken?.toString() ?? null;
+    } catch (e) {
+      console.error('Error obteniendo ID Token:', e);
+      return null;
+    }
   }
-}  
+
+  async getAccessToken(): Promise<string | null> {
+    try {
+      const { tokens } = await fetchAuthSession();
+      return tokens?.accessToken?.toString() ?? null;
+    } catch (e) {
+      console.error('Error obteniendo Access Token:', e);
+      return null;
+    }
+  }
+
+async debugPrintTokens(): Promise<void> {
+  try {
+    const session = await fetchAuthSession();
+    console.log('🧩 Sesión completa:', session);
+
+    if (session?.tokens) {
+      alert('🔐 Access Token:\n' + session.tokens.accessToken?.toString());
+
+      console.log('🧩 ID Token:', session.tokens.idToken?.toString());
+    } else {
+      console.warn('⚠️ No hay tokens en la sesión.');
+    }
+  } catch (e) {
+    console.error('Error al obtener tokens:', e);
+  }
+}
+
 
 }
 

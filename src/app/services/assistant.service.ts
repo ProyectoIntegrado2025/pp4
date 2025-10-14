@@ -4,8 +4,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 type AskPayload =
-  | { message: string; userId: string }                 // MVP sin auth
-  | { message: string };                                 // con Authorizer (JWT en header)
+  | { message: string; userId: string }  // MVP sin auth
+  | { message: string };                 // con Authorizer (JWT en header)
 
 @Injectable({ providedIn: 'root' })
 export class AssistantService {
@@ -20,10 +20,12 @@ export class AssistantService {
 
   // --- Con JWT Authorizer de Cognito ---
   askWithJwt(message: string, idToken: string) {
+    // ✅ Tu Authorizer espera el formato: Bearer <TOKEN>
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${idToken}`
     });
+
     return this.http.post<any>(this.url, { message }, { headers });
   }
 }
