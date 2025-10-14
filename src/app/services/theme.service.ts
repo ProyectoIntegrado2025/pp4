@@ -37,19 +37,19 @@ export class ThemeService {
   }
 
   private applyTheme(theme: Tema, persist = true) {
-    const main = this.document.querySelector('main') as HTMLElement | null;
+    const main = this.document.querySelector('main') as HTMLElement | null; // Busca el primer <main> en el DOM y lo castea a HTMLElement | null. Lo guarda en la constante main. Si no existe, main será null.
 
-    const removeCls = (el: HTMLElement | null, cls: string) => { //toma un elemento o null, y un nombre de clase
+    const removeCls = (el: HTMLElement | null, cls: string) => { // Declara una función local removeCls - toma un elemento o null, y un nombre de clase
       if (!el) return; //si existe
-      this.renderer.removeClass(el, cls);//i el elemento existe llama this.renderer.removeClass(el, cls)
+      this.renderer.removeClass(el, cls);// si el elemento existe llama this.renderer.removeClass(el, cls).. para quitar la clase cls del elemento usando el Renderer de Angular. (la idea es evitar repetir el if cada vez que quieras quitar una clase.)
     };
 
-    removeCls(main, 'theme-light');//limpia de main las clases de tema anteriores para evitar acumulación
-    removeCls(main, 'theme-dark');//limpia de main las clases de tema anteriores para evitar acumulación
+    removeCls(main, 'theme-light');//quita la clase theme-light de main (si main existe) para evitar acumulación
+    removeCls(main, 'theme-dark');//quita la clase theme-dark de main (si main existe) para evitar acumulación
     removeCls(this.document.documentElement as unknown as HTMLElement, 'theme-light');//lo mismo sobre documentElement (html)
     removeCls(this.document.documentElement as unknown as HTMLElement, 'theme-dark');//lo mismo sobre documentElement (html)
 
-    if (main) this.renderer.addClass(main, `theme-${theme}`);//si main existe, añade theme-light o theme-dark a main
+    if (main) this.renderer.addClass(main, `theme-${theme}`);//si main existe, añade light o dark a main
     this.renderer.addClass(this.document.documentElement as unknown as HTMLElement, `theme-${theme}`);//añade la clase al <html> también. Esto es útil como fallback o para reglas globales. Se añade incluso si main no existe.
 
     if (persist) localStorage.setItem(this.STORAGE_KEY, theme); //si persist es true, escribe en localStorage el string 'light' o 'dark'. Esto hace que la elección sobreviva a recargas

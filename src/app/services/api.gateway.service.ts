@@ -9,7 +9,7 @@ export class ApiGatewayService {
 
   constructor(private http: HttpClient) {}
 
-  private apiUrl = "https://6w2ocnpc54.execute-api.us-east-1.amazonaws.com";
+  private apiUrl = "https://9tjqkigts8.execute-api.us-east-1.amazonaws.com/pp4apiG_RestApi";
   private usersUrl = "/users"
   private groupsUrl = "/groups"
   private tasksUrl = "/tasks"

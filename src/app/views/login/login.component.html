@@ -67,7 +67,7 @@
 
             
 
-<main id="login-main">
+<main>
 
                 <!-- Muestra mensajes de estado y errores luego del submit del correo y contraseña -->
               <div *ngIf="cargando" class="alert alert-info" role="alert">
@@ -78,22 +78,24 @@
               </div>
               
 <!-- Componente exportado theme-toggle -->
-<app-theme-toggle class="global-toggle"></app-theme-toggle>            
+<app-theme-toggle class="global-toggle"></app-theme-toggle>  
+
 
               <!-- Contenedor tarjeta login -->
     <div class="cardLogin">
 
         <!-- Logo texto -->
-        <div class="taskflow">Zenki</div>
+        <div class="zenkiflow"><img class="imgLogoLogin" src="../../../assets/logos/logo+Zenki.png" alt="Zenki"></div>
         <!-- Logo de usuario -->
-        <img class="icon_userLogin" src="../../../assets/img/loginUser.png" alt=""/>
+        <img class="icon_userLogin" src="../../../assets/login/loginUserGreen.png" alt="Login img"/>
+        
         <!-- Contenedor de login -->
         <div class="cardLogin_Inputs">
             <!-- Formm para logear -->
             <form [formGroup]="loginForm" (ngSubmit)="userLogin()">
               <!-- Label / Input email -->  
               <label  class="cardLogin_Labelinput" for="email">
-                Correo
+                <img class="imgLabel" src="../../../assets/login/correo.png" alt="correo">
                 <input type="email" id="email" name="email" formControlName="email">
               </label>
                                   <!-- Validators email --> 
@@ -103,7 +105,7 @@
                   </div>
               <!-- Label / Input password -->    
               <label class="cardLogin_Labelinput" for="password">
-                Contraseña
+                <img class="imgLabel" src="../../../assets/login/contraseña.png" alt="contraseña">
                 <input type="password" id="password" name="password" formControlName="password"> 
               </label>
                                   <!-- Validators password --> 
@@ -111,15 +113,17 @@
                     <div *ngIf="errorControl['password'].errors?.['required']">Contraseña requerida</div>
                     <div *ngIf="errorControl['password'].errors?.['pattern']">La contraseña debe tener:<br>- Al menos 8 caracteres<br>- Al menos una mayúscula<br>- Al menos un número<br>- Al menos un símbolo</div>
                   </div>
-
+ 
                 <!-- botón login -->
-                <button class="btnLogin" [disabled]="loginForm.invalid || cargando" type="submit">Ingresar</button> 
+                <button class="btnLogin" [disabled]="loginForm.invalid || cargando" type="submit">
+                    <img class="imgLoginIngresar" src="../../../assets/login/botónIngresar.png" alt="Ingresar">
+                </button> 
             </form>
         </div>
         <!-- Reestablecer contraseña y Registrarse  -->
-        <div class="cardLogin_bttnlink">
-            <a class="forgetPW" [routerLink]="['/reset-password']">Olvidé mi contraseña</a>
-            <a [routerLink]="['/sign-up']" class="text-white-50 fw-bold">Regístrate aquí</a>
+        <div class="cardLogin_bttnlink"> 
+            <a [routerLink]="['/reset-password']">Olvidé mi contraseña</a>
+            <a [routerLink]="['/sign-up']">Regístrate aquí</a>
         </div>
         
     </div>

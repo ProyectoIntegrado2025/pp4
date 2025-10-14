@@ -28,7 +28,7 @@ main{
 /* Toggle cambio de tema, componente theme-toggle */
 /* Toggle cambio de tema, componente theme-toggle */
 .global-toggle{
-  width: 2%; /* del 100% que ocupe el 82% */
+  width: 2.23em; /* del 100% que ocupe el 82% */
   min-width: 30px;
 }
 /* container del swiper-container*/
@@ -110,17 +110,18 @@ main{
 }
 .buttonTareaFuncion {
     background-color: transparent; /* Elimina el fondo gris */
-    border: 1px solid rgb(226, 226, 226); /* Elimina el borde */
-    padding: 0px; /* Elimina el relleno interno para reducir el ancho */
+    /* border: 1px solid rgb(226, 226, 226); */ /* Elimina el borde */
+    border: none;
+    padding: .5%; /* Elimina el relleno interno para reducir el ancho */
     border-radius: 15%;
     width: 11.5%;
-    transition: transform 90ms;
+    transition: transform 180ms;
 }
 .buttonTareaFuncion:hover{
-    transform: scale(1.10);
+    transform: scale(1.11);
 }
 .iconTareaFuncion{
-    width: 100%;
+    width: 110%;
 }
 
 .modal-overlay {

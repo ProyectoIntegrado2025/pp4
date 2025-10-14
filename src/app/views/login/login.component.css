@@ -6,21 +6,20 @@ main{
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    /* background: #eeecec; */
 }
 /* Toggle cambio de tema, componente theme-toggle */
 /* Toggle cambio de tema, componente theme-toggle */
 .global-toggle{
-    width: 2em;
+    width: 2.23em;
     position: absolute;
     right: 7%;
     top: 1%;
-    z-index: 1200
-}
-/* Validadore */
+    z-index: 3;
+} 
+/* Validadores */
 .validatorsLogin{
-    color: red;
-    font-size: .7rem;
+    color: rgb(0, 184, 153);
+    font-size: .73rem;
 }
 /* Contiene todo excepto "Olvidé mi contraseña" y "Registrate aqui" */
 .cardLogin{
@@ -30,29 +29,48 @@ main{
     margin: 1% 5% 1% 5%;
     /* background: #ffffff; */
     border-radius: 4%; 
-    max-width: 70vh;
+    max-width: 70vh; 
+    border-left: 1px solid rgb(0, 84, 87);
+    border-top: 1px solid rgb(0, 84, 87);
+    border-right: 1px solid rgb(0, 87, 0);
+    border-bottom: 1px solid rgb(0, 87, 0); 
+    box-shadow: 6px 6px 37px rgb(0, 87, 0), -6px -6px 37px rgb(3, 128, 145);
+    z-index: 2;
 }
-
-.taskflow{
+/* Contenedor de img logo Zenki */
+.zenkiflow{
     margin: 5% 0% 3% 0%;
-    /* font-size: 10vmin; */
     font-size: clamp(7vh, 20vw, 2.6vmax);
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+    user-select: none;
 }
-
+.imgLogoLogin{
+    width: 69%;
+}
+/*img icon usuario */
 .icon_userLogin{
-  max-width: 20%;
- /*  height: auto; */
+    max-width: 10%;
+    min-width: 28px;
+    pointer-events: none;
+    user-select: none;
 }
 
 .cardLogin_Inputs{
-    margin: 4% 5% 2% 5%;
+    margin: 2.7% 5% 2% 5%;
     max-width: 65vw;
     padding: 0% 1% 0% 1%;
     max-width: min(65vw, 68vh, 640px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .cardLogin_Inputs form{
     display: flex;
     flex-direction: column;
+    width: 75%;
+    max-width: 640px;
 }
 .cardLogin_Inputs form button{
     align-self: center;
@@ -61,33 +79,68 @@ main{
 .cardLogin_Labelinput{
     display: flex;
     align-items: center;
-    gap: 3%;
+    gap: 2.5%;
     /* font-size: clamp(17px, 3vmin, 10vmin); */   
     /* font-size: 3vmax; */
-    font-size: clamp(.85em, 1.05vmax, 4vmax);
-    margin: 3% 0% 3% 0%;
+    font-size: clamp(1.2em, 1.1vmax, 1.3vmax);
+    margin: 2% 0% 2% 0%;
 }
 /* Inputs */
 .cardLogin_Labelinput input {
     flex: 1;
     min-width: 0;    /* importante para que el input pueda encogerse dentro de flex */
+    border: 1px solid rgb(0, 119, 128);
+    border-radius: .4em .4em;
+    background-color: rgb(241, 255, 220);
 }
-/* Botón Ingresar */
-.btnLogin{
-    width: 4.7vw;
-    min-width: 70px;
-    font-size: clamp(.9em, 1vmax, 4vmax);
-    border-radius: 70% 5%;
-    background: transparent;
-    padding: 1% 3% 1.5% 3%;
-    margin: 3% 0% 3% 0%;
-    justify-content: center;
+label{
+    /* color: rgb(0, 111, 67); */
+    color: rgb(0, 111, 98);
 }
+/* img de correo y contraseña */
+.imgLabel{
+    width: 10%;
+    min-width: 30px;
+    pointer-events: none;
+    user-select: none;
+}
+input{
+    padding: 0% 3% 0% 3%;
+}
+/* Contenedor del botón ingresar y p "Ingresar" */
+.btnLogin{  
+    width: clamp(70px, 7vw, 6vw);
+    line-height: 0;  
+    flex: 0 0 auto;         
+    border: none;
+    background: transparent; 
+    cursor: pointer; 
+    margin: 1.5% 0% 10% 0%;
+    transition: scale .15s;
+}
+    .btnLogin:hover{ 
+        scale: 1.04;
+    }
+
+/* imagen del botón ingresar */
+.imgLoginIngresar{
+    width: 100%;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.9; 
+    filter: drop-shadow(0em 0em .2em rgb(21, 255, 0));
+}
+
 /* Contenedor de "olvidé contraseña" y "Registrate aquí" */
 .cardLogin_bttnlink{
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1% 0% 8% 0%;
-    font-size: clamp(.85em, 1.05vmax, 4vmax);;
+    margin: 3% 0% 5.5% 0%;
+    font-size: clamp(.79em, .89vmax, 4vmax);
+}
+.cardLogin_bttnlink a{
+    text-decoration: none;
+    /* color: rgb(0, 111, 67); */
+    color: rgb(0, 111, 98);
 }
