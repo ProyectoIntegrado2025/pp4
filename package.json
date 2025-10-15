@@ -21,7 +21,7 @@
     "@angular/router": "^17.3.12",
     "@aws-amplify/auth": "^6.15.1",
     "amazon-cognito-identity-js": "^6.3.12",
-    "aws-amplify": "^6.15.6",
+    "aws-amplify": "^6.15.7",
     "aws-sdk": "^2.1691.0",
     "body-parser": "^2.2.0",
     "bootstrap": "^5.3.3",

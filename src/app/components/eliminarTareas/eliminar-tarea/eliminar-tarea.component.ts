@@ -1,14 +1,6 @@
-import { Component, OnInit } from '@angular/core'; //se suma OnInit
-import { Router } from '@angular/router';
-
-//clase Tarea de tarea.ts dentro de models
-import { Tarea } from 'src/app/models/tarea';
-
-//Conexion a la api local declarada en api-tareas.service.ts
-import { ApiTareasService } from 'src/app/services/api-tareas.service';
+import { Component, OnInit } from '@angular/core';
 import { ApiGatewayService } from 'src/app/services/api.gateway.service';
-import { AuthenticateService } from 'src/app/services/cognito.service';
-
+import { Tarea } from 'src/app/models/tarea';
 
 @Component({
   selector: 'app-eliminar-tarea',
@@ -16,123 +8,97 @@ import { AuthenticateService } from 'src/app/services/cognito.service';
   styleUrls: ['./eliminar-tarea.component.css']
 })
 export class EliminarTareaComponent implements OnInit {
-  tareas: Tarea[] = []; // Variable para almacenar las tareas
-  user: any;
-  group: string = "TaskFlowTeamBack";
-  
-  constructor(private apiServiceTareas: ApiTareasService, private authService: AuthenticateService, private router: Router, private apiGatewayService: ApiGatewayService){}
+  tareas: Tarea[] = [];
+  tareasTotal: Tarea[] = [];
+  cargando = true;
+  error = false;
+  mensaje = '';
 
-  ngOnInit(): void {
-    if(!this.authService.isAuthenticated()){
-      this.router.navigate(["/login"]);
-    }else{
-      //this.cargarTareas();
-      this.user = localStorage.getItem("user");
-      this.loadTasks();
+  constructor(private apiGatewayService: ApiGatewayService) {}
+
+  async ngOnInit() {
+    await this.loadTasks();
+  }
+
+  async loadTasks() {
+    this.cargando = true;
+    this.error = false;
+    try {
+      const obs = await this.apiGatewayService.getTasks();
+      obs.subscribe({
+        next: (res) => {
+          const dataJson = typeof res.body === 'string' ? JSON.parse(res.body) : res;
+          const items = dataJson.Items || dataJson;
+
+          this.tareas = items.map((task: any) => ({
+            UsuarioId: task.UsuarioId,
+            TareaId: task.TareaId,
+            Titulo: task.Titulo,
+            Estado: task.Estado,
+            Prioridad: task.Prioridad,
+            FechaInicio: task.FechaInicio,
+            FechaFin: task.FechaFin,
+            Pasos: task.Pasos || []
+          }));
+
+          this.tareasTotal = [...this.tareas];
+          this.cargando = false;
+        },
+        error: (err) => {
+          console.error('❌ Error al obtener tareas:', err);
+          this.error = true;
+          this.cargando = false;
+        }
+      });
+    } catch (e) {
+      console.error('❌ Error inesperado:', e);
+      this.error = true;
+      this.cargando = false;
     }
   }
 
-  /**
-   * @method cargarTareas
-   * Trae un array del tipo Tarea definido en models tarea.ts
-   */
-  cargarTareas(){
-    console.log(`Cargando tareas...`) 
-    this.apiServiceTareas.getTareas().subscribe({
-      next: data =>{
-        console.log(data)
-        this.tareas = data;
-        console.log(`Tareas cargadas`) 
-      }, error: error => {
-        console.log(error)
-      }
-    })
-  }
-
-  cambiarColorEstado(estado: string){
-    switch(estado) {
-      case 'Finalizado':
-        return 'text-success';
-      case 'En proceso':
-        return 'text-warning';
-      case 'Cancelado':
-        return 'text-danger';
-      default:
-        return '';
-    }
-  }
-
-
- /**
-  * @method eliminarTarea
-  * @param id 
-  * Recibe un parámetro _id del tipo string o number necesario para deleteTareaById (funcion de mongoose)
-  */
-  eliminarTarea(id: string | number): void {
-
-    this.apiServiceTareas.deleteTareaById(id).subscribe({
-      
-      next: () => {
-        console.log('Tarea eliminada exitosamente');
-        this.cargarTareas();
-      },
-      error: error => {
-        console.error('Error al eliminar tarea:', error);
-      }
-    });
-  }
-
-  deleteTask(taskId: string) {
-    this.apiGatewayService.deleteTask(taskId).subscribe(
-      response => {
-        console.log('Tarea eliminada:', response);
-        // Actualiza la lista de tareas si es necesario
-        this.loadTasks(); // Supongamos que esta función recarga las tareas
-      },
-      error => {
-        console.error('Error al eliminar tarea:', error);
-      }
-    );
-  }
- /**
-  * @method buscarTarea
-  * @param event 
-  * Recibe un parámetro evento
-  * Si éste es una instancia de HTMLInputElement, ejecuta
-  */
   buscarTarea(event: Event): void {
     if (event.target instanceof HTMLInputElement) {
-      const buscarAsig = event.target.value.toLowerCase();
-      if (buscarAsig) {
-        this.tareas = this.tareas.filter(tarea => tarea.asignado.toLowerCase().includes(buscarAsig));
-      } else {
-        this.cargarTareas(); 
-      }
+      const buscar = event.target.value.toLowerCase();
+      this.tareas = buscar
+        ? this.tareasTotal.filter(t => t.Titulo.toLowerCase().includes(buscar))
+        : [...this.tareasTotal];
     }
   }
 
-  loadTasks(){
-    this.apiGatewayService.getTask(this.group).subscribe(
-      data => {
-        var dataJson = JSON.parse(data.body);
-        const tasks = dataJson.Items;
-        this.tareas = [];
-        for(var task of tasks){
-          var tareaAux: Tarea = {
-            _id: task.taskId,
-            titulo: task.tittle,
-            descripcion: task.description,
-            asignado: task.assignedUserId,
-            fecha_fin: new Date(task.endAt),
-            estado: task.status
-          }
-          this.tareas.push(tareaAux);
+  async deleteTask(tareaId: string): Promise<void> {
+    if (!confirm('¿Seguro que deseas eliminar esta tarea?')) return;
+
+    this.cargando = true;
+    try {
+      const obs = await this.apiGatewayService.deleteTask(tareaId);
+      obs.subscribe({
+        next: (res) => {
+          console.log('✅ Tarea eliminada:', res);
+          this.tareas = this.tareas.filter(t => t.TareaId !== tareaId);
+          this.tareasTotal = [...this.tareas];
+          this.mensaje = 'Tarea eliminada correctamente.';
+          this.cargando = false;
+        },
+        error: (err) => {
+          console.error('❌ Error al eliminar tarea:', err);
+          this.error = true;
+          this.cargando = false;
         }
-      },
-      error => {
-        console.log("Error al obtener tareas: " + error.message);
-      }
-    )
+      });
+    } catch (e) {
+      console.error('❌ Error inesperado:', e);
+      this.error = true;
+      this.cargando = false;
+    }
   }
 
+  cambiarColorEstado(estado: string): string {
+    switch (estado) {
+      case 'Finalizado': return 'text-success';
+      case 'En Desarrollo': return 'text-warning';
+      case 'Pendiente': return 'text-secondary';
+      default: return '';
+    }
+  }
 }

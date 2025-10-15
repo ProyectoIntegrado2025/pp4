@@ -1,52 +1,76 @@
-
-<div class="header">
-
+<div class="header d-flex justify-content-between align-items-center mb-4">
   <div class="headerL">
-    <h1>Eliminación de Tareas</h1> 
-    <button class="buttonActualizaTarea" (click)="loadTasks()">Actualizar <img class="iconActualizaTarea" src="../../../../assets/iconos/iconActualizaTarea.png" alt="Actualizar Tarea"></button>
+    <h2>Eliminar Tareas</h2>
+    <button class="btn btn-outline-primary btn-sm" (click)="loadTasks()">
+      Actualizar
+      <img
+        class="iconActualizaTarea ms-1"
+        src="../../../../assets/iconos/iconActualizaTarea.png"
+        alt="Actualizar"
+      />
+    </button>
   </div>
-   
 
   <div class="headerR">
-    <p class="headerRBuscar">Buscar:</p>
-     <input type="text" placeholder="Asignado a..." (input)="buscarTarea($event)">
+    <label class="me-2 fw-bold">Buscar:</label>
+    <input
+      type="text"
+      placeholder="Buscar por título..."
+      class="form-control d-inline-block w-auto"
+      (input)="buscarTarea($event)"
+    />
   </div>
-
 </div>
-   
 
-<!-- 
-<div class="container" >
-    <div class="card" *ngFor="let tarea of tareas">
-        <ul class="list-group list-group-flush" >
-            <li class="list-group-item"><span class="spanLi">Titulo</span> {{tarea.titulo}}</li>
-            <li class="list-group-item"><span class="spanLi">Descripción</span> {{tarea.descripcion}}</li>
-            <li class="list-group-item"><span class="spanLi">Asignado a</span> {{tarea.asignado}}</li>
-            <li class="list-group-item"><span class="spanLi">Fecha de cierre</span> {{tarea.fecha_fin}}</li>
-            <li class="list-group-item"><span class="spanLi">Estado</span> {{tarea.estado}}</li>
+<div *ngIf="cargando" class="text-center mt-4 text-primary">
+  <div class="spinner-border" role="status"></div>
+  <p>Cargando tareas...</p>
+</div>
+
+<div *ngIf="!cargando && tareas.length === 0" class="text-center mt-4 text-muted">
+  <p>No hay tareas para mostrar.</p>
+</div>
+
+<div *ngIf="!cargando && tareas.length > 0" class="container">
+  <div class="card mb-3" *ngFor="let tarea of tareas">
+    <div class="card-body">
+      <h5 class="card-title">{{ tarea.Titulo }}</h5>
+      <p class="card-text mb-1"><strong>Prioridad:</strong> {{ tarea.Prioridad }}</p>
+      <p class="card-text mb-1"><strong>Estado:</strong> {{ tarea.Estado }}</p>
+      <p class="card-text mb-1"><strong>Inicio:</strong> {{ tarea.FechaInicio }}</p>
+      <p class="card-text mb-1"><strong>Fin:</strong> {{ tarea.FechaFin }}</p>
+
+      <div *ngIf="tarea.Pasos?.length">
+        <strong>Pasos:</strong>
+        <ul class="list-group list-group-flush small">
+          <li *ngFor="let paso of tarea.Pasos" class="list-group-item">
+            {{ paso }}
+          </li>
         </ul>
-        <button class="button" (click)="eliminarTarea(tarea._id)">Eliminar</button>
-    </div>
-</div> -->
+      </div>
 
-<div class="container">
-  <div class="card" *ngFor="let tarea of tareas" > 
-    
-      <div class="top">
-          <img src="../../../assets/imgTop1.jpg" alt="">
-      </div>
-      <div class="mid"> 
-          <li><span class="spanLi spanLiTareaID">Tarea ID: {{tarea._id}}</span></li>
-          <li><span class="spanLi spanLiAsig">{{tarea.asignado}}</span></li>
-          <li><span class="spanLi spanLiTitulo">{{tarea.titulo}} </span> </li>
-          <li><span class="spanLi spanLiDescrip">{{tarea.descripcion}}</span></li>
-          <li [ngClass]="cambiarColorEstado(tarea.estado)"  class="list-group-item"><span class="spanLi spanLiEstado">{{tarea.estado}}</span></li>
-      </div>
-      <div class="bot">
-        <button class="buttonEliminarTarea" (click)="deleteTask(tarea._id)">
-          <img class="iconEliminarTarea" src="../../../../assets/iconos/iconEliminarTarea.png" alt="Eliminar Tarea">
+      <div class="text-end mt-3">
+        <button
+          class="btn btn-danger btn-sm"
+          (click)="deleteTask(tarea.TareaId)"
+          [disabled]="cargando"
+        >
+          <img
+            class="iconEliminarTarea me-1"
+            src="../../../../assets/iconos/iconEliminarTarea.png"
+            alt="Eliminar"
+          />
+          Eliminar
         </button>
-      </div> 
-
+      </div>
+    </div>
   </div>
+</div>
+
+<div *ngIf="mensaje" class="alert alert-success mt-3 text-center">
+  {{ mensaje }}
+</div>
+
+<div *ngIf="error" class="alert alert-danger mt-3 text-center">
+  Ocurrió un error al eliminar la tarea.
 </div>
