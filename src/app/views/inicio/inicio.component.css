@@ -150,33 +150,108 @@ main{
   grid-template-areas:
     "id   id   id   id   id   point"
     "tit  tit  tit  tit  tit  tit"
-    "est  est  est  est  est  est"   /* <- agregado para Estado */
+    "est  est  est  est  est  est"
     "pri  pri  pri  pri  pri  pri"
     "fchA fchA fchA fchB fchB fchB"
     "pso  pso  pso  pso  pso  pso";
-  gap: 8px;
+  gap: 0px;
   padding: 20px;
   background: #fff;
   box-shadow: 0 4px 10px rgba(0,0,0,.06);
 }
 /* Áreas */
-.area-id   { grid-area: id;   display:flex; align-items:center; }
-.area-point{ grid-area: point; display:flex; align-items:center; justify-content:end; }
-.area-tit  { grid-area: tit;  margin: 0; font-size: 1.05rem; font-weight: 700; line-height: 0; display: flex; justify-content: center; align-items: center; }
-.area-est  { grid-area: est;  font-size: .95rem; line-height: 0; display: flex; justify-content: start; align-items: center;  }
-.area-pri  { grid-area: pri;  font-size: .95rem; line-height: 0; display: flex; justify-content: start; align-items: center;}
-.area-fchA { grid-area: fchA; display:flex; flex-direction:column; align-items:center; }
-.area-fchB { grid-area: fchB; display:flex; flex-direction:column; align-items:center; }
-.area-pso  { grid-area: pso; }
+.area-id{
+    grid-area: id;
+    display: grid;                      
+    grid-template-columns: auto 1fr;
+    column-gap: 4px;
+    align-items: center;
+}
+    .area-id h2{
+        margin: 0;
+        font-weight: 700;
+        color: rgb(0, 84, 87);;
+        font-size: .9em; /* o el que quieras */
+    }
+    .area-id p{
+        margin: 0;
+        min-width: 0;            /* CRÍTICO para que el flex/grid item pueda encoger */
+        white-space: nowrap;     /* una sola línea */
+        text-overflow: ellipsis; /* … */
+        letter-spacing: .02em;   /* espacio entre letras */
+        overflow-x: scroll;       /* activa scroll horizontal */
+        scrollbar-width: none;  /* Firefox oculta scroll bar x */
+        font-size: .9em; /* o el que quieras */
+        color: rgb(0, 114, 122);
+    }
+        .area-id p::-webkit-scrollbar { /* Chrome, Edge, Safari */
+        display: none;
+        }
+
+.area-point{ 
+    grid-area: point; 
+    display:flex; 
+    align-items:center; 
+    justify-content:end; 
+}
+.area-tit  { 
+    grid-area: tit;  
+    display: grid;                      
+    grid-template-columns: auto;
+    align-items: center;
+}
+    .area-tit h2{
+        margin: 0; 
+        font-size: 1.3rem; 
+        font-weight: 700;
+        padding: 5px 0px 5px 0px;
+        color: rgb(0, 84, 87);
+         
+            white-space: nowrap;     /* una sola línea */
+            text-overflow: ellipsis; /* … */
+            overflow-x: scroll;       /* activa scroll horizontal */
+            scrollbar-width: none;  /* Firefox oculta scroll bar x */
+    }
+.area-est  { 
+    grid-area: est;  
+    font-size: .95rem; 
+    line-height: 0; 
+    display: flex; 
+    justify-content: start; 
+    align-items: center;  
+}
+.area-pri  { 
+    grid-area: pri;  
+    font-size: .95rem; 
+    line-height: 0; 
+    display: flex; 
+    justify-content: start; 
+    align-items: center;
+}
+.area-fchA { 
+    grid-area: fchA; 
+    display:flex; 
+    flex-direction:column; 
+    align-items:center; 
+}
+.area-fchB { 
+    grid-area: fchB; 
+    display:flex; 
+    flex-direction:column; 
+    align-items:center; 
+}
+.area-pso  { 
+    grid-area: pso; 
+}
 
 /* ID: 1 renglón, elipsis, medidas relativas */
-.id-text{
+/* .id-text{
   max-width: 100%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 600;
-}
+} */
 
 /* Punto de prioridad a la derecha del ID (mock: rojo con glow) */
 .priority-dot{
