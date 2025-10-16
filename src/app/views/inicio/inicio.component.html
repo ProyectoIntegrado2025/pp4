@@ -102,11 +102,12 @@
 </div>
 <!-- Estructura de c/ Task -->
  <div class="cardTask">
-
+      <!-- IMG DE FONDO -->
+      <img class="imglogoback" src="../../../assets/logos/logo.png" alt="logo">
         <!-- ID -->
         <div class="area-id">
-            <h2>ID:</h2>
-            <p>bsa24fE-294e-23dw-v23f-2aew049322</p> 
+            <h2 class="area-Txt1">ID:</h2>
+            <p class="area-Txt2">bsa24fE-294e-23dw-v23f-2aew049322</p> 
         </div>
         <!-- Punto (círculo con glow rojo) -->
         <div class="area-point">
@@ -114,29 +115,42 @@
         </div>
         <!-- Título (sin la palabra “Título”) -->
         <div class="area-tit">
-          <h2>Configurar entorno de AWS</h2>
+          <h2 class="area-Txt1">Configurar entorno de AWS</h2>
+        </div>
+        <!-- Prioridad -->
+        <div class="area-pri">
+          <p class="area-Txt1"><strong>Prioridad:</strong></p><p class="area-Txt2">Alta</p>
         </div>
         <!-- Estado -->
-        <div class="area-est"><strong>Estado:</strong> En Desarrollo</div>
-        <!-- Prioridad -->
-        <div class="area-pri"><strong>Prioridad:</strong> Alta</div>
+        <div class="area-est">
+          <p class="area-Txt1"><strong>Estado:</strong></p><p class="area-Txt2">En Desarrollo</p>
+        </div>  
         <!-- Fechas -->
         <div class="area-fchA">
-          <span class="label">Inicio</span>
-          <span class="date">10/10/2025</span>
+          <span class="label area-Txt1">Inicio</span>
+          <span class="date area-Txt2">10/10/2025</span>
         </div>
         <div class="area-fchB">
-          <span class="label">Fin</span>
-          <span class="date">15/10/2025</span>
+          <span class="label area-Txt1">Fin</span>
+          <span class="date area-Txt2">15/10/2025</span>
         </div>
         <!-- Pasos -->
-        <div class="area-pso pasos-box">
-          <strong class="pasos-title">Pasos:</strong>
-          <ul class="pasos-list">
+        <div class="area-pso pasos-box areaPasos">
+          <strong class="pasos-title area-Txt1">Pasos:</strong>
+          <ul class="pasos-list area-Txt2">
             <li>Definir endpoints</li>
             <li>Configurar Lambda</li>
             <li>Conectar con DynamoDB</li>
           </ul>
+        </div>
+        <!-- Funcionalidades -->
+         <div class="cfg">
+          <button class="btnTaskFunction"><!-- (click)="editarTarea(tarea)" *ngIf="tarea._id" -->
+            <img class="iconTareaFuncion" src="../../../assets/iconos/editTast.png" alt="Editar Tarea">
+          </button>  
+          <button class="btnTaskFunction"><!-- (click)="capturarYCompartir(tarea._id)" -->
+            <img class="iconTareaFuncion" src="../../../assets/iconos/downloadTask.png" alt="Compartir Tarea" />
+          </button> 
         </div>
 </div>
 

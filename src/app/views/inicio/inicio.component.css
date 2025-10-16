@@ -150,14 +150,31 @@ main{
   grid-template-areas:
     "id   id   id   id   id   point"
     "tit  tit  tit  tit  tit  tit"
-    "est  est  est  est  est  est"
     "pri  pri  pri  pri  pri  pri"
+    "est  est  est  est  est  est"
     "fchA fchA fchA fchB fchB fchB"
-    "pso  pso  pso  pso  pso  pso";
+    "pso  pso  pso  pso  pso  pso"
+    "cfg  cfg  cfg  cfg  cfg  cfg";
   gap: 0px;
-  padding: 20px;
+  padding: 15px 20px 5px 20px;
   background: #fff;
   box-shadow: 0 4px 10px rgba(0,0,0,.06);
+  border: 1px outset rgb(0, 150, 125);
+  position: relative;/* Para que funcione la imagen de fondo */
+  background: var(--card-cardTask);
+}
+/* Solo la imagen fantasma de fondo */
+.imglogoback {
+  position: absolute;
+  top: 50%;
+  left: 50%; 
+  transform: translate(-50%, -50%);  /* corrige el centrado */
+  width: min(95%, 380px);             /* tamaño adaptable, ajustá a gusto */
+  height: auto;
+  opacity: 0.04;                      /* solo la imagen, no el contenido */
+  pointer-events: none;               /* evita que el elemento intercepte eventos del mouse (clics, hover, focus, select) */
+  user-select: none;                  /* evita que pueda arrastrar el logo o que aparezca el cursor de selección */
+  z-index: 0;                         /* detrás del contenido de la card */
 }
 /* Áreas */
 .area-id{
@@ -170,7 +187,6 @@ main{
     .area-id h2{
         margin: 0;
         font-weight: 700;
-        color: rgb(0, 84, 87);;
         font-size: .9em; /* o el que quieras */
     }
     .area-id p{
@@ -182,7 +198,6 @@ main{
         overflow-x: scroll;       /* activa scroll horizontal */
         scrollbar-width: none;  /* Firefox oculta scroll bar x */
         font-size: .9em; /* o el que quieras */
-        color: rgb(0, 114, 122);
     }
         .area-id p::-webkit-scrollbar { /* Chrome, Edge, Safari */
         display: none;
@@ -192,7 +207,7 @@ main{
     grid-area: point; 
     display:flex; 
     align-items:center; 
-    justify-content:end; 
+    justify-content:center; 
 }
 .area-tit  { 
     grid-area: tit;  
@@ -202,57 +217,55 @@ main{
 }
     .area-tit h2{
         margin: 0; 
-        font-size: 1.3rem; 
+        font-size: 1.2rem; 
         font-weight: 700;
         padding: 5px 0px 5px 0px;
-        color: rgb(0, 84, 87);
+        letter-spacing: 0.03em;
          
             white-space: nowrap;     /* una sola línea */
-            text-overflow: ellipsis; /* … */
+            text-overflow: ellipsis; /* … */ 
             overflow-x: scroll;       /* activa scroll horizontal */
             scrollbar-width: none;  /* Firefox oculta scroll bar x */
     }
-.area-est  { 
-    grid-area: est;  
-    font-size: .95rem; 
-    line-height: 0; 
-    display: flex; 
-    justify-content: start; 
-    align-items: center;  
-}
 .area-pri  { 
     grid-area: pri;  
     font-size: .95rem; 
     line-height: 0; 
-    display: flex; 
-    justify-content: start; 
+    display: flex;
     align-items: center;
+    gap: 2%;
+}
+.area-est  { 
+    grid-area: est;  
+    font-size: .95rem; 
+    line-height: 0; 
+    display: flex;
+    align-items: start;
+    gap: 2%;
 }
 .area-fchA { 
     grid-area: fchA; 
     display:flex; 
     flex-direction:column; 
-    align-items:center; 
+    align-items:center;
+    gap: 2%; 
 }
 .area-fchB { 
     grid-area: fchB; 
     display:flex; 
     flex-direction:column; 
-    align-items:center; 
+    align-items:center;
+    gap: 2%;
 }
 .area-pso  { 
     grid-area: pso; 
-}
-
-/* ID: 1 renglón, elipsis, medidas relativas */
-/* .id-text{
-  max-width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-weight: 600;
-} */
-
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 255, 242, 0.1) transparent;
+}       /* Fondo de "Pasos" */
+        .areaPasos{ 
+            background-color:var(--area-Pasos);
+            border: 1px solid rgba(0, 168, 140, 0.178);
+        }
 /* Punto de prioridad a la derecha del ID (mock: rojo con glow) */
 .priority-dot{
   width: 12px;
@@ -265,16 +278,12 @@ main{
 
 /* Fechas */
 .area-fchA .label, .area-fchB .label{
-  font-size: .8rem; color: #58667a; line-height: 1;
+  font-size: .8rem; 
+  line-height: 1;
+  font-weight: 700;
 }
-.area-fchA .date, .area-fchB .date{
-  font-weight: 600; margin-top: 2px;
-}
-
 /* Pasos: caja con borde y scroll vertical */
 .pasos-box{
-  background-color: #f9fbff;
-  border: 1px solid #d0d7e2;
   border-radius: 6px;
   padding: 8px 10px;
   max-height: 120px;
@@ -283,7 +292,6 @@ main{
 
 .pasos-title{
   display:block;
-  color:#1f365a;
   font-weight:600;
   margin-bottom:4px;
 }
@@ -298,3 +306,32 @@ main{
   margin-bottom:4px;
   white-space: pre-line; /* si el paso tuviera saltos de línea */
 }
+.area-Txt1{
+    color: var(--area-Txt1)
+}
+.area-Txt2{
+    color: var(--area-Txt2);
+}
+    .area-Txt2 li{
+        list-style-type: decimal;
+    }
+.cfg{
+    grid-area: cfg; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 1px solid rgba(0, 168, 160, 0.192);
+    gap: 4.5%;
+}
+        .btnTaskFunction {
+            background-color: transparent; /* Elimina el fondo gris */
+            /* border: 1px solid rgb(226, 226, 226); */ /* Elimina el borde */
+            border: none;
+            padding: .5%; /* Elimina el relleno interno para reducir el ancho */
+            border-radius: 15%;
+            width: 14.5%;
+            transition: transform 180ms;
+        }
+                .btnTaskFunction:hover{
+                    transform: scale(1.11);
+                }

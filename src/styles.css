@@ -4,6 +4,9 @@
   --bg: #ffffff;
   --fg: #111827;
   --card-bg: #ffffff;
+  --card-bgLogin: #ffffff;
+  --card-bgInicio: #ffffff;
+  --card-cardTask: #ffffff;
 }
 
 /* defecto - combinación como si fuera tema ligth */
@@ -21,15 +24,23 @@ main, body, app-root, app-view, app-auth {
 main.theme-light, html.theme-light {
   --bg: #f5f5f5;
   --fg: #111827;
+  --area-Txt1:rgb(0, 84, 87);
+  --area-Txt2:rgb(0, 118, 122);
   --card-bgLogin: #ffffff;
-  --card-bgInicio: #f5f5f5;
+  --card-bgInicio: #ffffff;
+  --card-cardTask: #ffffff;
+  --area-Pasos: #0099ff0a;
 }
 
 main.theme-dark, html.theme-dark {
   --bg: #0e0f0e;
   --fg: #e5e7eb;
+  --area-Txt1:rgb(25, 160, 119);
+  --area-Txt2:rgb(0, 190, 190);
   --card-bgLogin: #191b19;
   --card-bgInicio: #191b19;
+  --card-cardTask:#191b19;
+  --area-Pasos:#0086700c;
 }
 
 /* usar variables */
@@ -49,11 +60,18 @@ main {
   transition: color 1000ms ease;
 }
 /* clases de la parte media y baja de la tarjeta tareas en inicio */
-.mid, .bot{
+.mid, .bot{ 
   background: var(--card-bgInicio);
   color: var(--fg);
   transition: background-color 500ms ease, color 1400ms ease;
 }
+
+/* Para cardTask tarea con la última estructura */
+.cardTask{
+  background: var(--card-cardTask);
+  transition: background-color 500ms ease, color 1400ms ease;
+}
+
 
 
 
