@@ -55,7 +55,6 @@ import { AuthTokenInterceptor } from './interceptors/auth-token.interceptor';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    EditarComponent,
     FormsModule
   ],
   providers: [
