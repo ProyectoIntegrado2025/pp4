@@ -1,142 +1,150 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {
-  signIn,
   signUp,
+  signIn,
   confirmSignUp,
-  resendSignUpCode,
-  resetPassword,
-  confirmResetPassword,
   fetchAuthSession,
   signOut,
   getCurrentUser,
+  resendSignUpCode,
+  resetPassword,
+  confirmResetPassword,
+  fetchUserAttributes,
 } from 'aws-amplify/auth';
-import { BehaviorSubject } from 'rxjs';
+import { Hub } from 'aws-amplify/utils';
 
 export interface AuthenticatedUser {
-  username: string;
-  email?: string;
+  userId: string | null;
+  email: string | null;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private _authenticatedUser$ = new BehaviorSubject<AuthenticatedUser | null>(null);
-  authenticatedUser$ = this._authenticatedUser$.asObservable();
+  private _isAuthenticated = new BehaviorSubject<boolean>(false);
+  isAuthenticated = this._isAuthenticated.asObservable();
 
-  constructor() {
-    this.checkUser();
+  private _authenticatedUser = new BehaviorSubject<AuthenticatedUser | null>(null);
+  authenticatedUser$: Observable<AuthenticatedUser | null> = this._authenticatedUser.asObservable();
+
+  constructor(private router: Router, private ngZone: NgZone) {
+    // Escucha global de eventos de autenticación de Amplify
+    Hub.listen('auth', ({ payload }) => {
+      this.ngZone.run(() => {
+        switch (payload.event) {
+          case 'signedIn':
+            this._isAuthenticated.next(true);
+            this.updateAuthenticatedUser();
+            this.router.navigateByUrl('/inicio', { replaceUrl: true }).catch(() => {});
+            break;
+
+          case 'signedOut':
+            this._isAuthenticated.next(false);
+            this._authenticatedUser.next(null);
+            this.router.navigateByUrl('/login', { replaceUrl: true }).catch(() => {});
+            break;
+
+          default:
+            break;
+        }
+      });
+    });
+
+    setTimeout(() => this.checkAuthState(), 800);
   }
 
-  /** 🔹 Verifica si hay un usuario logueado al iniciar */
-  async checkUser() {
+  /** 🔹 Verifica si hay sesión activa */
+  async checkAuthState() {
     try {
-      const user = await getCurrentUser();
-      this._authenticatedUser$.next({
-        username: user.username,
-        email: user.signInDetails?.loginId,
+      const session = await fetchAuthSession();
+      const tokens = session?.tokens;
+
+      this.ngZone.run(() => {
+        if (tokens?.accessToken) {
+          this._isAuthenticated.next(true);
+          this.updateAuthenticatedUser();
+        } else {
+          this._isAuthenticated.next(false);
+          this._authenticatedUser.next(null);
+        }
       });
     } catch {
-      this._authenticatedUser$.next(null);
+      this._isAuthenticated.next(false);
+      this._authenticatedUser.next(null);
     }
   }
 
-  /** 🔹 Sign Up */
-  async userSignUp(email: string, password: string): Promise<any> {
+  /** 🔹 Actualiza los datos del usuario autenticado */
+  private async updateAuthenticatedUser(): Promise<void> {
     try {
-      const { isSignUpComplete, userId, nextStep } = await signUp({
-        username: email,
-        password,
-        options: {
-          userAttributes: {
-            email,
-          },
-        },
+      const user = await getCurrentUser();
+      const attributes = await fetchUserAttributes();
+      this._authenticatedUser.next({
+        userId: user.userId,
+        email: attributes.email || null,
       });
-      return { isSignUpComplete, userId, nextStep };
-    } catch (error) {
-      console.error('Error en registro:', error);
-      throw error;
+    } catch {
+      this._authenticatedUser.next(null);
     }
   }
 
-  /** 🔹 Confirm Sign Up */
+  /** 🔹 Registro de usuario */
+  async userSignUp(email: string, password: string): Promise<any> {
+    return await signUp({
+      username: email,
+      password,
+      options: { userAttributes: { email } },
+    });
+  }
+
+  /** 🔹 Confirmar registro */
   async userConfirmSignUp(email: string, code: string): Promise<any> {
-    try {
-      const result = await confirmSignUp({ username: email, confirmationCode: code });
-      return result;
-    } catch (error) {
-      console.error('Error al confirmar registro:', error);
-      throw error;
-    }
+    return await confirmSignUp({ username: email, confirmationCode: code });
   }
 
   /** 🔹 Reenviar código de confirmación */
   async resendSignUpCode(email: string): Promise<any> {
-    try {
-      const result = await resendSignUpCode({ username: email });
-      return result;
-    } catch (error) {
-      console.error('Error al reenviar código:', error);
-      throw error;
-    }
+    return await resendSignUpCode({ username: email });
   }
 
-  /** 🔹 Login */
+  /** 🔹 Inicio de sesión */
   async userSignIn(email: string, password: string): Promise<any> {
-    try {
-      const user = await signIn({ username: email, password });
-      await this.checkUser();
-      return user;
-    } catch (error) {
-      console.error('Error en inicio de sesión:', error);
-      throw error;
+    const result = await signIn({ username: email, password });
+    if (result.isSignedIn) {
+      this.updateAuthenticatedUser();
     }
+    return result;
   }
 
-  /** 🔹 Reset Password */
+  /** 🔹 Resetear contraseña */
   async userResetPassword(email: string): Promise<any> {
-    try {
-      const result = await resetPassword({ username: email });
-      return result;
-    } catch (error) {
-      console.error('Error en reset password:', error);
-      throw error;
-    }
+    return await resetPassword({ username: email });
   }
 
-  /** 🔹 Confirmar nuevo password */
+  /** 🔹 Confirmar nueva contraseña */
   async userConfirmResetPassword(email: string, code: string, newPassword: string): Promise<any> {
-    try {
-      const result = await confirmResetPassword({ username: email, confirmationCode: code, newPassword });
-      return result;
-    } catch (error) {
-      console.error('Error confirmando nueva contraseña:', error);
-      throw error;
-    }
+    return await confirmResetPassword({
+      username: email,
+      confirmationCode: code,
+      newPassword,
+    });
   }
 
-  /** 🔹 Verifica si hay sesión activa */
-  async isAuthenticated(): Promise<boolean> {
-    try {
-      const { tokens } = await fetchAuthSession();
-      return !!tokens?.idToken;
-    } catch {
-      return false;
-    }
-  }
-
-  /** 🔹 Cierra sesión */
+  /** 🔹 Cerrar sesión */
   async logout(): Promise<void> {
     try {
       await signOut();
-      this._authenticatedUser$.next(null);
+      this._authenticatedUser.next(null);
+      this._isAuthenticated.next(false);
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
     }
   }
 
-  /** 🔹 Obtiene el ID Token */
+  /** 🔹 Obtener ID Token */
   async getIdToken(): Promise<string | null> {
     try {
       const { tokens } = await fetchAuthSession();
@@ -147,7 +155,7 @@ export class AuthService {
     }
   }
 
-  /** 🔹 Obtiene el Access Token */
+  /** 🔹 Obtener Access Token */
   async getAccessToken(): Promise<string | null> {
     try {
       const { tokens } = await fetchAuthSession();

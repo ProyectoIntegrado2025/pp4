@@ -6,12 +6,12 @@ import { AuthService } from 'src/app/services/authServices/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  cargando: boolean = false;
-  mensajeError: string = '';
+  cargando = false;
+  mensajeError = '';
 
   constructor(
     private fb: FormBuilder,
@@ -26,8 +26,8 @@ export class LoginComponent implements OnInit {
         [
           Validators.required,
           Validators.email,
-          Validators.pattern("[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{2,}$")
-        ]
+          Validators.pattern('[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{2,}$'),
+        ],
       ],
       password: [
         '',
@@ -35,10 +35,10 @@ export class LoginComponent implements OnInit {
           Validators.required,
           Validators.minLength(8),
           Validators.pattern(
-            "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?`~ ]).{8,}$"
-          )
-        ]
-      ]
+            '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};\'":\\\\|,.<>\\/?`~ ]).{8,}$'
+          ),
+        ],
+      ],
     });
   }
 
@@ -59,38 +59,32 @@ export class LoginComponent implements OnInit {
     const { email, password } = this.loginForm.value;
 
     try {
-      try {
-        // 🔹 Intentar iniciar sesión normalmente
-        await this.authService.userSignIn(email, password);
-        await this.authService.checkUser(); // 🔹 Sincroniza el estado del usuario
-      } catch (error: any) {
-        // 🔹 Si ya hay un usuario autenticado, sincronizamos sin mostrar error
-        if (error.name === 'UserAlreadyAuthenticatedException') {
-          console.warn('Usuario ya autenticado, sincronizando sesión...');
-          await this.authService.checkUser();
-        } else {
-          throw error; // 🔹 Otros errores se manejan más abajo
-        }
-      }
+      const result = await this.authService.userSignIn(email, password);
 
-      // ✅ Si todo sale bien, redirigimos al inicio
-      this.router.navigateByUrl('/inicio');
+      if (result.isSignedIn) {
+        // ✅ Si el inicio de sesión es exitoso, redirigimos al inicio
+        this.router.navigateByUrl('/inicio');
+      }
 
     } catch (error: any) {
       console.error('Error durante el inicio de sesión:', error);
 
-      let errorMessage = 'Ha ocurrido un error al iniciar sesión. Por favor, inténtalo de nuevo.';
-      if (error.name === 'NotAuthorizedException') {
-        errorMessage = 'Credenciales incorrectas. Verifica tu email y contraseña.';
-      } else if (error.name === 'UserNotConfirmedException') {
-        errorMessage = 'Tu cuenta no ha sido confirmada. Revisa tu correo para el código de verificación.';
-      } else if (error.name === 'UserNotFoundException') {
-        errorMessage = 'El email no está registrado. Por favor, regístrate.';
-      } else if (error.name === 'LimitExceededException') {
-        errorMessage = 'Demasiados intentos. Por favor, espera y vuelve a intentarlo.';
+      let mensaje = 'Ha ocurrido un error al iniciar sesión. Por favor, inténtalo de nuevo.';
+      switch (error.name) {
+        case 'NotAuthorizedException':
+          mensaje = 'Credenciales incorrectas. Verifica tu email y contraseña.';
+          break;
+        case 'UserNotConfirmedException':
+          mensaje = 'Tu cuenta no ha sido confirmada. Revisa tu correo electrónico.';
+          break;
+        case 'UserNotFoundException':
+          mensaje = 'El email no está registrado. Por favor, regístrate.';
+          break;
+        case 'LimitExceededException':
+          mensaje = 'Demasiados intentos. Espera unos minutos e inténtalo nuevamente.';
+          break;
       }
-
-      this.mensajeError = errorMessage;
+      this.mensajeError = mensaje;
     } finally {
       this.cargando = false;
     }
