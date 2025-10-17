@@ -109,7 +109,7 @@ input{
 }
 /* Contenedor del botón ingresar y p "Ingresar" */
 .btnLogin{  
-    width: clamp(70px, 7vw, 6vw);
+    width: clamp(70px, 6vw, 5vw);
     line-height: 0;  
     flex: 0 0 auto;         
     border: none;

@@ -43,7 +43,12 @@ export class InicioComponent implements OnInit, OnDestroy {
       }
     });
   }
-  /*
+
+
+prioridad = 'Media'; // cambiá a 'Media' o 'Baja'
+  
+
+/*
    cargarTareas() {
      this.apiTareasService.getTareas().subscribe({
        next: res => {

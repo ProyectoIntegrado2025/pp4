@@ -107,11 +107,18 @@
         <!-- ID -->
         <div class="area-id">
             <h2 class="area-Txt1">ID:</h2>
-            <p class="area-Txt2">bsa24fE-294e-23dw-v23f-2aew049322</p> 
+            <p class="area-Txt2 id-code">bsa24fE-294e-23dw-v23f-2aew049322</p> 
         </div>
         <!-- Punto (círculo con glow rojo) -->
         <div class="area-point">
-          <span class="priority" title="Representación de Prioridad"></span>
+            <span
+              class="priority"
+              [ngClass]="{
+                'prio-alta':  prioridad === 'Alta',
+                'prio-media': prioridad === 'Media',
+                'prio-baja':  prioridad === 'Baja'
+              }">
+            </span>
         </div>
         <!-- Título (sin la palabra “Título”) -->
         <div class="area-tit">
@@ -119,7 +126,16 @@
         </div>
         <!-- Prioridad -->
         <div class="area-pri">
-          <p class="area-Txt1"><strong>Prioridad:</strong></p><p class="area-Txt2">Alta</p>
+          <p class="area-Txt1"><strong>Prioridad:</strong></p>
+          <p
+                      
+              [ngClass]="{
+                'txt-alta':  prioridad === 'Alta',
+                'txt-media': prioridad === 'Media',
+                'txt-baja':  prioridad === 'Baja'
+              }">
+                    {{ prioridad }}
+          </p>
         </div>
         <!-- Estado -->
         <div class="area-est">
@@ -134,11 +150,11 @@
           <span class="label area-Txt1">Fin</span>
           <span class="date area-Txt2">15/10/2025</span>
         </div>
-        <!-- Pasos -->
+        <!-- Pasos --> 
         <div class="area-pso pasos-box areaPasos">
           <strong class="pasos-title area-Txt1">Pasos:</strong>
           <ul class="pasos-list area-Txt2">
-            <li>Definir endpoints</li>
+            <li>Definir endpoints</li> 
             <li>Configurar Lambda</li>
             <li>Conectar con DynamoDB</li>
           </ul>
