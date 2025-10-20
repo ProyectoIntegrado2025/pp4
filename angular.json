@@ -60,17 +60,20 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "tp_final_frontend:build:production"
-            },
-            "development": {
-              "buildTarget": "tp_final_frontend:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
+        "builder": "@angular-devkit/build-angular:dev-server",
+        "options": {
+          "browserTarget": "tp_final_frontend:build"
         },
+        "configurations": {
+          "production": {
+            "browserTarget": "tp_final_frontend:build:production"
+          },
+          "development": {
+            "browserTarget": "tp_final_frontend:build:development"
+          }
+        },
+        "defaultConfiguration": "development"
+      },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
