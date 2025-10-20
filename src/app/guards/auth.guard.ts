@@ -1,41 +1,39 @@
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  UrlTree,
-  Router,
-} from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { take, map, filter } from 'rxjs/operators';
 import { AuthService } from '../services/authServices/auth.service';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+
+  constructor(private authService: AuthService, private router: Router) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): Observable<boolean | UrlTree> {
-    // Si la ruta requiere autenticación (por defecto true)
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+
     const authRequired = route.data['authRequired'] !== false;
 
     return this.authService.isAuthenticated.pipe(
+      filter((v): v is boolean => v !== null), // espera hasta true/false real
       take(1),
-      map((isAuthenticated) => {
+      map(isAuthenticated => {
         if (authRequired) {
-          // 🔹 Ruta protegida: requiere login
-          return isAuthenticated
-            ? true
-            : this.router.createUrlTree(['/login']);
+          if (isAuthenticated) {
+            return true;
+          } else {
+            return this.router.createUrlTree(['/login']);
+          }
         } else {
-          // 🔹 Ruta pública: redirigir si ya está logueado
-          return isAuthenticated
-            ? this.router.createUrlTree(['/inicio'])
-            : true;
+          if (isAuthenticated) {
+            return this.router.createUrlTree(['/inicio']);
+          } else {
+            return true;
+          }
         }
       })
     );

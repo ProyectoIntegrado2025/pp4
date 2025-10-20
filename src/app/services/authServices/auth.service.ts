@@ -24,7 +24,7 @@ export interface AuthenticatedUser {
   providedIn: 'root',
 })
 export class AuthService {
-  private _isAuthenticated = new BehaviorSubject<boolean>(false);
+  private _isAuthenticated = new BehaviorSubject<boolean| null>(null);
   isAuthenticated = this._isAuthenticated.asObservable();
 
   private _authenticatedUser = new BehaviorSubject<AuthenticatedUser | null>(null);
@@ -38,13 +38,13 @@ export class AuthService {
           case 'signedIn':
             this._isAuthenticated.next(true);
             this.updateAuthenticatedUser();
-            this.router.navigateByUrl('/inicio', { replaceUrl: true }).catch(() => {});
+            //this.router.navigateByUrl('/inicio', { replaceUrl: true }).catch(() => {});
             break;
 
           case 'signedOut':
             this._isAuthenticated.next(false);
             this._authenticatedUser.next(null);
-            this.router.navigateByUrl('/login', { replaceUrl: true }).catch(() => {});
+           // this.router.navigateByUrl('/login', { replaceUrl: true }).catch(() => {});
             break;
 
           default:
@@ -53,7 +53,8 @@ export class AuthService {
       });
     });
 
-    setTimeout(() => this.checkAuthState(), 800);
+   // setTimeout(() => this.checkAuthState(), 800);
+   this.checkAuthState();
   }
 
   /** 🔹 Verifica si hay sesión activa */
