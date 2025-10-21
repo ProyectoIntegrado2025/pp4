@@ -28,8 +28,8 @@ const routes: Routes = [
   { path: 'editar/:id', component: EditarComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   { path: 'eliminar', component: EliminarTareaComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   //{ path: 'newPasswordRequired', component: NewPasswordComponent },
-  { path: 'chat-assistant', component: ChatAssistantComponent, canActivate: [AuthGuard], data: { authRequired: true}}
-  
+  { path: 'chat-assistant', component: ChatAssistantComponent, canActivate: [AuthGuard], data: { authRequired: true}},
+  { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
 @NgModule({

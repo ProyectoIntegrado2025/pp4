@@ -64,7 +64,7 @@
       <div class="cardForm">
           <form [formGroup]="confirmForm" (ngSubmit)="confirmSignUp()">
                 <!-- Campo de Email -->              
-                  <input type="email" placeholder="Email" id="email" formControlName="email"/>
+                  <input type="email" placeholder="Email" id="email" formControlName="email" [readonly]="true"/>
                   <label for="email"></label>
                         <!-- Validadores Eamil -->
                         <div *ngIf="errorControl['email']?.touched && errorControl['email']?.invalid" class="validatorsLogin" aria-live="polite">
