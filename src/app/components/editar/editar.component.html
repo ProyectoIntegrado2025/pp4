@@ -1,73 +1,70 @@
 <main>
-
-      <!-- Componente exportado theme-toggle -->
-     <app-theme-toggle class="global-toggle"></app-theme-toggle>
-     <!-- IMG DE FONDO ZENKI -->
-    <img class="imglogoback" src="../../../assets/Zenkiii.png" alt="logo">
+  <app-theme-toggle class="global-toggle"></app-theme-toggle>
+  <img class="imglogoback" src="../../../assets/Zenkiii.png" alt="logo">
 
   <div class="container mt-4">
     <h2 class="area-Txt1 h2Principal">EDITAR TAREA</h2>
 
+    <!-- Spinner de carga -->
     <div *ngIf="cargando" class="text-center mt-3">
       <div class="spinner-border" role="status"></div>
       <p>Cargando datos...</p>
     </div>
-    <!-- FORM -->
+
+    <!-- Formulario -->
     <div *ngIf="!cargando && tarea">
       <form (ngSubmit)="editarTarea()" #form="ngForm">
-            <div class="mb-3 area-Txt2">
-              <label for="Titulo" class="form-label">Título</label>
-              <input id="Titulo" [(ngModel)]="tarea.Titulo" name="Titulo" required class="form-control" disabled />
-            </div>
+        <div class="mb-3 area-Txt2">
+          <label for="Titulo" class="form-label">Título</label>
+          <input id="Titulo" [(ngModel)]="tarea.Titulo" name="Titulo" class="form-control" required />
+        </div>
 
-            <div class="mb-3">
-              <label for="Prioridad" class="form-label">Prioridad</label>
-              <select id="Prioridad" [(ngModel)]="tarea.Prioridad" name="Prioridad" class="form-select" required>
-                <option *ngFor="let p of prioridades" [value]="p">{{ p }}</option>
-              </select>
-            </div>
+        <div class="mb-3">
+          <label for="Prioridad" class="form-label">Prioridad</label>
+          <select id="Prioridad" [(ngModel)]="tarea.Prioridad" name="Prioridad" class="form-select" required>
+            <option *ngFor="let p of prioridades" [value]="p">{{ p }}</option>
+          </select>
+        </div>
 
-            <div class="mb-3">
-              <label for="Estado" class="form-label">Estado</label>
-              <select id="Estado" [(ngModel)]="tarea.Estado" name="Estado" class="form-select" required>
-                <option *ngFor="let e of estados" [value]="e">{{ e }}</option>
-              </select>
-            </div>
+        <div class="mb-3">
+          <label for="Estado" class="form-label">Estado</label>
+          <select id="Estado" [(ngModel)]="tarea.Estado" name="Estado" class="form-select" required>
+            <option *ngFor="let e of estados" [value]="e">{{ e }}</option>
+          </select>
+        </div>
 
-            <div class="row">
-              <div class="col-md-6 mb-3">
-                <label for="FechaInicio" class="form-label">Fecha de inicio</label>
-                <input id="FechaInicio" [(ngModel)]="tarea.FechaInicio" name="FechaInicio" class="form-control" type="date" required />
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="FechaFin" class="form-label">Fecha de fin</label>
-                <input id="FechaFin" [(ngModel)]="tarea.FechaFin" name="FechaFin" class="form-control" type="date" required />
-              </div>
-            </div>
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label for="FechaInicio" class="form-label">Fecha de inicio</label>
+            <input id="FechaInicio" [(ngModel)]="tarea.FechaInicio" name="FechaInicio" type="date" class="form-control" required />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="FechaFin" class="form-label">Fecha de fin</label>
+            <input id="FechaFin" [(ngModel)]="tarea.FechaFin" name="FechaFin" type="date" class="form-control" required />
+          </div>
+        </div>
 
-            <div class="mb-3">
-              <label class="form-label">Pasos</label>
-              <ul class="list-group">
-                <li *ngFor="let paso of tarea.Pasos; let i = index" class="list-group-item d-flex justify-content-between align-items-center">
-                  <input [(ngModel)]="tarea.Pasos[i]" name="paso{{i}}" class="form-control me-2" />
-                </li>
-              </ul>
-            </div>
+        <div class="mb-3">
+          <label class="form-label">Pasos</label>
+          <ul class="list-group">
+            <li *ngFor="let paso of tarea.Pasos; let i = index" class="list-group-item d-flex align-items-center">
+              <input [(ngModel)]="tarea.Pasos[i]" name="paso{{i}}" class="form-control" />
+            </li>
+          </ul>
+        </div>
 
-          <button type="submit" class="btn btn-primary mt-3 btnGuardar" [disabled]="cargando">
-            {{ cargando ? 'Guardando...' : 'Guardar cambios' }}
-          </button>
+        <button type="submit" class="btn btn-primary mt-3 btnGuardar" [disabled]="cargando">
+          {{ cargando ? 'Guardando...' : 'Guardar cambios' }}
+        </button>
       </form>
 
-        <div *ngIf="exito" class="alert alert-success mt-3">
+      <div *ngIf="exito" class="alert alert-success mt-3">
         Cambios guardados correctamente.
-        </div>
-
-        <div *ngIf="error" class="alert alert-danger mt-3">
-          Error al guardar los cambios. Intenta nuevamente.
-        </div>
       </div>
+
+      <div *ngIf="error" class="alert alert-danger mt-3">
+        Error al guardar los cambios. Intenta nuevamente.
+      </div>
+    </div>
   </div>
-
 </main>
-
