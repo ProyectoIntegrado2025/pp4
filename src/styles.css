@@ -35,7 +35,6 @@ main.theme-light, html.theme-light {
   --card-bgInicio: #ffffff;
   --card-cardTask: #ffffff;
   --area-Pasos: #0099ff0a;
-  --area-Txt1:rgb(0, 84, 87);
   --card-bg: #ffffff;
 }
  
@@ -48,7 +47,6 @@ main.theme-dark, html.theme-dark {
   --card-bgInicio: #191b19;
   --card-cardTask:#191b19;
   --area-Pasos:#0086700c;
-  --area-Txt1:rgb(25, 160, 119);
   --card-bg: #0d1329;
 }
 

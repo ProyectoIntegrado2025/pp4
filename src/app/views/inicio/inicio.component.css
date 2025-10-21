@@ -4,138 +4,43 @@ main{
     min-height: 100vh; /* respaldo */
     width: 100%;
 }
-.conteinerTasks{
-    height: auto;
-}
-.alerta-container{
-    display: flex;
-}
-
-
-.headerTareas{
-    margin-left: 8%;
-    font-size: 300%;
-}
-.headerBuscar{
-    font-size: 125%;
-}
-.titleCard{
-    font-size: 200%;
-    text-align: center;
+/* NAVBAR */
+.logoZenki{
+    width: clamp(100px, 5.5%, 110px);
+    pointer-events: none;
+    user-select: none;
 }
 /* Toggle cambio de tema, componente theme-toggle */
 /* Toggle cambio de tema, componente theme-toggle */
 .global-toggle{
   width: 2.23em; /* del 100% que ocupe el 82% */
   min-width: 30px;
+  margin-left: .2%;
 }
+/* Buscador */
+.form-control{
+    background-color: rgb(241, 255, 220);
+    color: rgb(0, 84, 87);
+}
+.form-control::placeholder{
+    color: rgb(0, 84, 87);
+    font-style: italic;
+}
+/* Div de titulo de tareas y swiper-container */
+.conteinerTasks{
+    height: auto;
+}
+/* Título previo a las tareas con swiper-container */
+.headerTareas{
+    margin-left: 8%;
+    font-size: 300%;
+}
+
 /* container del swiper-container*/
 .container{
     min-width: 92%;
     
 }
-/* card swiper-slide */
-.card{
-    border-radius: 5%;
-    overflow: hidden;
-    
-    width: 300px;
-    min-width: 280px;
-    height: 100%;
-    min-height: 470px;  
-
-    margin: 10px 10px 30px 10px;
-
-
-    
-    display: grid;
-    grid-template-areas: "top"
-                         "mid"
-                         "bot";
-}
-.top {
-    grid-area: top;
-}
-.top img{
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 100%;
-    height: 100%;
-}
-.mid {
-    grid-area: mid; 
-    text-align: center;
-}
-.bot {
-    grid-area: bot; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-top: 1px solid rgb(196, 196, 196);
-    gap: 1.3%;
-}
-
-
-
-.spanLi{
-    font-optical-sizing: auto; /* para fuentes q soporten la propeidad, ajustará automáticamente la apariencia de la fuente según el tamaño en que se use. Esto puede mejorar la legibilidad y la estética*/
-}
-
-.spanLiTareaID{
-    font-size: 70%;
-}
-.spanLiAsig{ 
-    font-size: 80%;
-    display: block;
-    margin-top: 3%;
-}
-.spanLiTitulo{
-    font-size: 119%;
-    font-family: "Charm", cursive;
-    font-weight: 700;
-    display: block;
-    margin: 2.5% 1% 3% 1%;
-
-}
-.spanLiDescrip{
-    font-size: 93%;
-    display: block;
-    margin: 0% 1% 0% 1%;
-}
-.spanLiFecha{
-    display: block;
-    margin-top: 5%;
-}
-.buttonTareaFuncion {
-    background-color: transparent; /* Elimina el fondo gris */
-    /* border: 1px solid rgb(226, 226, 226); */ /* Elimina el borde */
-    border: none;
-    padding: .5%; /* Elimina el relleno interno para reducir el ancho */
-    border-radius: 15%;
-    width: 11.5%;
-    transition: transform 180ms;
-}
-.buttonTareaFuncion:hover{
-    transform: scale(1.11);
-}
-.iconTareaFuncion{
-    width: 110%;
-}
-
-.modal-overlay {
-  position: fixed; /* Esto asegura que el modal ignore el scroll y la ubicación en el body */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Lo hice un poco más oscuro (0.8) para el efecto de "alerta general" */
-  z-index: 1050; 
-}
-
-
-
-
-
 /*  */
 /*  */
 /*  */
@@ -332,7 +237,7 @@ main{
 
 /* Colores para los textos */
 .area-Txt1{
-    color: var(--area-Txt1)
+    color: var(--area-Txt1);
 }
 .area-Txt2{
     color: var(--area-Txt2);
@@ -347,7 +252,7 @@ main{
     justify-content: center;
     border-top: 1px solid rgba(0, 168, 160, 0.192);
     gap: 4.5%;
-}
+}       /* button de Funcionalidades de card*/
         .btnTaskFunction {
             background-color: transparent; /* Elimina el fondo gris */
             /* border: 1px solid rgb(226, 226, 226); */ /* Elimina el borde */
@@ -360,3 +265,17 @@ main{
                 .btnTaskFunction:hover{
                     transform: scale(1.11);
                 }
+                    /* img de Funcionalidades de card*/
+                    .iconTareaFuncion{
+                        width: 110%;
+                    }
+
+.modal-overlay {
+  position: fixed; /* Esto asegura que el modal ignore el scroll y la ubicación en el body */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); /* Lo hice un poco más oscuro (0.8) para el efecto de "alerta general" */
+  z-index: 1050; 
+}
