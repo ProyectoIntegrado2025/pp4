@@ -62,8 +62,8 @@ export class LoginComponent implements OnInit {
       const result = await this.authService.userSignIn(email, password);
 
       if (result.isSignedIn) {
-        // ✅ Si el inicio de sesión es exitoso, redirigimos al inicio
-        this.router.navigateByUrl('/inicio');
+        // ✅ Si el inicio de sesión es exitoso, mostramos primero el Splash Screen
+        this.router.navigateByUrl('/splash');
       }
 
     } catch (error: any) {
