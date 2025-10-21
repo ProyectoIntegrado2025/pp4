@@ -5,12 +5,20 @@
 <main>
   <!-- NAVBAR -->
   <nav class="navbar navbar-dark bg-dark justify-content-between p-3 mb-2">
-    <a class="navbar-brand">Zenki</a>
-    <button class="btn btn-outline-danger" (click)="onLogout()">Cerrar Sesión</button>
+    <!-- <a class="navbar-brand">Zenki</a> -->
+     <img class="logoZenki" src="../../../assets/logos/logo+Zenki.png" alt="">
+    <!-- <button class="btn btn-outline-danger" (click)="onLogout()">Cerrar Sesión</button> -->
+    <button class="btnLogout" (click)="onLogout()">Cerrar Sesión</button>
   </nav>
 
-  <!-- THEME TOGGLE -->
-  <app-theme-toggle class="global-toggle"></app-theme-toggle>
+  <!-- THEME TOGGLE -->   <!-- THEME TOGGLE -->
+    <!-- Componente exportado theme-toggle -->
+      <app-theme-toggle class="global-toggle"></app-theme-toggle>
+
+  <!-- BUTTON CREAR TAREA -->  <!-- BUTTON CREAR TAREA -->
+    <!-- Icono que rutea al componente crear -->
+      <a [routerLink]="['/crear']"><img class="iconCrearTarea" src="../../../assets/iconos/botonCrearTarea.png" alt="Crear Tarea"></a>
+
 
   <!-- MODAL CONFIRMACIÓN LOGOUT -->
   <div *ngIf="mostrarModalConfirmacion" class="modal-overlay d-flex justify-content-center align-items-center">
@@ -40,8 +48,13 @@
   <!-- BUSCADOR -->
   <div *ngIf="!error" class="d-flex justify-content-center mt-3">
     <div class="m-3 w-50">
-      <p class="text-center fw-bold">Buscar</p>
-      <input class="form-control" type="text" placeholder="Buscar por título..." (input)="buscarTarea($event)" />
+      <!-- <p class="text-center fw-bold">Buscar</p> -->
+      <input
+        class="form-control"
+        type="text"
+        placeholder="Buscar por título..."
+        (input)="buscarTarea($event)"
+      />
     </div>
   </div>
 
@@ -52,11 +65,13 @@
     </div>
   </div>
 
-  <!-- LISTA DE TAREAS -->
-  <!--  <div class="conteinerTasks mt-4" *ngIf="!cargando && tareas.length">
-    <h2 class="headerTareas">Mis Tareas</h2>
+ <!-- LISTA DE TAREAS --> 
+    
+<div class="conteinerTasks mt-4" *ngIf="!cargando && tareas.length">
+    
+    <h2 class="headerTareas">Tareas</h2>
 
-    <swiper-container
+  <swiper-container
       class="container"
       slides-per-view="auto"
       pagination="bullets"
@@ -65,90 +80,40 @@
       initial-slide="3"
     >
       <swiper-slide
-        class="card"
+        class="cardTask"
         *ngFor="let tarea of tareas"
         [id]="'tarea-' + tarea.TareaId"
       >
-        <div class="top">
-          <img src="../../../assets/imgTop1.jpg" alt="fondo tarea" />
-        </div>
-
-        <div class="mid p-3">
-          <li><strong>ID:</strong> {{ tarea.TareaId }}</li>
-          <li><strong>Título:</strong> {{ tarea.Titulo }}</li>
-          <li><strong>Prioridad:</strong> {{ tarea.Prioridad }}</li>
-          <li><strong>Estado:</strong> {{ tarea.Estado }}</li>
-          <li><strong>Inicio:</strong> {{ tarea.FechaInicio }}</li>
-          <li><strong>Fin:</strong> {{ tarea.FechaFin }}</li>
-
-          <div *ngIf="tarea.Pasos?.length">
-            <strong>Pasos:</strong>
-            <ul class="small mt-2">
-              <li *ngFor="let paso of tarea.Pasos">{{ paso }}</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="bot d-flex justify-content-around p-2">
-          <button class="btn btn-outline-primary btn-sm" (click)="editarTarea(tarea)">
-            <img
-              class="iconTareaFuncion"
-              src="../../../assets/iconos/iconEditarTarea.png"
-              alt="Editar Tarea"
-            />
-          </button>
-          <button
-            class="btn btn-outline-secondary btn-sm"
-            (click)="capturarYCompartir(tarea.TareaId)"
-          >
-            <img
-              class="iconTareaFuncion"
-              src="../../../assets/iconos/iconDescargarTarea.png"
-              alt="Compartir Tarea"
-            />
-          </button>
-        </div>
-      </swiper-slide>
-    </swiper-container>
-  </div> -->
-
-
-
-
-  <!-- LISTA DE TAREAS -->
-  <div class="conteinerTasks mt-4" *ngIf="!cargando && tareas.length">
-
-    <h2 class="headerTareas">Mis Tareas</h2>
-
-    <swiper-container class="container" slides-per-view="auto" pagination="bullets" effect="slide"
-      centered-slides="true" initial-slide="3">
-      <swiper-slide class="cardTask" *ngFor="let tarea of tareas" [id]="'tarea-' + tarea.TareaId">
-        <img class="imglogoback" src="../../../assets/logos/logo.png" alt="logo">
-        <!-- ID -->
-        <div class="area-id">
-          <h2 class="area-Txt1">ID:</h2>
-          <p class="area-Txt2 id-code">{{ tarea.TareaId }}</p>
-        </div>
-        <!-- Punto (círculo con glow rojo) -->
-        <div class="area-point">
-          <span class="priority" [ngClass]="{
-      'prio-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
-      'prio-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
-      'prio-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
+            <img class="imglogoback" src="../../../assets/logos/logo.png" alt="logo">
+            <!-- ID -->
+            <div class="area-id">
+                <!-- <h2 class="area-Txt1">ID:</h2>
+                <p class="area-Txt2 id-code">{{ tarea.TareaId }}</p>  -->
+            </div>
+            <!-- Punto (círculo con glow rojo) -->
+            <div class="area-point">
+                <span
+                  class="priority"
+                  [ngClass]="{
+                    'prio-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
+                    'prio-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
+                    'prio-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
                   }">
-          </span>
-        </div>
-        <!-- Título (sin la palabra “Título”) -->
-        <div class="area-tit">
-          <h2 class="area-Txt1">{{ tarea.Titulo }}</h2>
-        </div>
-        <!-- Prioridad -->
-        <div class="area-pri">
-          <p class="area-Txt1"><strong>Prioridad:</strong></p>
-          <p [ngClass]="{
-      'txt-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
-      'txt-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
-      'txt-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
+                </span>
+            </div>
+            <!-- Título (sin la palabra “Título”) -->
+            <div class="area-tit">
+              <h2 class="area-Txt1">{{ tarea.Titulo }}</h2>
+            </div>
+            <!-- Prioridad -->
+            <div class="area-pri">
+              <p class="area-Txt1"><strong>Prioridad:</strong></p>
+              <p
+                          
+                  [ngClass]="{
+                    'txt-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
+                    'txt-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
+                    'txt-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
                   }">
             {{ tarea.Prioridad }}
           </p>
