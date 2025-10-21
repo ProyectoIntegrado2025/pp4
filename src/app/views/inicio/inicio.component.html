@@ -10,11 +10,18 @@
   <nav class="navbar navbar-dark bg-dark justify-content-between p-3 mb-2">
     <!-- <a class="navbar-brand">Zenki</a> -->
      <img class="logoZenki" src="../../../assets/logos/logo+Zenki.png" alt="">
-    <button class="btn btn-outline-danger" (click)="onLogout()">Cerrar Sesión</button>
+    <!-- <button class="btn btn-outline-danger" (click)="onLogout()">Cerrar Sesión</button> -->
+    <button class="btnLogout" (click)="onLogout()">Cerrar Sesión</button>
   </nav>
 
-  <!-- THEME TOGGLE -->
-  <app-theme-toggle class="global-toggle"></app-theme-toggle>
+  <!-- THEME TOGGLE -->   <!-- THEME TOGGLE -->
+    <!-- Componente exportado theme-toggle -->
+      <app-theme-toggle class="global-toggle"></app-theme-toggle>
+
+  <!-- BUTTON CREAR TAREA -->  <!-- BUTTON CREAR TAREA -->
+    <!-- Icono que rutea al componente crear -->
+      <a [routerLink]="['/crear']"><img class="iconCrearTarea" src="../../../assets/iconos/botonCrearTarea.png" alt="Crear Tarea"></a>
+
 
   <!-- MODAL CONFIRMACIÓN LOGOUT -->
   <div *ngIf="mostrarModalConfirmacion" class="modal-overlay d-flex justify-content-center align-items-center">
@@ -67,7 +74,7 @@
     
 <div class="conteinerTasks mt-4" *ngIf="!cargando && tareas.length">
     
-    <h2 class="headerTareas">Mis Tareas</h2>
+    <h2 class="headerTareas">Tareas</h2>
 
   <swiper-container
       class="container"

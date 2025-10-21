@@ -3,20 +3,65 @@ main{
     min-height: 100dvh; /* principal */
     min-height: 100vh; /* respaldo */
     width: 100%;
+    position: relative;
 }
 /* NAVBAR */
+nav{
+    background-color: var(--bg) !important;
+}
 .logoZenki{
-    width: clamp(100px, 5.5%, 110px);
+    width: clamp(125px, 6%, 130px);
     pointer-events: none;
     user-select: none;
 }
+.btnLogout{
+    background-color: #FFC857;
+    font-weight: 500;
+    font-size: 105%;
+    padding-inline: clamp(10px, .6%, 20px); /* izq der */
+    padding-block: clamp(7px, .4%, 16px);/* top bot */
+    border-radius: .5em;
+}
+    @media (max-width: 278px) {
+        .btnLogout {
+            margin-top: 5px;
+        }
+    }
+    
 /* Toggle cambio de tema, componente theme-toggle */
 /* Toggle cambio de tema, componente theme-toggle */
 .global-toggle{
   width: 2.23em; /* del 100% que ocupe el 82% */
   min-width: 30px;
-  margin-left: .2%;
+  margin-left: 1%;
 }
+    @media (max-width: 1024px) {
+        .global-toggle {
+            margin-left: 1.4%;
+        }
+    }
+    @media (max-width: 740px) {
+        .global-toggle {
+            margin-left: 2%;
+        }
+    }
+    @media (max-width: 480px) {
+        .global-toggle {
+            margin-left: 3%;
+        }
+    }
+/* ICON CREAR TAREA */
+.iconCrearTarea{
+    width: 4.2em;
+    position: absolute;
+    right: .7%;
+    bottom: 12%;
+    transition: filter 200ms ease;
+}
+    .iconCrearTarea:hover{
+        filter: drop-shadow(1px 1px 2px rgba(2, 175, 62, 0.373))
+                drop-shadow(-1px -1px 2px rgba(2, 175, 63, 0.373));
+    }
 /* Buscador */
 .form-control{
     background-color: rgb(241, 255, 220);
@@ -32,8 +77,12 @@ main{
 }
 /* Título previo a las tareas con swiper-container */
 .headerTareas{
-    margin-left: 8%;
-    font-size: 300%;
+    font-family: "Polya", sans-serif;
+    font-weight: 500;    /* importante si no tenés Polya-Bold */
+    margin: auto;
+    text-align: center;
+    font-size: 350%;
+    color: var(--area-Txt1);
 }
 
 /* container del swiper-container*/
@@ -152,11 +201,15 @@ main{
 /* Punto de prioridad a la derecha del ID (mock: rojo con glow) */
 .area-point{ 
     grid-area: point; 
-    display:flex; 
+/*     display:flex; 
     align-items:center; 
-    justify-content:center; 
+    justify-content:center;  */
+    position: relative;
 }
     .priority{
+        position: absolute;
+        right: 1.2%;
+        top: 10%;
         width: 4px;
         height: 4px;
         border-radius: 50%;

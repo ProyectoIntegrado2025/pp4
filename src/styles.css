@@ -14,7 +14,7 @@
   --card-bgInicio: #ffffff;
   --card-cardTask: #ffffff;
 }
-
+ 
 /* defecto */
 main, body, app-root, app-view, app-auth {
   height: 100%;
@@ -78,6 +78,10 @@ main {
   background: var(--card-cardTask);
   transition: background-color 500ms ease, color 1400ms ease;
 }
+nav{
+  background: var(--bg);
+  transition: background-color 500ms ease, color 1400ms ease;
+}
 
 
 
@@ -110,3 +114,15 @@ input:-moz-autofill {
 /* ------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------ */
+
+
+
+/* FUENTES */
+/* src/styles.css */
+@font-face {
+  font-family: "Polya";
+  src: url("/assets/fuentes/POLYA.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap; /* buena práctica para performance */
+}
