@@ -8,11 +8,11 @@ import { LoginComponent } from './views/login/login.component';
 import { NewPasswordComponent } from './views/new-password/new-password.component';
 
 import { AuthGuard } from './guards/auth.guard';
-
+import { wildcardRedirectGuard } from './guards/wildcard-redirect.guard';
 import { SignUpComponent } from './views/auth/sign-up/sign-up.component';
 import { ConfirmSignUpComponent } from './views/auth/confirm-sign-up/confirm-sign-up.component';
 import { ResetPasswordComponent } from './views/auth/reset-password/reset-password.component';
-
+import { NotFoundComponent } from './components/not-found.component';
 import { ChatAssistantComponent } from './components/chat-assistant/chat-assistant.component';
 
 const routes: Routes = [
@@ -20,14 +20,14 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard], data: { authRequired: false } },
   { path: 'sign-up', component: SignUpComponent, canActivate: [AuthGuard], data: { authRequired: false } },
   { path: 'confirm-sign-up/:email', component: ConfirmSignUpComponent, canActivate: [AuthGuard], data: { authRequired: false } },
-  { path: 'reset-password', component: ResetPasswordComponent, data: { authRequired: false } },
+  { path: 'reset-password', component: ResetPasswordComponent, canActivate: [AuthGuard], data: { authRequired: false } },
   { path: 'inicio', component: InicioComponent, canActivate: [AuthGuard], data: { authRequired: true } },
   { path: 'crear', component: CrearComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   { path: 'editar/:id', component: EditarComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   { path: 'eliminar', component: EliminarTareaComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
-  { path: 'newPasswordRequired', component: NewPasswordComponent },
-  { path: 'chat-assistant', component: ChatAssistantComponent, canActivate: [AuthGuard], data: { authRequired: true}}
-  
+ // { path: 'newPasswordRequired', component: NewPasswordComponent },
+  { path: 'chat-assistant', component: ChatAssistantComponent, canActivate: [AuthGuard], data: { authRequired: true}},
+  { path: '**', component: NotFoundComponent, canActivate: [wildcardRedirectGuard] }
 ];
 
 @NgModule({
