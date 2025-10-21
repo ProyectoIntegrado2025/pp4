@@ -25,8 +25,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
@@ -60,21 +60,24 @@
           "defaultConfiguration": "production"
         },
         "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "browserTarget": "tp_final_frontend:build:production"
-            },
-            "development": {
-              "browserTarget": "tp_final_frontend:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
+        "builder": "@angular-devkit/build-angular:dev-server",
+        "options": {
+          "browserTarget": "tp_final_frontend:build"
         },
+        "configurations": {
+          "production": {
+            "browserTarget": "tp_final_frontend:build:production"
+          },
+          "development": {
+            "browserTarget": "tp_final_frontend:build:development"
+          }
+        },
+        "defaultConfiguration": "development"
+      },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "tp_final_frontend:build"
+            "buildTarget": "tp_final_frontend:build"
           }
         },
         "test": {

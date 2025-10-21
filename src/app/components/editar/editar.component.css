@@ -1,0 +1,80 @@
+main{
+    min-height: 100dvh; /* principal */
+    min-height: 100vh; /* respaldo */
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+/* imagen de fondo */
+.imglogoback {
+  position: absolute;
+  right: max(8px, env(safe-area-inset-right));    
+  bottom: max(8px, env(safe-area-inset-bottom));  
+  width: clamp(300px, 30vw, 800px);                       
+  height: auto;
+  opacity: .15;                      
+  pointer-events: none;               
+  user-select: none;                  
+  z-index: 0;                       
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+}
+.h2Principal{
+    letter-spacing: .3em;
+    text-align: center;
+    padding-bottom: 2%;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+}
+.btnGuardar{
+    align-self: center;
+}
+/* Toggle cambio de tema, componente theme-toggle */
+.global-toggle{
+    width: 2.23em;
+    position: absolute;
+    left: 1%;
+    top: 1%;
+} 
+    /* cuando el viewport es angosto, reservo alto para el toggle */
+        @media (max-width: 610px){
+        main { padding-top: 20px; }         /* ≈ alto del toggle + margen */
+        .title { margin-top: 0; }           /* asegurá que no sume doble espacio */
+        }
+/* 2 colores desde css global */
+.area-Txt1{ 
+    font-weight: 700;
+    color: var(--area-Txt1);
+}   
+.area-Txt2{
+    color: var(--area-Txt2);
+}
+/* Label */
+label{
+    font-weight: 600;
+    color: var(--area-Txt1);    
+}
+/* Inputs */
+input {
+  color: var(--area-Txt1); 
+  
+}
+    input:focus{
+        color: var(--area-Txt1);
+    }
+/* Select */
+select{
+    color: var(--area-Txt1);
+}

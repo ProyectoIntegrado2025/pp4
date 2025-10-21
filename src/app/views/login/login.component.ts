@@ -6,46 +6,47 @@ import { AuthService } from 'src/app/services/authServices/auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  // FormGroup for the login form.
   loginForm!: FormGroup;
-  // State variables for displaying messages and loading spinner.
-  cargando: boolean = false;
-  mensajeError: string = '';
+  cargando = false;
+  mensajeError = '';
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    // Initialize the login form with its controls and validations.
     this.loginForm = this.fb.group({
-      email: ['', [
-        Validators.required,
-        Validators.email,
-        Validators.pattern("[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{2,}$")
-      ]],
-      password: ['', [
-        Validators.required,
-        Validators.minLength(8),
-        Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?`~ ]).{8,}$")
-      ]]
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{2,}$'),
+        ],
+      ],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.pattern(
+            '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};\'":\\\\|,.<>\\/?`~ ]).{8,}$'
+          ),
+        ],
+      ],
     });
   }
 
-  // Getter for easy access to form controls in the template.
   get errorControl() {
     return this.loginForm.controls;
   }
 
-  /**
-   * Handles the user login process.
-   * Calls the AuthService to authenticate the user.
-   */
+  /** 🔹 Maneja el inicio de sesión del usuario */
   async userLogin() {
     if (this.loginForm.invalid) {
       this.mensajeError = 'Por favor, ingresa un email y contraseña válidos.';
@@ -58,29 +59,38 @@ export class LoginComponent implements OnInit {
     const { email, password } = this.loginForm.value;
 
     try {
-      await this.authService.userSignIn(email, password);
+      const result = await this.authService.userSignIn(email, password);
+
+      if (result.isSignedIn) {
+        // ✅ Si el inicio de sesión es exitoso, redirigimos al inicio
+        this.router.navigateByUrl('/inicio');
+      }
+
     } catch (error: any) {
       console.error('Error durante el inicio de sesión:', error);
-      
-      let errorMessage = 'Ha ocurrido un error al iniciar sesión. Por favor, inténtalo de nuevo.';
-      if (error.name === 'NotAuthorizedException') {
-        errorMessage = 'Credenciales incorrectas. Verifica tu email y contraseña.';
-      } else if (error.name === 'UserNotConfirmedException') {
-        errorMessage = 'Tu cuenta no ha sido confirmada. Por favor, revisa tu correo electrónico para el código de verificación.';
-      } else if (error.name === 'UserNotFoundException') {
-        errorMessage = 'El email no está registrado. Por favor, regístrate.';
-      } else if (error.name === 'LimitExceededException') {
-        errorMessage = 'Demasiados intentos. Por favor, espera y vuelve a intentarlo.';
+
+      let mensaje = 'Ha ocurrido un error al iniciar sesión. Por favor, inténtalo de nuevo.';
+      switch (error.name) {
+        case 'NotAuthorizedException':
+          mensaje = 'Credenciales incorrectas. Verifica tu email y contraseña.';
+          break;
+        case 'UserNotConfirmedException':
+          mensaje = 'Tu cuenta no ha sido confirmada. Revisa tu correo electrónico.';
+          break;
+        case 'UserNotFoundException':
+          mensaje = 'El email no está registrado. Por favor, regístrate.';
+          break;
+        case 'LimitExceededException':
+          mensaje = 'Demasiados intentos. Espera unos minutos e inténtalo nuevamente.';
+          break;
       }
-      this.mensajeError = errorMessage;
+      this.mensajeError = mensaje;
     } finally {
       this.cargando = false;
     }
   }
 
-  /**
-   * Navigates to the sign-up page.
-   */
+  /** 🔹 Navegar al registro */
   goToSignUp() {
     this.router.navigateByUrl('/sign-up');
   }

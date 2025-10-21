@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 /* se toman como referencia */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add global styles to this file, and also import other style files */
+/* se toman como referencia */
 :root {
   --bg: #ffffff;
   --fg: #111827;
@@ -9,17 +15,16 @@
   --card-cardTask: #ffffff;
 }
 
-/* defecto - combinación como si fuera tema ligth */
+/* defecto */
 main, body, app-root, app-view, app-auth {
   height: 100%;
-  min-height: 100vh;
   margin: 0;
   padding: 0;
   display: block;
   background: var(--bg);
   color: var(--fg);
 }
- 
+
 /* tema claro/oscuro aplicable a <main> y fallback en <html> */
 main.theme-light, html.theme-light {
   --bg: #f5f5f5;
@@ -30,8 +35,10 @@ main.theme-light, html.theme-light {
   --card-bgInicio: #ffffff;
   --card-cardTask: #ffffff;
   --area-Pasos: #0099ff0a;
+  --area-Txt1:rgb(0, 84, 87);
+  --card-bg: #ffffff;
 }
-
+ 
 main.theme-dark, html.theme-dark {
   --bg: #0e0f0e;
   --fg: #e5e7eb;
@@ -41,6 +48,8 @@ main.theme-dark, html.theme-dark {
   --card-bgInicio: #191b19;
   --card-cardTask:#191b19;
   --area-Pasos:#0086700c;
+  --area-Txt1:rgb(25, 160, 119);
+  --card-bg: #0d1329;
 }
 
 /* usar variables */

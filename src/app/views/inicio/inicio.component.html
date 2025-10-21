@@ -1,83 +1,72 @@
 <head>
-  <!-- Link al swiper cnd -->
   <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-/>
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  />
 </head>
 
 <main>
-<!-- navbar definido por bootstrap -->
-<nav class="navbar navbar-dark  bg-dark justify-content-between p-3 mb-2">
-    <a class="navbar-brand">Zenki</a>      
-    <button class="btn btn-outline-danger onLogout" (click)="onLogout()">Cerrar Sesión</button>
-</nav> 
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-dark bg-dark justify-content-between p-3 mb-2">
+    <a class="navbar-brand">Zenki</a>
+    <button class="btn btn-outline-danger" (click)="onLogout()">Cerrar Sesión</button>
+  </nav>
 
-      <!-- Componente exportado theme-toggle -->
-     <app-theme-toggle class="global-toggle"></app-theme-toggle> 
+  <!-- THEME TOGGLE -->
+  <app-theme-toggle class="global-toggle"></app-theme-toggle>
 
-
-<!-- 1. MODAL DE CONFIRMACIÓN DE CIERRE DE SESIÓN -->
-<!-- Al colocarlo como el primer elemento del body, se asegura que sea la capa base de la aplicación. -->
-<div *ngIf="mostrarModalConfirmacion" class="modal-overlay d-flex justify-content-center align-items-center">
-  <div class="modal-dialog modal-md" role="document"> <!-- CAMBIADO A modal-md -->
-    <div class="modal-content bg-dark text-white" style="border-radius: 1rem; border: 1px solid rgba(255, 255, 255, 0.1);">
-      <div class="modal-header border-bottom-0">
-        <h5 class="modal-title">Confirmación</h5>
-        <!-- Botón para cerrar/cancelar el modal -->
-        <button type="button" class="btn-close btn-close-white" (click)="cancelLogout()" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body text-center">
-        <p>¿Estás seguro de que quieres cerrar tu sesión actual?</p>
-      </div>
-      <div class="modal-footer d-flex justify-content-between border-top-0">
-        <!-- Botón para cancelar el cierre de sesión -->
-        <button type="button" class="btn btn-outline-secondary flex-fill me-2" (click)="cancelLogout()">Cancelar</button>
-        <!-- Botón para confirmar el cierre de sesión -->
-        <button type="button" class="btn btn-danger flex-fill" (click)="confirmLogout()">Cerrar Sesión</button>
+  <!-- MODAL CONFIRMACIÓN LOGOUT -->
+  <div *ngIf="mostrarModalConfirmacion" class="modal-overlay d-flex justify-content-center align-items-center">
+    <div class="modal-dialog modal-md" role="document">
+      <div
+        class="modal-content bg-dark text-white"
+        style="border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1);"
+      >
+        <div class="modal-header border-bottom-0">
+          <h5 class="modal-title">Confirmación</h5>
+          <button type="button" class="btn-close btn-close-white" (click)="cancelLogout()"></button>
+        </div>
+        <div class="modal-body text-center">
+          <p>¿Seguro que deseas cerrar la sesión?</p>
+        </div>
+        <div class="modal-footer border-top-0 d-flex justify-content-between">
+          <button class="btn btn-outline-secondary flex-fill me-2" (click)="cancelLogout()">Cancelar</button>
+          <button class="btn btn-danger flex-fill" (click)="confirmLogout()">Cerrar Sesión</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!-- <nav class="navbar navbar-dark bg-dark justify-content-between p-3">
-  <a class="navbar-brand">TaskFlow</a>
-  <button class="btn btn-outline-danger" (click)="onLogout()">Cerrar Sesión</button>
-</nav> -->
-<!-- LOG OUT -->
 
-
-
-
-
-
-                <!-- Error al cargar las tareas -->
-<div *ngIf="error" class="bg-dark add-container d-flex justify-content-center align-content-center">
-  <div class="alert alert-danger d-flex align-items-center m-2 w-75 alerta-container" role="alert">
-    <div class="m-auto">
-      <span class="fw-bold">Ocurrió un error al cargar las tareas.</span>
-    </div>
+  <!-- ERROR -->
+  <div *ngIf="error" class="alert alert-danger text-center m-3">
+    Ocurrió un error al cargar las tareas.
   </div>
-</div>
 
-
-<div *ngIf="!error"></div>
-  <br>
-  <h2 class="headerTareas">Tareas</h2>
-  <div class="d-flex justify-content-center">
-    <div class="m-3">
-      <p class="headerBuscar">Buscar</p>
-      <input class="form-control" type="text" placeholder="Tarea ID..." (input)="buscarTarea($event)">
+  <!-- BUSCADOR -->
+  <div *ngIf="!error" class="d-flex justify-content-center mt-3">
+    <div class="m-3 w-50">
+      <p class="text-center fw-bold">Buscar</p>
+      <input
+        class="form-control"
+        type="text"
+        placeholder="Buscar por título..."
+        (input)="buscarTarea($event)"
+      />
     </div>
   </div>
 
-                    <!-- Spinner de carga -->
-  <div *ngIf="cargando" class="d-flex justify-content-center mt-3 text-primary">
-      <div class="spinner-border" role="status">
-        <span class="visually-hidden">Cargando...</span>
-      </div>
-  </div> 
+  <!-- SPINNER DE CARGA -->
+  <div *ngIf="cargando" class="text-center mt-4 text-primary">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+  </div>
 
+  <!-- LISTA DE TAREAS -->
+ <!--  <div class="conteinerTasks mt-4" *ngIf="!cargando && tareas.length">
+    <h2 class="headerTareas">Mis Tareas</h2>
 
+<<<<<<< HEAD
 
 
   <!-- MOK DE TAREAS CON ESTRUCTURA FINAL -->
@@ -189,120 +178,159 @@
   > 
     
       <swiper-slide class="card" *ngFor="let tarea of obtenerTareasFinalizadas()" [id]="'tarea-'+ tarea._id">
+=======
+    <swiper-container
+      class="container"
+      slides-per-view="auto"
+      pagination="bullets"
+      effect="slide"
+      centered-slides="true"
+      initial-slide="3"
+    >
+      <swiper-slide
+        class="card"
+        *ngFor="let tarea of tareas"
+        [id]="'tarea-' + tarea.TareaId"
+      >
+>>>>>>> c7271700aca722f3b13703c7ab436c4e6831e62c
         <div class="top">
-          <img src="../../../assets/imgTop1.jpg" alt="">
+          <img src="../../../assets/imgTop1.jpg" alt="fondo tarea" />
         </div>
-        <div class="mid">
-          <li><span class="spanLi spanLiTareaID">Tarea ID: {{tarea._id}}</span></li>
-          <li><span class="spanLi spanLiAsig">{{tarea.asignado}}</span></li>
-          <li><span class="spanLi spanLiTitulo">{{tarea.titulo}} </span></li>
-          <li><span class="spanLi spanLiDescrip">{{tarea.descripcion}}</span></li>
-          <li><span class="spanLi spanLiFecha">Finalización: {{formatearFecha(tarea.fecha_fin)}}</span></li>
-          <li [ngClass]="cambiarColorEstado(tarea.estado)" class="list-group-item"><span class="spanLi spanLiEstado">{{tarea.estado}}</span></li>
+
+        <div class="mid p-3">
+          <li><strong>ID:</strong> {{ tarea.TareaId }}</li>
+          <li><strong>Título:</strong> {{ tarea.Titulo }}</li>
+          <li><strong>Prioridad:</strong> {{ tarea.Prioridad }}</li>
+          <li><strong>Estado:</strong> {{ tarea.Estado }}</li>
+          <li><strong>Inicio:</strong> {{ tarea.FechaInicio }}</li>
+          <li><strong>Fin:</strong> {{ tarea.FechaFin }}</li>
+
+          <div *ngIf="tarea.Pasos?.length">
+            <strong>Pasos:</strong>
+            <ul class="small mt-2">
+              <li *ngFor="let paso of tarea.Pasos">{{ paso }}</li>
+            </ul>
+          </div>
         </div>
-        <div class="bot">
-          <button class="buttonTareaFuncion">
-            <img class="iconTareaFuncion" src="../../../assets/iconos/iconSubirPDF.png" alt="Up PDF">
+
+        <div class="bot d-flex justify-content-around p-2">
+          <button class="btn btn-outline-primary btn-sm" (click)="editarTarea(tarea)">
+            <img
+              class="iconTareaFuncion"
+              src="../../../assets/iconos/iconEditarTarea.png"
+              alt="Editar Tarea"
+            />
           </button>
-          <button class="buttonTareaFuncion">
-            <img class="iconTareaFuncion" src="../../../assets/iconos/iconDescargarPDF.png" alt="Down PDF">
-          </button>
-          <button class="buttonTareaFuncion" (click)="editarTarea(tarea)" *ngIf="tarea._id">
-            <img class="iconTareaFuncion" src="../../../assets/iconos/iconEditarTarea.png" alt="Editar Tarea">
-          </button>
-          <button class="buttonTareaFuncion" (click)="capturarYCompartir(tarea._id)">
-            <img class="iconTareaFuncion" src="../../../assets/iconos/iconDescargarTarea.png" alt="Compartir Tarea" />
+          <button
+            class="btn btn-outline-secondary btn-sm"
+            (click)="capturarYCompartir(tarea.TareaId)"
+          >
+            <img
+              class="iconTareaFuncion"
+              src="../../../assets/iconos/iconDescargarTarea.png"
+              alt="Compartir Tarea"
+            />
           </button>
         </div>
       </swiper-slide>
+    </swiper-container>
+  </div> -->
+
+
+
+
+    <!-- LISTA DE TAREAS -->
+<div class="conteinerTasks mt-4" *ngIf="!cargando && tareas.length">
     
+    <h2 class="headerTareas">Mis Tareas</h2>
+
+  <swiper-container
+      class="container"
+      slides-per-view="auto"
+      pagination="bullets"
+      effect="slide"
+      centered-slides="true"
+      initial-slide="3"
+    >
+      <swiper-slide
+        class="cardTask"
+        *ngFor="let tarea of tareas"
+        [id]="'tarea-' + tarea.TareaId"
+      >
+            <img class="imglogoback" src="../../../assets/logos/logo.png" alt="logo">
+            <!-- ID -->
+            <div class="area-id">
+                <h2 class="area-Txt1">ID:</h2>
+                <p class="area-Txt2 id-code">{{ tarea.TareaId }}</p> 
+            </div>
+            <!-- Punto (círculo con glow rojo) -->
+            <div class="area-point">
+                <span
+                  class="priority"
+                  [ngClass]="{
+      'prio-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
+      'prio-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
+      'prio-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
+                  }">
+                </span>
+            </div>
+            <!-- Título (sin la palabra “Título”) -->
+            <div class="area-tit">
+              <h2 class="area-Txt1">{{ tarea.Titulo }}</h2>
+            </div>
+            <!-- Prioridad -->
+            <div class="area-pri">
+              <p class="area-Txt1"><strong>Prioridad:</strong></p>
+              <p
+                          
+                  [ngClass]="{
+      'txt-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
+      'txt-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
+      'txt-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
+                  }">
+                        {{ tarea.Prioridad }}
+              </p>
+            </div>
+            <!-- Estado -->
+            <div class="area-est">
+              <p class="area-Txt1"><strong>Estado:</strong></p><p class="area-Txt2">{{ tarea.Estado }}</p>
+            </div>  
+            <!-- Fechas -->
+            <div class="area-fchA">
+              <span class="label area-Txt1">Inicio</span>
+              <span class="date area-Txt2">{{ tarea.FechaInicio }}</span>
+            </div>
+            <div class="area-fchB">
+              <span class="label area-Txt1">Fin</span>
+              <span class="date area-Txt2">{{ tarea.FechaFin }}</span>
+            </div>
+            <!-- Pasos --> 
+            <div class="area-pso pasos-box areaPasos">
+              <strong class="pasos-title area-Txt1">Pasos:</strong>
+              <ul class="pasos-list area-Txt2">
+                <li *ngFor="let paso of tarea.Pasos">{{ paso }}</li>
+              </ul>
+            </div>
+            <!-- Funcionalidades -->
+            <div class="cfg">
+              <button class="btnTaskFunction" (click)="editarTarea(tarea)" *ngIf="tarea.TareaId">
+                <img class="iconTareaFuncion" src="../../../assets/iconos/editTast.png" alt="Editar Tarea">
+              </button>  
+              <button class="btnTaskFunction" (click)="capturarYCompartir(tarea.TareaId)">
+                <img class="iconTareaFuncion" src="../../../assets/iconos/downloadTask.png" alt="Compartir Tarea" />
+              </button> 
+            </div>
+      </swiper-slide>
   </swiper-container>
-  
-
-  
- <!-- TAREAS DIVIDIAS POR ESTADOS, ESTADO 2 EN PROCESO -->  
-<h2 class="titleCard">Tareas En Proceso</h2>
-<swiper-container class="container"  
-  slides-per-view="auto"
-  pagination="bullets" 
-  effect="slide"
-  centered-slides="true" 
-  initial-slide="3"
-> 
- 
-    <swiper-slide class="card cardContainer" *ngFor="let tarea of obtenerTareasEnProceso()" [id]="'tarea-'+ tarea._id">
-      <div class="top">
-        <img src="../../../assets/imgTop1.jpg" alt="">
-      </div>
-      <div class="mid">
-        <li><span class="spanLi spanLiTareaID">Tarea ID: {{tarea._id}}</span></li>
-        <li><span class="spanLi spanLiAsig">{{tarea.asignado}}</span></li>
-        <li><span class="spanLi spanLiTitulo">{{tarea.titulo}} </span></li>
-        <li><span class="spanLi spanLiDescrip">{{tarea.descripcion}}</span></li>
-        <li><span class="spanLi spanLiFecha">Finalización: {{formatearFecha(tarea.fecha_fin)}}</span></li>
-        <li [ngClass]="cambiarColorEstado(tarea.estado)" class="list-group-item"><span class="spanLi spanLiEstado">{{tarea.estado}}</span></li>
-      </div>
-      <div class="bot">
-        <button class="buttonTareaFuncion">
-          <img class="iconTareaFuncion" src="../../../assets/iconos/iconSubirPDF.png" alt="Up PDF">
-        </button>
-        <button class="buttonTareaFuncion">
-          <img class="iconTareaFuncion" src="../../../assets/iconos/iconDescargarPDF.png" alt="Down PDF">
-        </button>
-        <button class="buttonTareaFuncion" (click)="editarTarea(tarea)" *ngIf="tarea._id">
-          <img class="iconTareaFuncion" src="../../../assets/iconos/iconEditarTarea.png" alt="Editar Tarea">
-        </button>
-        <button class="buttonTareaFuncion" (click)="capturarYCompartir(tarea._id)">
-          <img class="iconTareaFuncion" src="../../../assets/iconos/iconDescargarTarea.png" alt="Compartir Tarea"/>
-        </button>
-      </div>
-    </swiper-slide>
-  
-</swiper-container>
-
-
-
-<!-- TAREAS DIVIDIAS POR ESTADOS, ESTADO 3 CANCELADO --> 
-
-<h2 class="titleCard">Tareas Canceladas</h2>
-<swiper-container class="container" 
-  slides-per-view="auto"
-  pagination="bullets" 
-  effect="slide"
-  centered-slides="true" 
-  initial-slide="3"
-  >
-    
-    <swiper-slide class="card" *ngFor="let tarea of obtenerTareasCanceladas()" [id]="'tarea-'+ tarea._id">
-      <div class="top">
-        <img src="../../../assets/imgTop1.jpg" alt="">
-      </div>
-      <div class="mid">
-        <li><span class="spanLi spanLiTareaID">Tarea ID: {{tarea._id}}</span></li>
-        <li><span class="spanLi spanLiAsig">{{tarea.asignado}}</span></li>
-        <li><span class="spanLi spanLiTitulo">{{tarea.titulo}} </span></li>
-        <li><span class="spanLi spanLiDescrip">{{tarea.descripcion}}</span></li>
-        <li><span class="spanLi spanLiFecha">Finalización: {{formatearFecha(tarea.fecha_fin)}}</span></li>
-        <li [ngClass]="cambiarColorEstado(tarea.estado)" class="list-group-item"><span class="spanLi spanLiEstado">{{tarea.estado}}</span></li>
-      </div>
-      <div class="bot">
-        <button class="buttonTareaFuncion">
-          <img class="iconTareaFuncion" src="../../../assets/iconos/iconSubirPDF.png" alt="Up PDF">
-        </button>
-        <button class="buttonTareaFuncion">
-          <img class="iconTareaFuncion" src="../../../assets/iconos/iconDescargarPDF.png" alt="Down PDF">
-        </button>
-        <button class="buttonTareaFuncion" (click)="editarTarea(tarea)" *ngIf="tarea._id">
-          <img class="iconTareaFuncion" src="../../../assets/iconos/iconEditarTarea.png" alt="Editar Tarea">
-        </button>
-        <button class="buttonTareaFuncion" (click)="capturarYCompartir(tarea._id)">
-          <img class="iconTareaFuncion" src="../../../assets/iconos/iconDescargarTarea.png" alt="Compartir Tarea" />
-        </button>
-      </div>
-    </swiper-slide>
-  
-</swiper-container> 
 </div>
 
 
+
+  <div>
+    <p class="mb-0"><a [routerLink]="['/chat-assistant']" class="text-dark-50 fw-bold">ir al chat asistente</a></p>
+  </div>
+
+  <div *ngIf="!cargando && !tareas.length" class="text-center mt-4 text-muted">
+    <p>No hay tareas registradas.</p>
+  </div>
 </main>

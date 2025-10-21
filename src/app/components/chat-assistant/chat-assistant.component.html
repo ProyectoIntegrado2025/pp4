@@ -1,0 +1,16 @@
+<section class="max-w-2xl mx-auto grid gap-3">
+  <h2>Asistente virtual</h2>
+
+  <textarea [(ngModel)]="question" rows="5" placeholder="Escribí tu consulta..."></textarea>
+
+  <!-- Usá UNO de estos botones según el enfoque -->
+  <button (click)="sendQuestion()" [disabled]="loading">Preguntar</button>
+  <!-- <button (click)="sendWithJwt()" [disabled]="loading">Preguntar (con JWT)</button> -->
+
+  <div *ngIf="loading">Consultando…</div>
+
+  <article *ngIf="reply">
+    <h3>Respuesta</h3>
+    <pre style="white-space:pre-wrap">{{ reply }}</pre>
+  </article>
+</section>
