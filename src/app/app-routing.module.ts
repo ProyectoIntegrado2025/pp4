@@ -16,6 +16,7 @@ import { NotFoundComponent } from './components/not-found.component';
 import { ChatAssistantComponent } from './components/chat-assistant/chat-assistant.component';
 
 const routes: Routes = [
+  //{ path: '**', redirectTo: 'login', pathMatch: 'full' },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard], data: { authRequired: false } },
   { path: 'sign-up', component: SignUpComponent, canActivate: [AuthGuard], data: { authRequired: false } },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent, canActivate: [AuthGuard], data: { authRequired: false } },
   { path: 'inicio', component: InicioComponent, canActivate: [AuthGuard], data: { authRequired: true } },
   { path: 'crear', component: CrearComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
+  { path: '__dev/crear',  component: CrearComponent }, /* Para acceder desde el front directamente, borrar al finalizar */
   { path: 'editar/:id', component: EditarComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   { path: 'eliminar', component: EliminarTareaComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
  // { path: 'newPasswordRequired', component: NewPasswordComponent },

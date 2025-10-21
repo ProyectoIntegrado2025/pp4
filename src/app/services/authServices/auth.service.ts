@@ -134,16 +134,30 @@ export class AuthService {
     });
   }
 
-  /** 🔹 Cerrar sesión */
-  async logout(): Promise<void> {
-    try {
-      await signOut();
-      this._authenticatedUser.next(null);
-      this._isAuthenticated.next(false);
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error);
-    }
+/** 🔹 Cerrar sesión */
+async logout(): Promise<void> {
+  try {
+    await signOut(); // Cierra sesión en Cognito y Amplify
+
+    // 🔹 Limpieza adicional: elimina cualquier token o dato residual
+    localStorage.clear();
+    sessionStorage.clear();
+
+    // 🔹 Actualiza estados locales
+    this._authenticatedUser.next(null);
+    this._isAuthenticated.next(false);
+
+    // 🔹 Redirige al login
+    this.ngZone.run(() => {
+      this.router.navigateByUrl('/login', { replaceUrl: true }).catch(() => {});
+    });
+
+    console.log('✅ Sesión cerrada y almacenamiento limpiado.');
+  } catch (error) {
+    console.error('Error al cerrar sesión:', error);
   }
+}
+
 
   /** 🔹 Obtener ID Token */
   async getIdToken(): Promise<string | null> {

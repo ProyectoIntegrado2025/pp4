@@ -12,30 +12,29 @@
   --card-bg: #ffffff;
 }
 
-/* defecto - combinación como si fuera tema ligth */
+/* defecto */
 main, body, app-root, app-view, app-auth {
   height: 100%;
-  min-height: 100vh;
   margin: 0;
   padding: 0;
   display: block;
   background: var(--bg);
   color: var(--fg);
 }
- 
+
 /* tema claro/oscuro aplicable a <main> y fallback en <html> */
 main.theme-light, html.theme-light {
   --bg: #f5f5f5;
   --fg: #111827;
-  --card-bgLogin: #ffffff;
-  --card-bgInicio: #f5f5f5;
+  --area-Txt1:rgb(0, 84, 87);
+  --card-bg: #ffffff;
 }
-
+ 
 main.theme-dark, html.theme-dark {
   --bg: #0e0f0e;
   --fg: #e5e7eb;
-  --card-bgLogin: #191b19;
-  --card-bgInicio: #191b19;
+  --area-Txt1:rgb(25, 160, 119);
+  --card-bg: #0d1329;
 }
 
 /* usar variables */
