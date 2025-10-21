@@ -202,7 +202,7 @@
               <button class="btnTaskFunction" (click)="editarTarea(tarea)" *ngIf="tarea.TareaId">
                 <img class="iconTareaFuncion" src="../../../assets/iconos/editTast.png" alt="Editar Tarea">
               </button>  
-              <button class="btnTaskFunction"><!-- (click)="capturarYCompartir(tarea._id)" -->
+              <button class="btnTaskFunction" (click)="capturarYCompartir(tarea.TareaId)">
                 <img class="iconTareaFuncion" src="../../../assets/iconos/downloadTask.png" alt="Compartir Tarea" />
               </button> 
             </div>
