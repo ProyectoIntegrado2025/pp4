@@ -16,16 +16,17 @@ import { ResetPasswordComponent } from './views/auth/reset-password/reset-passwo
 import { ChatAssistantComponent } from './components/chat-assistant/chat-assistant.component';
 
 const routes: Routes = [
+  //{ path: '**', redirectTo: 'login', pathMatch: 'full' },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard], data: { authRequired: false } },
   { path: 'sign-up', component: SignUpComponent, canActivate: [AuthGuard], data: { authRequired: false } },
   { path: 'confirm-sign-up/:email', component: ConfirmSignUpComponent, canActivate: [AuthGuard], data: { authRequired: false } },
-  { path: 'reset-password', component: ResetPasswordComponent, data: { authRequired: false } },
+  { path: 'reset-password', component: ResetPasswordComponent,canActivate: [AuthGuard], data: { authRequired: false } },
   { path: 'inicio', component: InicioComponent, canActivate: [AuthGuard], data: { authRequired: true } },
   { path: 'crear', component: CrearComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   { path: 'editar/:id', component: EditarComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   { path: 'eliminar', component: EliminarTareaComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
-  { path: 'newPasswordRequired', component: NewPasswordComponent },
+  //{ path: 'newPasswordRequired', component: NewPasswordComponent },
   { path: 'chat-assistant', component: ChatAssistantComponent, canActivate: [AuthGuard], data: { authRequired: true}}
   
 ];
