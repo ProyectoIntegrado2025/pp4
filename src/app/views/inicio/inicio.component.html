@@ -66,119 +66,6 @@
  <!--  <div class="conteinerTasks mt-4" *ngIf="!cargando && tareas.length">
     <h2 class="headerTareas">Mis Tareas</h2>
 
-<<<<<<< HEAD
-
-
-  <!-- MOK DE TAREAS CON ESTRUCTURA FINAL -->
-<div class="conteinerRowTaks conteinerTasks" >
-  <h2 class="titleCard">Tareas Estructura Final</h2>
-                      <!-- container solo tiene ancho de ocupación del display -->
-  <swiper-container class="container"
-  slides-per-view="auto"
-  pagination="bullets" 
-  effect="slide"
-  centered-slides="true" 
-  initial-slide="3"
-  >
-    <swiper-slide class="card" ><!-- *ngFor="let tarea of obtenerTareasFinalizadas()" [id]="'tarea-'+ tarea._id" -->
-
-       
-
-    </swiper-slide>
-  </swiper-container>
-
-
-</div>
-<!-- Estructura de c/ Task -->
- <div class="cardTask">
-      <!-- IMG DE FONDO -->
-      <img class="imglogoback" src="../../../assets/logos/logo.png" alt="logo">
-        <!-- ID -->
-        <div class="area-id">
-            <h2 class="area-Txt1">ID:</h2>
-            <p class="area-Txt2 id-code">bsa24fE-294e-23dw-v23f-2aew049322</p> 
-        </div>
-        <!-- Punto (círculo con glow rojo) -->
-        <div class="area-point">
-            <span
-              class="priority"
-              [ngClass]="{
-                'prio-alta':  prioridad === 'Alta',
-                'prio-media': prioridad === 'Media',
-                'prio-baja':  prioridad === 'Baja'
-              }">
-            </span>
-        </div>
-        <!-- Título (sin la palabra “Título”) -->
-        <div class="area-tit">
-          <h2 class="area-Txt1">Configurar entorno de AWS</h2>
-        </div>
-        <!-- Prioridad -->
-        <div class="area-pri">
-          <p class="area-Txt1"><strong>Prioridad:</strong></p>
-          <p
-                      
-              [ngClass]="{
-                'txt-alta':  prioridad === 'Alta',
-                'txt-media': prioridad === 'Media',
-                'txt-baja':  prioridad === 'Baja'
-              }">
-                    {{ prioridad }}
-          </p>
-        </div>
-        <!-- Estado -->
-        <div class="area-est">
-          <p class="area-Txt1"><strong>Estado:</strong></p><p class="area-Txt2">En Desarrollo</p>
-        </div>  
-        <!-- Fechas -->
-        <div class="area-fchA">
-          <span class="label area-Txt1">Inicio</span>
-          <span class="date area-Txt2">10/10/2025</span>
-        </div>
-        <div class="area-fchB">
-          <span class="label area-Txt1">Fin</span>
-          <span class="date area-Txt2">15/10/2025</span>
-        </div>
-        <!-- Pasos --> 
-        <div class="area-pso pasos-box areaPasos">
-          <strong class="pasos-title area-Txt1">Pasos:</strong>
-          <ul class="pasos-list area-Txt2">
-            <li>Definir endpoints</li> 
-            <li>Configurar Lambda</li>
-            <li>Conectar con DynamoDB</li>
-          </ul>
-        </div>
-        <!-- Funcionalidades -->
-         <div class="cfg">
-          <button class="btnTaskFunction"><!-- (click)="editarTarea(tarea)" *ngIf="tarea._id" -->
-            <img class="iconTareaFuncion" src="../../../assets/iconos/editTast.png" alt="Editar Tarea">
-          </button>  
-          <button class="btnTaskFunction"><!-- (click)="capturarYCompartir(tarea._id)" -->
-            <img class="iconTareaFuncion" src="../../../assets/iconos/downloadTask.png" alt="Compartir Tarea" />
-          </button> 
-        </div>
-</div>
-
-
-
-
-
-
-
-<div class="conteinerTasks"> 
-  <!-- TAREAS DIVIDIAS POR ESTADOS, ESTADO 1 FINALIZADO -->
-  
- <h2 class="titleCard">Tareas Finalizadas</h2> 
-  <swiper-container class="container" 
-  slides-per-view="auto"
-  pagination="bullets" 
-  effect="slide"
-  centered-slides="true" 
-  initial-slide="3"
-  > 
-    
-      <swiper-slide class="card" *ngFor="let tarea of obtenerTareasFinalizadas()" [id]="'tarea-'+ tarea._id">
-=======
     <swiper-container
       class="container"
       slides-per-view="auto"
@@ -192,7 +79,6 @@
         *ngFor="let tarea of tareas"
         [id]="'tarea-' + tarea.TareaId"
       >
->>>>>>> c7271700aca722f3b13703c7ab436c4e6831e62c
         <div class="top">
           <img src="../../../assets/imgTop1.jpg" alt="fondo tarea" />
         </div>
