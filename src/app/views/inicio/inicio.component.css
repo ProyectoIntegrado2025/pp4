@@ -312,7 +312,7 @@ nav{
             border: none;
             padding: .5%; /* Elimina el relleno interno para reducir el ancho */
             border-radius: 15%;
-            width: 14.5%;
+            width: 14.7%;
             transition: transform 180ms;
         }
                 .btnTaskFunction:hover{
