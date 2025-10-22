@@ -1,336 +1,449 @@
 /* Para cuando no se carga el back sale este modal en la parte t */
-main{
-    min-height: 100dvh; /* principal */
-    min-height: 100vh; /* respaldo */
+main {
+    min-height: 100dvh;
+    /* principal */
+    min-height: 100vh;
+    /* respaldo */
     width: 100%;
     position: relative;
 }
+
 /* NAVBAR */
-nav{
+nav {
     background-color: var(--bg) !important;
 }
-.logoZenki{
+
+.logoZenki {
     width: clamp(125px, 6%, 130px);
     pointer-events: none;
     user-select: none;
 }
-.btnLogout{
+
+.btnLogout {
     background-color: #FFC857;
     font-weight: 500;
     font-size: 105%;
-    padding-inline: clamp(10px, .6%, 20px); /* izq der */
-    padding-block: clamp(7px, .4%, 16px);/* top bot */
+    padding-inline: clamp(10px, .6%, 20px);
+    /* izq der */
+    padding-block: clamp(7px, .4%, 16px);
+    /* top bot */
     border-radius: .5em;
 }
-    @media (max-width: 278px) {
-        .btnLogout {
-            margin-top: 5px;
-        }
+
+@media (max-width: 278px) {
+    .btnLogout {
+        margin-top: 5px;
     }
-    
-/* Toggle cambio de tema, componente theme-toggle */
-/* Toggle cambio de tema, componente theme-toggle */
-.global-toggle{
-  width: 2.23em; /* del 100% que ocupe el 82% */
-  min-width: 30px;
-  margin-left: 1%;
-  position: absolute;
-  right: 1%;
 }
-    @media (max-width: 1024px) {
-        .global-toggle {
-            margin-right: 1.4%;
-        }
-    }
-    @media (max-width: 740px) {
-        .global-toggle {
-            margin-right: 2%;
-        }
-    }
-    @media (max-width: 480px) {
-        .global-toggle {
-            margin-right: 3%;
-        }
-    }
-/* ICON CREAR TAREA */
-.iconCrearTarea{
-    width: 4.2em;
+
+/* Toggle cambio de tema, componente theme-toggle */
+/* Toggle cambio de tema, componente theme-toggle */
+.global-toggle {
+    width: 2.23em;
+    /* del 100% que ocupe el 82% */
+    min-width: 30px;
+    margin-left: 1%;
     position: absolute;
-    right: 48.3%;
-    bottom: 2%;
-    transition: filter 200ms ease;
+    right: 1%;
 }
-    .iconCrearTarea:hover{
-        filter: drop-shadow(1px 1px 2px rgba(2, 175, 62, 0.373))
-                drop-shadow(-1px -1px 2px rgba(2, 175, 63, 0.373));
+
+@media (max-width: 1024px) {
+    .global-toggle {
+        margin-right: 1.4%;
     }
+}
+
+@media (max-width: 740px) {
+    .global-toggle {
+        margin-right: 2%;
+    }
+}
+
+@media (max-width: 480px) {
+    .global-toggle {
+        margin-right: 3%;
+    }
+}
+
+/* ICON CREAR TAREA */
+.iconCrearTarea {
+  position: fixed;
+  left: 2%;
+  bottom: 2%;
+  width: 4.2em;
+  height: auto;
+  border-radius: 50%;
+  background-color: #ffffff;
+  padding: 10px;
+  box-shadow: 0 0 0 rgba(63, 174, 73, 0.4);
+  animation: glow-zenki 3s infinite ease-in-out;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  z-index: 2000;
+  cursor: pointer;
+}
+
+.iconCrearTarea:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px 3px rgba(63, 174, 73, 0.6);
+}
+
+@keyframes glow-zenki {
+  0% {
+    box-shadow: 0 0 0 0 rgba(63, 174, 73, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 15px 3px rgba(63, 174, 73, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(63, 174, 73, 0.4);
+  }
+}
+
+
 /* Buscador */
-.form-control{
+.form-control {
     background-color: rgb(241, 255, 220);
     color: rgb(0, 84, 87);
 }
-.form-control::placeholder{
+
+.form-control::placeholder {
     color: rgb(0, 84, 87);
     font-style: italic;
 }
+
 /* Div de titulo de tareas y swiper-container */
-.conteinerTasks{
+.conteinerTasks {
     height: auto;
 }
+
 /* Título previo a las tareas con swiper-container */
-.headerTareas{
+.headerTareas {
     font-family: "Polya", sans-serif;
-    font-weight: 500;    /* importante si no tenés Polya-Bold */
+    font-weight: 500;
+    /* importante si no tenés Polya-Bold */
     margin: auto;
     text-align: center;
-    font-size: 600%;
+    font-size: 300%;
     color: var(--area-Txt1);
 }
 
 /* container del swiper-container*/
-.container{
+.container {
     min-width: 92%;
-    
-}
-/*  */
-/*  */
-/*  */
-.cardTask{
-  border-radius: 5%;
-  overflow: hidden;
 
-  width: 300px;
-  min-width: 280px;
-  height: 100%;
-  min-height: 470px;
-  margin: 10px 10px 30px 10px;
-
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-template-areas:
-    "id   id   id   id   id   point"
-    "tit  tit  tit  tit  tit  tit"
-    "pri  pri  pri  pri  pri  pri"
-    "est  est  est  est  est  est"
-    "fchA fchA fchA fchB fchB fchB"
-    "pso  pso  pso  pso  pso  pso"
-    "cfg  cfg  cfg  cfg  cfg  cfg";
-  gap: 0px;
-  padding: 15px 20px 5px 20px;
-  background: #fff;
-  box-shadow: 0 4px 10px rgba(0,0,0,.06);
-  border: 1px outset rgb(0, 150, 125);
-  position: relative;/* Para que funcione la imagen de fondo */
-  background: var(--card-cardTask);
 }
+
+/*  */
+/*  */
+/*  */
+.cardTask {
+    border-radius: 5%;
+    overflow: hidden;
+
+    width: 300px;
+    min-width: 280px;
+    height: 100%;
+    min-height: 470px;
+    margin: 10px 10px 30px 10px;
+
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas:
+        "id   id   id   id   id   point"
+        "tit  tit  tit  tit  tit  tit"
+        "pri  pri  pri  pri  pri  pri"
+        "est  est  est  est  est  est"
+        "fchA fchA fchA fchB fchB fchB"
+        "pso  pso  pso  pso  pso  pso"
+        "cfg  cfg  cfg  cfg  cfg  cfg";
+    gap: 0px;
+    padding: 15px 20px 5px 20px;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .06);
+    border: 1px outset rgb(0, 150, 125);
+    position: relative;
+    /* Para que funcione la imagen de fondo */
+    background: var(--card-cardTask);
+}
+
 /* Solo la imagen fantasma de fondo */
 .imglogoback {
-  position: absolute;
-  top: 50%;
-  left: 50%; 
-  transform: translate(-50%, -50%);  /* corrige el centrado */
-  width: min(95%, 380px);             /* tamaño adaptable, ajustá a gusto */
-  height: auto;
-  opacity: 0.04;                      /* solo la imagen, no el contenido */
-  pointer-events: none;               /* evita que el elemento intercepte eventos del mouse (clics, hover, focus, select) */
-  user-select: none;                  /* evita que pueda arrastrar el logo o que aparezca el cursor de selección */
-  z-index: 0;                         /* detrás del contenido de la card */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* corrige el centrado */
+    width: min(95%, 380px);
+    /* tamaño adaptable, ajustá a gusto */
+    height: auto;
+    opacity: 0.04;
+    /* solo la imagen, no el contenido */
+    pointer-events: none;
+    /* evita que el elemento intercepte eventos del mouse (clics, hover, focus, select) */
+    user-select: none;
+    /* evita que pueda arrastrar el logo o que aparezca el cursor de selección */
+    z-index: 0;
+    /* detrás del contenido de la card */
 }
+
 /* Áreas */
-.area-id{
+.area-id {
     grid-area: id;
-    display: grid;                      
+    display: grid;
     grid-template-columns: auto 1fr;
     column-gap: 4px;
     align-items: center;
 }
-    .area-id h2{
-        margin: 0;
-        font-weight: 700;
-        font-size: .9em; /* o el que quieras */
-    }
-    .area-id .id-code{
-        margin: 0;
-        min-width: 0;            /* CRÍTICO para que el flex/grid item pueda encoger */
-        white-space: nowrap;     /* una sola línea */
-        letter-spacing: .02em;   /* espacio entre letras */
-        overflow-x: scroll;       /* activa scroll  */
-        mask-image: linear-gradient(to right, black 92%, transparent 105%); 
-        scrollbar-width: none;  /* Firefox oculta scroll bar x */
-        font-size: .9em; /* o el que quieras */
-        /* Fade al final (cross-browser moderno) */
-        -webkit-mask-image: linear-gradient(to right, black 92%, transparent 105%);
-    }   
+
+.area-id h2 {
+    margin: 0;
+    font-weight: 700;
+    font-size: .9em;
+    /* o el que quieras */
+}
+
+.area-id .id-code {
+    margin: 0;
+    min-width: 0;
+    /* CRÍTICO para que el flex/grid item pueda encoger */
+    white-space: nowrap;
+    /* una sola línea */
+    letter-spacing: .02em;
+    /* espacio entre letras */
+    overflow-x: scroll;
+    /* activa scroll  */
+    mask-image: linear-gradient(to right, black 92%, transparent 105%);
+    scrollbar-width: none;
+    /* Firefox oculta scroll bar x */
+    font-size: .9em;
+    /* o el que quieras */
+    /* Fade al final (cross-browser moderno) */
+    -webkit-mask-image: linear-gradient(to right, black 92%, transparent 105%);
+}
+
 /* Título */
-.area-tit  {  
-    grid-area: tit;  
-    display: grid;                      
+.area-tit {
+    grid-area: tit;
+    display: grid;
     grid-template-columns: auto;
     align-items: center;
 }
-    .area-tit h2{ 
-        margin: 0; 
-        font-size: 1.2rem; 
-        font-weight: 700;
-        padding: 4px 0px 5px 0px;
-        letter-spacing: 0.03em; 
-          
-            white-space: nowrap;     /* una sola línea */
-            mask-image: linear-gradient(to right, black 93%, transparent 102%); 
-            overflow-x: scroll;       /* activa scroll */
-            scrollbar-width: none;  /* Firefox oculta scroll bar x */
-            /* Fade al final (cross-browser moderno) */
-            -webkit-mask-image: linear-gradient(to right, black 93%, transparent 102%);
-           
-    }
-.area-pri  { 
-    grid-area: pri;  
+
+.area-tit h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 4px 0px 5px 0px;
+    letter-spacing: 0.03em;
+
+    white-space: nowrap;
+    /* una sola línea */
+    mask-image: linear-gradient(to right, black 93%, transparent 102%);
+    overflow-x: scroll;
+    /* activa scroll */
+    scrollbar-width: none;
+    /* Firefox oculta scroll bar x */
+    /* Fade al final (cross-browser moderno) */
+    -webkit-mask-image: linear-gradient(to right, black 93%, transparent 102%);
+
+}
+
+.area-pri {
+    grid-area: pri;
     /* line-height: 0; */
-    font-size: .95rem; 
+    font-size: .95rem;
     display: flex;
     align-items: center;
     gap: 2%;
     transition: color 0.3s ease;
 }
-    .area-pri p{
-        margin-bottom: 0;
-    }
-        /* color según prioridad */
-        .txt-alta  { color: #e53935; }  /* rojo */
-        .txt-media { color: #f59e0b; }  /* naranja */
-        .txt-baja  { color: #85cc00; }  /* celeste */
+
+.area-pri p {
+    margin-bottom: 0;
+}
+
+/* color según prioridad */
+.txt-alta {
+    color: #e53935;
+}
+
+/* rojo */
+.txt-media {
+    color: #f59e0b;
+}
+
+/* naranja */
+.txt-baja {
+    color: #85cc00;
+}
+
+/* celeste */
 
 /* Punto de prioridad a la derecha del ID (mock: rojo con glow) */
-.area-point{ 
-    grid-area: point; 
-/*     display:flex; 
+.area-point {
+    grid-area: point;
+    /*     display:flex; 
     align-items:center; 
     justify-content:center;  */
     position: relative;
 }
-    .priority{
-        position: absolute;
-        right: 1.2%;
-        top: 10%;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        display: inline-block;
-    }
-        /* rojo c21310d1 background */
-        /* rojo rgba(164, 3, 0, 0.619) shadow */
-        /* celest #00bdc0  background*/              
-       /* celest #00b1b1   box-shadow */   
-.prio-alta  { background:#e53935; box-shadow:0 0 6px 2px rgba(229,57,53,.45); }
-.prio-media { background:#f59e0b; box-shadow:0 0 6px 2px rgba(245,158,11,.45); }
-.prio-baja  { background:#85cc00; box-shadow:0 0 6px 2px rgba(133,204,0,.45); }
+
+.priority {
+    position: absolute;
+    right: 1.2%;
+    top: 10%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* rojo c21310d1 background */
+/* rojo rgba(164, 3, 0, 0.619) shadow */
+/* celest #00bdc0  background*/
+/* celest #00b1b1   box-shadow */
+.prio-alta {
+    background: #e53935;
+    box-shadow: 0 0 6px 2px rgba(229, 57, 53, .45);
+}
+
+.prio-media {
+    background: #f59e0b;
+    box-shadow: 0 0 6px 2px rgba(245, 158, 11, .45);
+}
+
+.prio-baja {
+    background: #85cc00;
+    box-shadow: 0 0 6px 2px rgba(133, 204, 0, .45);
+}
 
 /* Estado */
-.area-est  { 
-    grid-area: est;  
-    font-size: .95rem; 
-    line-height: 0; 
+.area-est {
+    grid-area: est;
+    font-size: .95rem;
+    line-height: 0;
     display: flex;
     align-items: flex-start;
     gap: 2%;
 }
+
 /* Fecha Inicio */
-.area-fchA { 
-    grid-area: fchA; 
-    display:flex; 
-    flex-direction:column; 
-    align-items:center;
-    gap: 2%; 
-}
-/* Fecha Fin */
-.area-fchB { 
-    grid-area: fchB; 
-    display:flex; 
-    flex-direction:column; 
-    align-items:center;
+.area-fchA {
+    grid-area: fchA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 2%;
 }
-        /* Fechas */
-        .area-fchA .label, .area-fchB .label{
-        font-size: .8rem; 
-        line-height: 1;
-        font-weight: 700;
-        }
-.area-pso  { 
-    grid-area: pso; 
+
+/* Fecha Fin */
+.area-fchB {
+    grid-area: fchB;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2%;
+}
+
+/* Fechas */
+.area-fchA .label,
+.area-fchB .label {
+    font-size: .8rem;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.area-pso {
+    grid-area: pso;
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 255, 242, 0.1) transparent;
-}       /* Fondo variable de "Pasos" */
-        .areaPasos{ 
-            background-color:var(--area-Pasos);
-            border: 1px solid rgba(0, 168, 140, 0.178);
-        }
-          
-        /* Pasos: caja con borde y scroll vertical */
-        .pasos-box{
-            border-radius: 6px;
-            padding: 8px 10px;
-            max-height: 120px;
-            overflow-y: auto;
-        }
-        .pasos-title{
-            display:block;
-            font-weight:600;
-            margin-bottom:4px;
-        }
+}
 
-        .pasos-list{
-            list-style: disc;
-            padding-left: 20px;
-            margin: 0;
-        }
+/* Fondo variable de "Pasos" */
+.areaPasos {
+    background-color: var(--area-Pasos);
+    border: 1px solid rgba(0, 168, 140, 0.178);
+}
 
-        .pasos-list li{
-            margin-bottom:4px;
-            white-space: pre-line; /* si el paso tuviera saltos de línea */
-        }
+/* Pasos: caja con borde y scroll vertical */
+.pasos-box {
+    border-radius: 6px;
+    padding: 8px 10px;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.pasos-title {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.pasos-list {
+    list-style: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.pasos-list li {
+    margin-bottom: 4px;
+    white-space: pre-line;
+    /* si el paso tuviera saltos de línea */
+}
 
 /* Colores para los textos */
-.area-Txt1{
+.area-Txt1 {
     color: var(--area-Txt1);
 }
-.area-Txt2{
+
+.area-Txt2 {
     color: var(--area-Txt2);
 }
-    .area-Txt2 li{
-        list-style-type: decimal;
-    }
-.cfg{
-    grid-area: cfg; 
+
+.area-Txt2 li {
+    list-style-type: decimal;
+}
+
+.cfg {
+    grid-area: cfg;
     display: flex;
     align-items: center;
     justify-content: center;
     border-top: 1px solid rgba(0, 168, 160, 0.192);
     gap: 4.5%;
-}       /* button de Funcionalidades de card*/
-        .btnTaskFunction {
-            background-color: transparent; /* Elimina el fondo gris */
-            /* border: 1px solid rgb(226, 226, 226); */ /* Elimina el borde */
-            border: none;
-            padding: .5%; /* Elimina el relleno interno para reducir el ancho */
-            border-radius: 15%;
-            width: 14.5%;
-            transition: transform 180ms;
-        }
-                .btnTaskFunction:hover{
-                    transform: scale(1.11);
-                }
-                    /* img de Funcionalidades de card*/
-                    .iconTareaFuncion{
-                        width: 110%;
-                    }
+}
+
+/* button de Funcionalidades de card*/
+.btnTaskFunction {
+    background-color: transparent;
+    /* Elimina el fondo gris */
+    /* border: 1px solid rgb(226, 226, 226); */
+    /* Elimina el borde */
+    border: none;
+    padding: .5%;
+    /* Elimina el relleno interno para reducir el ancho */
+    border-radius: 15%;
+    width: 14.5%;
+    transition: transform 180ms;
+}
+
+.btnTaskFunction:hover {
+    transform: scale(1.11);
+}
+
+/* img de Funcionalidades de card*/
+.iconTareaFuncion {
+    width: 110%;
+}
 
 .modal-overlay {
-  position: fixed; /* Esto asegura que el modal ignore el scroll y la ubicación en el body */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Lo hice un poco más oscuro (0.8) para el efecto de "alerta general" */
-  z-index: 1050; 
+    position: fixed;
+    /* Esto asegura que el modal ignore el scroll y la ubicación en el body */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Lo hice un poco más oscuro (0.8) para el efecto de "alerta general" */
+    z-index: 1050;
 }
