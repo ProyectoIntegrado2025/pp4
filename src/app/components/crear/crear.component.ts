@@ -14,6 +14,7 @@ export class CrearComponent implements OnInit {
   alerta = false;
   cargando = false;
   error = false;
+  titulo = '';
 
   constructor(
     private fb: FormBuilder,
@@ -59,6 +60,10 @@ export class CrearComponent implements OnInit {
     };
 
     this.cargando = true;
+
+    // 👉 guardar para mostrar en la alerta
+    this.titulo = this.formulario.get('Titulo')?.value ?? '';
+
     try {
       const obs = await this.apiGatewayService.postTask(nuevaTarea);
       obs.subscribe({
@@ -71,6 +76,13 @@ export class CrearComponent implements OnInit {
             Pasos: ['']
           });
           this.cargando = false;
+
+        // 👇 mensaje + redirección
+        setTimeout(() => {
+          this.alerta = false;
+          this.router.navigate(['/inicio']);
+        }, 3000);
+
         },
         error: (err) => {
           console.error('❌ Error al crear tarea:', err);

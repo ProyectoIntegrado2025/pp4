@@ -33,7 +33,7 @@ nav{
 .global-toggle{
   width: 2.23em; /* del 100% que ocupe el 82% */
   min-width: 30px;
-  margin-left: 1%;
+  margin-left: .9%;
 }
     @media (max-width: 1024px) {
         .global-toggle {
