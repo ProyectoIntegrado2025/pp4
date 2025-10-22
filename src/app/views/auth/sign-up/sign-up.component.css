@@ -85,7 +85,7 @@ main{
 }
 /* Contenedor del botón Registrar Código */
 .btnRegistrarCod{  
-    width: clamp(100px, 6.5vw, 200px);
+    width: clamp(100px, 4.5vw, 200px);
     line-height: 0;  
     flex: 0 0 auto;         
     border: none;

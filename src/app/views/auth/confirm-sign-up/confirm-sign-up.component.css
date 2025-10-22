@@ -84,7 +84,7 @@ main{
     background-color:  #e5ffc8;
 }
 .btnConfirmar{  
-    width: clamp(100px, 7.5vw, 200px);
+    width: clamp(100px, 4.5vw, 200px);
     line-height: 0;  
     flex: 0 0 auto;         
     border: none;
