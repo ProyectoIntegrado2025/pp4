@@ -2,6 +2,8 @@
 
       <!-- Componente exportado theme-toggle -->
      <app-theme-toggle class="global-toggle"></app-theme-toggle>
+    <!-- Icono que rutea al componente inicio -->
+      <a [routerLink]="['/inicio']"><img class="iconVolver" src="../../../assets/iconos/botonVolver.png" alt="Volver"></a>
      <!-- IMG DE FONDO ZENKI -->
     <img class="imglogoback" src="../../../assets/Zenkiii.png" alt="logo">
 
@@ -59,12 +61,12 @@
           </button>
       </form>
 
-        <div *ngIf="exito" class="alert alert-success mt-3">
-        Cambios guardados correctamente.
+        <div *ngIf="exito" class="alert alert-success mt-3 creadaOrNot">
+          Cambios guardados correctamente
         </div>
 
-        <div *ngIf="error" class="alert alert-danger mt-3">
-          Error al guardar los cambios. Intenta nuevamente.
+        <div *ngIf="error" class="alert alert-danger mt-3 creadaOrNot">
+          Error al guardar los cambios, intente nuevamente
         </div>
       </div>
   </div>

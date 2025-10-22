@@ -38,13 +38,10 @@ nav {
 
 /* Toggle cambio de tema, componente theme-toggle */
 /* Toggle cambio de tema, componente theme-toggle */
-.global-toggle {
-    width: 2.23em;
-    /* del 100% que ocupe el 82% */
-    min-width: 30px;
-    margin-left: 1%;
-    position: absolute;
-    right: 1%;
+.global-toggle{
+  width: 2.23em; /* del 100% que ocupe el 82% */
+  min-width: 30px;
+  margin-left: .9%;
 }
 
 @media (max-width: 1024px) {
@@ -411,30 +408,23 @@ nav {
     justify-content: center;
     border-top: 1px solid rgba(0, 168, 160, 0.192);
     gap: 4.5%;
-}
-
-/* button de Funcionalidades de card*/
-.btnTaskFunction {
-    background-color: transparent;
-    /* Elimina el fondo gris */
-    /* border: 1px solid rgb(226, 226, 226); */
-    /* Elimina el borde */
-    border: none;
-    padding: .5%;
-    /* Elimina el relleno interno para reducir el ancho */
-    border-radius: 15%;
-    width: 14.5%;
-    transition: transform 180ms;
-}
-
-.btnTaskFunction:hover {
-    transform: scale(1.11);
-}
-
-/* img de Funcionalidades de card*/
-.iconTareaFuncion {
-    width: 110%;
-}
+}       /* button de Funcionalidades de card*/
+        .btnTaskFunction {
+            background-color: transparent; /* Elimina el fondo gris */
+            /* border: 1px solid rgb(226, 226, 226); */ /* Elimina el borde */
+            border: none;
+            padding: .5%; /* Elimina el relleno interno para reducir el ancho */
+            border-radius: 15%;
+            width: 14.7%;
+            transition: transform 180ms;
+        }
+                .btnTaskFunction:hover{
+                    transform: scale(1.11);
+                }
+                    /* img de Funcionalidades de card*/
+                    .iconTareaFuncion{
+                        width: 110%;
+                    }
 
 .modal-overlay {
     position: fixed;
