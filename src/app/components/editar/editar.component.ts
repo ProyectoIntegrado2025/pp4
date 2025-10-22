@@ -68,7 +68,7 @@ export class EditarComponent implements OnInit {
   async editarTarea() {
     this.cargando = true;
     try {
-      const obs = await this.apiGatewayService.postTask(this.tarea); // Si usás PUT, reemplazá este método
+      const obs = await this.apiGatewayService.putTask(this.tarea.TareaId, this.tarea); // Si usás PUT, reemplazá este método
       obs.subscribe({
         next: (res) => {
           console.log('✅ Tarea actualizada:', res);

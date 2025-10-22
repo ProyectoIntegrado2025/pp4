@@ -20,6 +20,7 @@ export class InicioComponent implements OnInit, OnDestroy {
   tareasTotal: Tarea[] = [];
   cargando = true;
   error = false;
+  mensaje = '';
 
   @ViewChild('errorModal') errorModal?: ElementRef;
   mostrarModalConfirmacion = false;
@@ -143,6 +144,33 @@ export class InicioComponent implements OnInit, OnDestroy {
       console.log('👋 Sesión cerrada correctamente');
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
+    }
+  }
+
+    async deleteTask(tareaId: string): Promise<void> {
+    if (!confirm('¿Seguro que deseas eliminar esta tarea?')) return;
+
+    this.cargando = true;
+    try {
+      const obs = await this.apiGatewayService.deleteTask(tareaId);
+      obs.subscribe({
+        next: (res) => {
+          console.log('✅ Tarea eliminada:', res);
+          this.tareas = this.tareas.filter(t => t.TareaId !== tareaId);
+          this.tareasTotal = [...this.tareas];
+          this.mensaje = 'Tarea eliminada correctamente.';
+          this.cargando = false;
+        },
+        error: (err) => {
+          console.error('❌ Error al eliminar tarea:', err);
+          this.error = true;
+          this.cargando = false;
+        }
+      });
+    } catch (e) {
+      console.error('❌ Error inesperado:', e);
+      this.error = true;
+      this.cargando = false;
     }
   }
 }
