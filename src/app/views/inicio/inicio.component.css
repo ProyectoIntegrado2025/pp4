@@ -569,12 +569,34 @@ nav {
   }
 }
 
-/* ====== Botón de estadísticas ====== */
 .stats-btn-wrapper {
+  display: flex;               /* pone los botones en fila */
+  justify-content: center;     /* centra los botones en la pantalla */
+  gap: 10px;                   /* espacio entre los botones */
+  margin: 1rem 0 0.5rem 0;
+}
+
+.btnStats {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 999px;               /* mantiene redondeado */
+  border: 2px solid var(--primario, #1E7266);
+  background: var(--neutro, #F8F5EF);
+  color: var(--primario, #1E7266);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+
+
+/* ====== Botón de estadísticas ====== */
+/* .stats-btn-wrapper {
   width: 100%;
   display: flex;
-  justify-content: center; /* centra el botón horizontalmente */
-  margin: 1rem 0 0.5rem 0; /* espacio arriba y abajo */
+  justify-content: center; 
+  margin: 1rem 0 0.5rem 0;
 }
 
 .btnStats {
@@ -589,7 +611,7 @@ nav {
   color: var(--primario, #1E7266);
   cursor: pointer;
   transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
-}
+} */
 
 .btnStats:hover {
   transform: translateY(-1px);
