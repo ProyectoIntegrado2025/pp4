@@ -1,98 +1,66 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { fetchAuthSession } from 'aws-amplify/auth';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiGatewayService {
 
+  private apiUrl = 'https://w5xifaljz4.execute-api.us-east-1.amazonaws.com/dev/tareas';
+
   constructor(private http: HttpClient) {}
 
-  private apiUrl = "https://6w2ocnpc54.execute-api.us-east-1.amazonaws.com";
-  private usersUrl = "/users"
-  private groupsUrl = "/groups"
-  private tasksUrl = "/tasks"
+  /**
+   * 🔑 Construye los encabezados HTTP con el token Cognito (usa ID Token)
+   */
+  private async buildHeaders(): Promise<HttpHeaders> {
+    try {
+      const session = await fetchAuthSession();
+      // 👇 Cambiamos accessToken → idToken
+      const token = session?.tokens?.idToken?.toString();
 
-  // Obtiene todos los usuarios
-  getUsers(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}${this.usersUrl}`);
-  }  
- /*  getUsers():Observable<any> {
-    return this.http.get<any>(this.apiUrl+this.usersUrl);
-  } */
-
-
-  // Obtiene un usuario por ID
-  getUser(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}${this.usersUrl}/${id}`);
-  }  
-/*   getUser(id: string): Observable<any> {
-    const params = new HttpParams().set('id', id);
-    return this.http.get<any>(this.apiUrl+this.usersUrl, { params });
-  } */
-
-
-  // Obtiene todos los grupos
-  getGroups(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}${this.groupsUrl}`);
+      return new HttpHeaders({
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+      });
+    } catch (error) {
+      console.warn('⚠️ No se pudo obtener el token de sesión:', error);
+      return new HttpHeaders({ 'Content-Type': 'application/json' });
+    }
   }
-/*   getGroups():Observable<any> {
-    return this.http.get<any>(this.apiUrl+this.groupsUrl);
-  } */
 
-
-  // Obtiene un grupo por ID
-    getGroup(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}${this.groupsUrl}/${id}`);
+  // 🔹 Obtener todas las tareas
+  async getTasks(): Promise<Observable<any>> {
+    const headers = await this.buildHeaders();
+    return this.http.get(this.apiUrl, { headers });
   }
-  /* getGroup(id: string): Observable<any> {
-    const params = new HttpParams().set('id', id);
-    return this.http.get<any>(this.apiUrl+this.groupsUrl, { params });
-  } */
 
-
-  // Obtiene todas las tareas
-  getTasks(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}${this.tasksUrl}`);
+  // 🔹 Obtener una tarea por ID
+  async getTask(tareaId: string): Promise<Observable<any>> {
+    const headers = await this.buildHeaders();
+    const url = `${this.apiUrl}/${tareaId}`;
+    return this.http.get(url, { headers });
   }
-  /* getTasks():Observable<any> {
-    return this.http.get<any>(this.apiUrl+this.tasksUrl);
-  } */
 
-
-  // Obtiene una tarea por ID
-  getTask(id: string): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}${this.tasksUrl}/${id}`);
+  // 🔹 Crear una nueva tarea
+  async postTask(tarea: any): Promise<Observable<any>> {
+    const headers = await this.buildHeaders();
+    return this.http.post(this.apiUrl, JSON.stringify(tarea), { headers });
   }
-  /* getTask(id: string): Observable<any> {
-    const params = new HttpParams().set('id', id);
-    return this.http.get<any>(this.apiUrl+this.tasksUrl, { params });
-  } */
 
-
-  // Crear tarea
-  postTask(task: any): Observable<any> {
-    const url = `${this.apiUrl}${this.tasksUrl}`;
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post(url, JSON.stringify(task), { headers });
+  // 🔹 Actualizar una tarea
+  async putTask(tareaId: string, tarea: any): Promise<Observable<any>> {
+    const headers = await this.buildHeaders();
+    const url = `${this.apiUrl}/${tareaId}`;
+    return this.http.put(url, JSON.stringify(tarea), { headers });
   }
-  /* postTask(task: any): Observable<any>{
-    const url = `${this.apiUrl}${this.tasksUrl}`;
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-    });
 
-    return this.http.post(url, JSON.stringify(task), { headers });
-  } */
-
-
-  // Elimnar tarea
-  deleteTask(taskId: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}${this.tasksUrl}/${taskId}`);
+  // 🔹 Eliminar una tarea
+  async deleteTask(tareaId: string): Promise<Observable<any>> {
+    const headers = await this.buildHeaders();
+    const url = `${this.apiUrl}/${tareaId}`;
+    return this.http.delete(url, { headers });
   }
-/*   deleteTask(taskId: any): Observable<any>{
-    const params = new HttpParams().set('id', taskId);
-    return this.http.delete(`${this.apiUrl}${this.tasksUrl}`, { params });
-  } */
 }

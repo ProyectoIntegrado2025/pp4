@@ -1,4 +1,4 @@
-<section class="vh-100 gradient-custom">
+<!-- <section class="vh-100 gradient-custom">
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -8,19 +8,19 @@
               <h2 class="fw-bold mb-2 text-uppercase">Confirmar Cuenta</h2>
               <p class="text-white-50 mb-5">Ingresa el código que recibiste en tu email.</p>
 
-              <form [formGroup]="confirmForm" (ngSubmit)="confirmSignUp()">
+              <form [formGroup]="confirmForm" (ngSubmit)="confirmSignUp()"> -->
                 <!-- Campo de Email -->
-                <div class="form-outline form-white mb-4">
+<!--                 <div class="form-outline form-white mb-4">
                   <input type="email" placeholder="Email" id="email" formControlName="email" class="form-control form-control-lg" />
                   <label class="form-label d-none" for="email">Email</label>
-                </div>
+                </div> -->
                 <!-- Campo de Código de Confirmación -->
-                <div class="form-outline form-white mb-4">
+<!--                 <div class="form-outline form-white mb-4">
                   <input type="text" placeholder="Código de 6 dígitos" id="code" formControlName="code" class="form-control form-control-lg" />
                   <label class="form-label d-none" for="code">Código de Confirmación</label>
-                </div>
+                </div> -->
                 
-                <button [disabled]="confirmForm.invalid || cargando" type="submit" class="btn btn-outline-light btn-lg px-5">
+<!--                 <button [disabled]="confirmForm.invalid || cargando" type="submit" class="btn btn-outline-light btn-lg px-5">
                   <span *ngIf="!cargando">Confirmar Cuenta</span>
                   <div *ngIf="cargando" class="spinner-border spinner-border-sm" role="status">
                     <span class="visually-hidden">Cargando...</span>
@@ -41,4 +41,75 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
+
+
+<main>
+
+      <!-- Componente exportado theme-toggle -->
+      <app-theme-toggle class="global-toggle"></app-theme-toggle> 
+
+
+  <!-- Contiene Todo -->
+  <div class="cardConfSignUp cardLogin">
+
+      <!-- IMG DE FONDO -->
+      <img class="imglogoback" src="../../../../assets/logos/logo.png" alt="logo">
+
+          <div class="cardConfSignUpText">
+              <h2 >CONFIRMAR CUENTA</h2>
+              <p>Ingresa el código que recibiste en tu email</p>
+          </div>
+
+      <div class="cardForm">
+          <form [formGroup]="confirmForm" (ngSubmit)="confirmSignUp()">
+                <!-- Campo de Email -->              
+                  <input type="email" placeholder="Email" id="email" formControlName="email" [readonly]="true"/>
+                  <label for="email"></label>
+                        <!-- Validadores Eamil -->
+                        <div *ngIf="errorControl['email']?.touched && errorControl['email']?.invalid" class="validatorsLogin" aria-live="polite">
+                              <div *ngIf="errorControl['email']?.errors?.['required']">Email requerido</div>
+                              <div *ngIf="errorControl['email']?.errors?.['email']">El email debe ser válido</div>
+                        </div>
+
+                <!-- Campo de Código de Confirmación -->
+                  <input type="text" placeholder="Código de 6 dígitos" id="code" formControlName="code"/>
+                  <label for="code"></label>
+                        <!-- Validadores Código -->                       
+                        <div *ngIf="errorControl['code']?.touched && errorControl['code']?.invalid" class="validatorsLogin" aria-live="polite">
+                              <div *ngIf="errorControl['code']?.errors?.['required']">Código requerido</div>
+                              <div *ngIf="errorControl['code']?.errors?.['minlength'] || errorControl['code']?.errors?.['maxlength']">El código debe tener 6 dígitos</div>
+                        </div>
+
+
+<!--                 <button [disabled]="confirmForm.invalid || cargando" type="submit">
+                  <span *ngIf="!cargando">Confirmar Cuenta</span>
+                    <div *ngIf="cargando" class="spinner-border spinner-border-sm" role="status">
+                      <span class="visually-hidden">Cargando...</span>
+                    </div>
+                </button> -->
+                <button class="btnConfirmar" [disabled]="confirmForm.invalid || cargando" type="submit">
+                  <!-- Imagen normal cuando NO está cargando -->
+                    <img *ngIf="!cargando" class="imgConfirmar" src="../../../../assets/login/botonConfirmar.png" alt="Confirmar">
+
+                  <!-- Spinner cuando está cargando -->
+                    <div *ngIf="cargando" class="spinner-border spinner-border-sm" role="status">
+                      <span class="visually-hidden">Cargando...</span>
+                    </div>
+                </button>
+          </form>
+
+          <div class="lastTxt">
+               <p>¿No recibiste el código? 
+                  <a [ngClass]="{'cursor-not-allowed': cargando}" (click)="resendCode()">Reenviar</a>
+              </p>
+              <div *ngIf="cargando">Reenviando código...</div>
+              <p >¿Ya tienes una cuenta? <a [routerLink]="['/login']">Iniciar sesión</a></p>           
+          </div>
+    
+      </div> 
+
+  </div>
+
+
+</main>

@@ -1,1 +1,128 @@
 /* You can add global styles to this file, and also import other style files */
+/* se toman como referencia */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* You can add global styles to this file, and also import other style files */
+/* se toman como referencia */
+:root {
+  --bg: #ffffff;
+  --fg: #111827;
+  --card-bg: #ffffff;
+  --card-bgLogin: #ffffff;
+  --card-bgInicio: #ffffff;
+  --card-cardTask: #ffffff;
+}
+ 
+/* defecto */
+main, body, app-root, app-view, app-auth {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: block;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* tema claro/oscuro aplicable a <main> y fallback en <html> */
+main.theme-light, html.theme-light {
+  --bg: #f5f5f5;
+  --fg: #111827;
+  --area-Txt1:rgb(0, 84, 87);
+  --area-Txt2:rgb(0, 118, 122);
+  --card-bgLogin: #ffffff;
+  --card-bgInicio: #ffffff;
+  --card-cardTask: #ffffff;
+  --area-Pasos: #0099ff0a;
+  --card-bg: #ffffff;
+}
+ 
+main.theme-dark, html.theme-dark {
+  --bg: #0e0f0e;
+  --fg: #e5e7eb;
+  --area-Txt1:rgb(25, 160, 119);
+  --area-Txt2:rgb(0, 190, 190);
+  --card-bgLogin: #191b19;
+  --card-bgInicio: #191b19;
+  --card-cardTask:#191b19;
+  --area-Pasos:#0086700c;
+  --card-bg: #0d1329;
+}
+
+/* usar variables */
+main {
+  background: var(--bg);
+  color: var(--fg);
+  transition: background-color 500ms ease, color 1400ms ease;
+}
+/* Contenedor de logín */
+.cardLogin {
+  background: var(--card-bgLogin);
+  transition: background-color 500ms ease;
+}
+/* botón ingresar del logín */
+.btnLogin{
+  color: var(--fg);
+  transition: color 1000ms ease;
+}
+/* clases de la parte media y baja de la tarjeta tareas en inicio */
+.mid, .bot{ 
+  background: var(--card-bgInicio);
+  color: var(--fg);
+  transition: background-color 500ms ease, color 1400ms ease;
+}
+
+/* Para cardTask tarea con la última estructura */
+.cardTask{
+  background: var(--card-cardTask);
+  transition: background-color 500ms ease, color 1400ms ease;
+}
+nav{
+  background: var(--bg);
+  transition: background-color 500ms ease, color 1400ms ease;
+}
+
+
+
+
+
+/* DENEGACIÓN DE AUTO FILL DE LOS NAVEGADORES */
+/* DENEGACIÓN DE AUTO FILL DE LOS NAVEGADORES */
+/* DENEGACIÓN DE AUTO FILL DE LOS NAVEGADORES */
+/* DENEGACIÓN DE AUTO FILL DE LOS NAVEGADORES */
+
+/* Chrome, Edge, Opera */
+input:-webkit-autofill,  
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  box-shadow: 0 0 0px 1000px #e5ffc8 inset !important;
+}
+
+/* Cuando el campo con autofill está enfocado */
+input:-webkit-autofill:focus, 
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill:focus {
+  box-shadow: 0 0 0px 1000px #e5ffc8 inset !important;
+}
+
+/* Firefox */
+input:-moz-autofill {
+  box-shadow: 0 0 0px 1000px #e5ffc8 inset !important;
+  -moz-text-fill-color: #00994f !important;
+}
+/* ------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------ */
+/* ------------------------------------------------------------------------------ */
+
+
+
+/* FUENTES */
+/* src/styles.css */
+@font-face {
+  font-family: "Polya";
+  src: url("/assets/fuentes/POLYA.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap; /* buena práctica para performance */
+}

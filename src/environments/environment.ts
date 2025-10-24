@@ -1,6 +1,11 @@
 export const environment = {
     production: false,
 
-    cognitoUserPoolId: 'us-east-1_7vVEmgVid',
-    cognitoAppClientId: '1cl7pc80sn0jin2uosllmr0ppk'
+    cognitoUserPoolId: 'us-east-1_Z0j1v1VS4',
+    cognitoAppClientId: '55mr34sd21dhpsvaeebj3f3v63',
+    apiAssistantUrl: 'https://7o8zgfkbrf.execute-api.us-east-1.amazonaws.com/dev/assistant'
+
+    
+    
+
 }

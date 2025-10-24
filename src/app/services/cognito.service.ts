@@ -22,56 +22,60 @@ export class AuthenticateService {
 
   // Login
   login(emailaddress: any, password: any) {
-  const authenticationDetails = new AuthenticationDetails({
-    Username: emailaddress,
-    Password: password,
-  });
+    const authenticationDetails = new AuthenticationDetails({
+      Username: emailaddress,
+      Password: password,
+    });
 
-  const poolData = {
-    UserPoolId: environment.cognitoUserPoolId,
-    ClientId: environment.cognitoAppClientId,
-  };
+    const poolData = {
+      UserPoolId: environment.cognitoUserPoolId,
+      ClientId: environment.cognitoAppClientId,
+    };
 
-  this.username = emailaddress;
-  this.userPool = new CognitoUserPool(poolData);
-  let userData = { Username: emailaddress, Pool: this.userPool };
-  this.cognitoUser = new CognitoUser(userData);
+    this.username = emailaddress;
+    this.userPool = new CognitoUserPool(poolData);
+    let userData = { Username: emailaddress, Pool: this.userPool };
+    this.cognitoUser = new CognitoUser(userData);
 
     this.cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: (result: any) => {
-        localStorage.setItem('user', emailaddress);
+        // 👉 Guardar tokens en localStorage
+        const idToken = result.getIdToken().getJwtToken();
+        const accessToken = result.getAccessToken().getJwtToken();
+        const refreshToken = result.getRefreshToken().getToken();
+
+        localStorage.setItem("idToken", idToken);
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+
+        // También guardamos el usuario para referencia
+        localStorage.setItem("user", emailaddress);
+
         this.setTempUser(null); // limpiar por seguridad
-        this.router.navigate(['/inicio']);
+        this.router.navigate(["/inicio"]);
       },
 
-    // First time login attempt
-    // PASO: pasamos la referencia del cognitoUser y los atributos del challenge por router.state
       newPasswordRequired: (userAttributes: any, requiredAttributes: any) => {
-        console.log('[LOGIN] NEW_PASSWORD_REQUIRED - cognitoUser exists?', !!this.cognitoUser);
-        console.log('[LOGIN] userAttributes:', userAttributes, 'required:', requiredAttributes);
+        console.log("[LOGIN] NEW_PASSWORD_REQUIRED - cognitoUser exists?", !!this.cognitoUser);
+        console.log("[LOGIN] userAttributes:", userAttributes, "required:", requiredAttributes);
 
         // Guardamos la referencia en el service antes de navegar
         this.setTempUser(this.cognitoUser);
-        console.log('[LOGIN] after setTempUser, tempCognitoUser:', this.tempCognitoUser);
+        console.log("[LOGIN] after setTempUser, tempCognitoUser:", this.tempCognitoUser);
 
-        // enviamos solo los atributos por state (no el objeto cognitoUser)
-        this.router.navigate(['/newPasswordRequired'], {
+        this.router.navigate(["/newPasswordRequired"], {
           state: { userAttributes: userAttributes || {}, requiredAttributes: requiredAttributes || {} }
         });
       },
 
-    onFailure: (error: any) => {
-      console.log("error", error);
-    },
-  });
-}
+      onFailure: (error: any) => {
+        console.log("error", error);
+      },
+    });
+  }
 
   // First time login attempt - New password require
-  changePassword(
-    oldPassword: string,
-    newPassword: string,
-    confirmPassword: string
-  ) {
+  changePassword(oldPassword: string, newPassword: string, confirmPassword: string) {
     if (newPassword === confirmPassword) {
       this.cognitoUser.completeNewPasswordChallenge(
         newPassword,
@@ -91,7 +95,7 @@ export class AuthenticateService {
     }
   }
 
-  // Logout 
+  // Logout
   logOut() {
     let poolData = {
       UserPoolId: environment.cognitoUserPoolId,
@@ -101,36 +105,39 @@ export class AuthenticateService {
     this.cognitoUser = this.userPool.getCurrentUser();
     if (this.cognitoUser) {
       this.cognitoUser.signOut();
+      // 👉 limpiar tokens
+      localStorage.removeItem("idToken");
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("refreshToken");
       localStorage.removeItem("user");
+
       this.router.navigate(["login"]);
     }
   }
 
-  isAuthenticated(){
+  isAuthenticated() {
     let poolData = {
       UserPoolId: environment.cognitoUserPoolId,
       ClientId: environment.cognitoAppClientId,
     };
     this.userPool = new CognitoUserPool(poolData);
     this.cognitoUser = this.userPool.getCurrentUser();
-    if (!this.cognitoUser) {
-      return false;
-    }else{
-      return true;
-    }
+    return !!this.cognitoUser;
   }
 
-
+  // 👉 Nuevo método para obtener el IdToken
+  getIdToken(): string | null {
+    return localStorage.getItem("idToken");
+  }
 
   // métodos para set/get (útiles para debug)
   setTempUser(user: CognitoUser | null) {
     this.tempCognitoUser = user;
-    console.log('[SERVICE] setTempUser ->', user);
+    console.log("[SERVICE] setTempUser ->", user);
   }
 
   getTempUser(): CognitoUser | null {
-    console.log('[SERVICE] getTempUser ->', this.tempCognitoUser);
+    console.log("[SERVICE] getTempUser ->", this.tempCognitoUser);
     return this.tempCognitoUser;
   }
-
 }

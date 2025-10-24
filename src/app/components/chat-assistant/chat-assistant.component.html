@@ -1,0 +1,31 @@
+<!-- BOTÓN FLOTANTE (GIF) -->
+<button class="zenki-chat-toggle" (click)="toggleChat()" aria-label="Abrir chat">
+  <img src="assets/ZenkiBot.gif" alt="Asistente Zenki" class="zenki-bot-gif" />
+</button>
+
+<!-- VENTANA DEL CHAT -->
+<div class="zenki-chat-window" *ngIf="isOpen">
+  <div class="zenki-chat-header">
+    <div class="title">ZenkiBot</div>
+    <button class="close-btn" (click)="toggleChat()" aria-label="Cerrar">✕</button>
+  </div>
+
+  <div class="zenki-chat-body">
+    <div *ngFor="let m of messages" class="msg" [class.user]="m.sender==='user'" [class.assistant]="m.sender==='assistant'">
+      <p>{{ m.text }}</p>
+    </div>
+
+    <div class="typing" *ngIf="loading">Escribiendo…</div>
+  </div>
+
+  <div class="zenki-chat-input">
+    <input
+      id="zenki-input"
+      type="text"
+      [(ngModel)]="question"
+      (keyup.enter)="sendQuestion()"
+      placeholder="Escribe tu mensaje…"
+    />
+    <button (click)="sendQuestion()" aria-label="Enviar">→</button>
+  </div>
+</div>

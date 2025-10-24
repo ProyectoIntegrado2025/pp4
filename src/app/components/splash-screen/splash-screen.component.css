@@ -1,0 +1,107 @@
+/* ---------- Contenedor principal ---------- */
+.splash-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  /* 💚 Degradado Zenki */
+  background: linear-gradient(135deg, #1E7266 0%, #3FAE49 50%, #FFC857 100%);
+  color: white;
+  font-family: 'Inter', sans-serif;
+  text-align: center;
+  animation: fadeIn 0.8s ease-in forwards;
+  opacity: 1;
+  overflow: hidden;
+}
+
+/* ---------- Logo + Título ---------- */
+.logo-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  animation: logoPop 1.2s ease-out;
+}
+
+.zenki-icon {
+  width: 60px;
+  height: 60px;
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
+}
+
+/* 🔹 Título minimalista con brillo Zenki */
+.zenki-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 3.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  animation: titleGlow 2.2s ease-in-out, fadeIn 1.2s ease-in;
+}
+
+/* ---------- Frase ---------- */
+.tagline {
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 40px;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 1.2s ease-in;
+}
+
+/* ---------- Barra de progreso ---------- */
+.progress-bar {
+  width: 60%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background: #fff;
+  width: 0%;
+  transition: width 0.1s ease;
+  border-radius: 8px;
+}
+
+/* ---------- Animaciones ---------- */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: scale(1); }
+  to { opacity: 0; transform: scale(0.95); }
+}
+
+@keyframes logoPop {
+  0% { opacity: 0; transform: scale(0.8); }
+  60% { opacity: 1; transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* ✨ Efecto de brillo Zenki */
+@keyframes titleGlow {
+  0% {
+    text-shadow: 0 0 0px rgba(255, 255, 255, 0);
+  }
+  50% {
+    text-shadow: 0 0 14px rgba(255, 255, 255, 0.9);
+  }
+  100% {
+    text-shadow: 0 0 0px rgba(255, 255, 255, 0);
+  }
+}
+
+/* Fade-out aplicado desde el TS */
+.fade-out {
+  animation: fadeOut 0.9s ease-out forwards;
+}

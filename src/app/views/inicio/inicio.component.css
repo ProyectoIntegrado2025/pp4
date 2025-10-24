@@ -1,110 +1,774 @@
-@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Inconsolata:wght@200..900&display=swap');
-
 /* Para cuando no se carga el back sale este modal en la parte t */
-.add-container{
-    height: 100vh;
+main {
+    min-height: 100dvh;
+    /* principal */
+    min-height: 100vh;
+    /* respaldo */
+    width: 100%;
+    position: relative;
 }
-.alerta-container{
-    height: 75px;
+
+/* NAVBAR */
+nav {
+    background-color: var(--bg) !important;
+}
+
+.logoZenki {
+    width: clamp(125px, 6%, 130px);
+    pointer-events: none;
+    user-select: none;
+}
+
+.btnLogout {
+    background-color: #FFC857;
+    font-weight: 500;
+    font-size: 105%;
+    padding-inline: clamp(10px, .6%, 20px);
+    /* izq der */
+    padding-block: clamp(7px, .4%, 16px);
+    /* top bot */
+    border-radius: .5em;
+}
+
+@media (max-width: 278px) {
+    .btnLogout {
+        margin-top: 5px;
+    }
+}
+
+/* Toggle cambio de tema, componente theme-toggle */
+/* Toggle cambio de tema, componente theme-toggle */
+.global-toggle{
+  width: 2.23em; /* del 100% que ocupe el 82% */
+  min-width: 30px;
+  margin-left: .9%;
+}
+
+@media (max-width: 1024px) {
+    .global-toggle {
+        margin-right: 1.4%;
+    }
+}
+
+@media (max-width: 740px) {
+    .global-toggle {
+        margin-right: 2%;
+    }
+}
+
+@media (max-width: 480px) {
+    .global-toggle {
+        margin-right: 3%;
+    }
+}
+
+/* ICON CREAR TAREA */
+.iconCrearTarea {
+  position: fixed;
+  left: 2%;
+  bottom: 2%;
+  width: 4.2em;
+  height: auto;
+  border-radius: 50%;
+  background-color: #ffffff;
+  padding: 10px;
+  box-shadow: 0 0 0 rgba(63, 174, 73, 0.4);
+  animation: glow-zenki 3s infinite ease-in-out;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  z-index: 2000;
+  cursor: pointer;
+}
+
+.iconCrearTarea:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px 3px rgba(63, 174, 73, 0.6);
+}
+
+@keyframes glow-zenki {
+  0% {
+    box-shadow: 0 0 0 0 rgba(63, 174, 73, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 15px 3px rgba(63, 174, 73, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(63, 174, 73, 0.4);
+  }
 }
 
 
-.headerTareas{
-    margin-left: 8%;
-    font-size: 300%;
+/* Buscador */
+.form-control {
+    background-color: rgb(241, 255, 220);
+    color: rgb(0, 84, 87);
 }
-.headerBuscar{
-    font-size: 125%;
+
+.form-control::placeholder {
+    color: rgb(0, 84, 87);
+    font-style: italic;
 }
-.titleCard{
-    font-size: 200%;
+
+/* Div de titulo de tareas y swiper-container */
+.conteinerTasks {
+    height: auto;
+}
+
+/* Título previo a las tareas con swiper-container */
+.headerTareas {
+    font-family: "Polya", sans-serif;
+    font-weight: 500;
+    /* importante si no tenés Polya-Bold */
+    margin: auto;
     text-align: center;
+    font-size: 300%;
+    color: var(--area-Txt1);
 }
-.container{
+
+/* container del swiper-container*/
+.container {
     min-width: 92%;
-    
+
 }
-.card{
+
+/*  */
+/*  */
+/*  */
+.cardTask {
     border-radius: 5%;
     overflow: hidden;
-    
+
     width: 300px;
     min-width: 280px;
     height: 100%;
-    min-height: 470px;  
-
+    min-height: 470px;
     margin: 10px 10px 30px 10px;
 
-
-    
     display: grid;
-    grid-template-areas: "top"
-                         "mid"
-                         "bot";
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-areas:
+        "id   id   id   id   id   point"
+        "tit  tit  tit  tit  tit  tit"
+        "pri  pri  pri  pri  pri  pri"
+        "est  est  est  est  est  est"
+        "fchA fchA fchA fchB fchB fchB"
+        "pso  pso  pso  pso  pso  pso"
+        "cfg  cfg  cfg  cfg  cfg  cfg";
+    gap: 0px;
+    padding: 15px 20px 5px 20px;
+    background: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .06);
+    border: 1px outset rgb(0, 150, 125);
+    position: relative;
+    /* Para que funcione la imagen de fondo */
+    background: var(--card-cardTask);
 }
-.top {
-    grid-area: top;
+
+/* Solo la imagen fantasma de fondo */
+.imglogoback {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* corrige el centrado */
+    width: min(95%, 380px);
+    /* tamaño adaptable, ajustá a gusto */
+    height: auto;
+    opacity: 0.04;
+    /* solo la imagen, no el contenido */
+    pointer-events: none;
+    /* evita que el elemento intercepte eventos del mouse (clics, hover, focus, select) */
+    user-select: none;
+    /* evita que pueda arrastrar el logo o que aparezca el cursor de selección */
+    z-index: 0;
+    /* detrás del contenido de la card */
 }
-.top img{
-    background-repeat: no-repeat;
-    background-size: contain;
-    width: 100%;
-    height: 100%;
+
+/* Áreas */
+.area-id {
+    grid-area: id;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 4px;
+    align-items: center;
 }
-.mid {
-    grid-area: mid; 
-    text-align: center;
+
+.area-id h2 {
+    margin: 0;
+    font-weight: 700;
+    font-size: .9em;
+    /* o el que quieras */
 }
-.bot {
-    grid-area: bot; 
+
+.area-id .id-code {
+    margin: 0;
+    min-width: 0;
+    /* CRÍTICO para que el flex/grid item pueda encoger */
+    white-space: nowrap;
+    /* una sola línea */
+    letter-spacing: .02em;
+    /* espacio entre letras */
+    overflow-x: scroll;
+    /* activa scroll  */
+    mask-image: linear-gradient(to right, black 92%, transparent 105%);
+    scrollbar-width: none;
+    /* Firefox oculta scroll bar x */
+    font-size: .9em;
+    /* o el que quieras */
+    /* Fade al final (cross-browser moderno) */
+    -webkit-mask-image: linear-gradient(to right, black 92%, transparent 105%);
+}
+
+/* Título */
+.area-tit {
+    grid-area: tit;
+    display: grid;
+    grid-template-columns: auto;
+    align-items: center;
+}
+
+.area-tit h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 4px 0px 5px 0px;
+    letter-spacing: 0.03em;
+
+    white-space: nowrap;
+    /* una sola línea */
+    mask-image: linear-gradient(to right, black 93%, transparent 102%);
+    overflow-x: scroll;
+    /* activa scroll */
+    scrollbar-width: none;
+    /* Firefox oculta scroll bar x */
+    /* Fade al final (cross-browser moderno) */
+    -webkit-mask-image: linear-gradient(to right, black 93%, transparent 102%);
+
+}
+
+.area-pri {
+    grid-area: pri;
+    /* line-height: 0; */
+    font-size: .95rem;
+    display: flex;
+    align-items: center;
+    gap: 2%;
+    transition: color 0.3s ease;
+}
+
+.area-pri p {
+    margin-bottom: 0;
+}
+
+/* color según prioridad */
+.txt-alta {
+    color: #e53935;
+}
+
+/* rojo */
+.txt-media {
+    color: #f59e0b;
+}
+
+/* naranja */
+.txt-baja {
+    color: #85cc00;
+}
+
+/* celeste */
+
+/* Punto de prioridad a la derecha del ID (mock: rojo con glow) */
+.area-point {
+    grid-area: point;
+    /*     display:flex; 
+    align-items:center; 
+    justify-content:center;  */
+    position: relative;
+}
+
+.priority {
+    position: absolute;
+    right: 1.2%;
+    top: 10%;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* rojo c21310d1 background */
+/* rojo rgba(164, 3, 0, 0.619) shadow */
+/* celest #00bdc0  background*/
+/* celest #00b1b1   box-shadow */
+.prio-alta {
+    background: #e53935;
+    box-shadow: 0 0 6px 2px rgba(229, 57, 53, .45);
+}
+
+.prio-media {
+    background: #f59e0b;
+    box-shadow: 0 0 6px 2px rgba(245, 158, 11, .45);
+}
+
+.prio-baja {
+    background: #85cc00;
+    box-shadow: 0 0 6px 2px rgba(133, 204, 0, .45);
+}
+
+/* Estado */
+.area-est {
+    grid-area: est;
+    font-size: .95rem;
+    line-height: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 2%;
+}
+
+/* Fecha Inicio */
+.area-fchA {
+    grid-area: fchA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2%;
+}
+
+/* Fecha Fin */
+.area-fchB {
+    grid-area: fchB;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2%;
+}
+
+/* Fechas */
+.area-fchA .label,
+.area-fchB .label {
+    font-size: .8rem;
+    line-height: 1;
+    font-weight: 700;
+}
+
+.area-pso {
+    grid-area: pso;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 255, 242, 0.1) transparent;
+}
+
+/* Fondo variable de "Pasos" */
+.areaPasos {
+    background-color: var(--area-Pasos);
+    border: 1px solid rgba(0, 168, 140, 0.178);
+}
+
+/* Pasos: caja con borde y scroll vertical */
+.pasos-box {
+    border-radius: 6px;
+    padding: 8px 10px;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.pasos-title {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.pasos-list {
+    list-style: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+
+.pasos-list li {
+    margin-bottom: 4px;
+    white-space: pre-line;
+    /* si el paso tuviera saltos de línea */
+}
+
+/* Colores para los textos */
+.area-Txt1 {
+    color: var(--area-Txt1);
+}
+
+.area-Txt2 {
+    color: var(--area-Txt2);
+}
+
+.area-Txt2 li {
+    list-style-type: decimal;
+}
+
+.cfg {
+    grid-area: cfg;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-top: 1px solid rgb(196, 196, 196);
-    gap: 1.3%;
-}
+    border-top: 1px solid rgba(0, 168, 160, 0.192);
+    gap: 4.5%;
+}       /* button de Funcionalidades de card*/
+        .btnTaskFunction {
+            background-color: transparent; /* Elimina el fondo gris */
+            /* border: 1px solid rgb(226, 226, 226); */ /* Elimina el borde */
+            border: none;
+            padding: .5%; /* Elimina el relleno interno para reducir el ancho */
+            border-radius: 15%;
+            width: 14.7%;
+            transition: transform 180ms;
+        }
+                .btnTaskFunction:hover{
+                    transform: scale(1.11);
+                }
+                    /* img de Funcionalidades de card*/
+                    .iconTareaFuncion{
+                        width: 110%;
+                    }
 
-.spanLi{
-    font-optical-sizing: auto; /* para fuentes q soporten la propeidad, ajustará automáticamente la apariencia de la fuente según el tamaño en que se use. Esto puede mejorar la legibilidad y la estética*/
-}
-
-.spanLiTareaID{
-    font-size: 70%;
-}
-.spanLiAsig{ 
-    font-size: 80%;
-    display: block;
-    margin-top: 3%;
-}
-.spanLiTitulo{
-    font-size: 119%;
-    font-family: "Charm", cursive;
-    font-weight: 700;
-    display: block;
-    margin: 2.5% 1% 3% 1%;
-
-}
-.spanLiDescrip{
-    font-size: 93%;
-    display: block;
-    margin: 0% 1% 0% 1%;
-}
-.spanLiFecha{
-    display: block;
-    margin-top: 5%;
-}
-.buttonTareaFuncion {
-    background-color: transparent; /* Elimina el fondo gris */
-    border: 1px solid rgb(226, 226, 226); /* Elimina el borde */
-    padding: 0px; /* Elimina el relleno interno para reducir el ancho */
-    border-radius: 15%;
-    width: 11.5%;
-    transition: transform 90ms;
-}
-.buttonTareaFuncion:hover{
-    transform: scale(1.10);
-}
-.iconTareaFuncion{
+.modal-overlay {
+    position: fixed;
+    /* Esto asegura que el modal ignore el scroll y la ubicación en el body */
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Lo hice un poco más oscuro (0.8) para el efecto de "alerta general" */
+    z-index: 1050;
 }
+
+/* Tamaño y espaciado del modal */
+.modal-dialog {
+  max-width: 500px; /* Ancho máximo */
+  width: 90%; /* Asegura que sea responsive */
+  margin: auto;
+}
+
+/* Fondo, bordes suaves y espacio interno */
+.modal-content {
+  background-color: var(--modal-bg, #fff7df); /* Fondo amarillo claro por defecto */
+  border-radius: 16px;
+  padding: 24px;
+  border: 2px solid var(--modal-border, #ffc857); /* Borde amarillo por defecto */
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  animation: fadeIn 0.3s ease-out;
+  border: 2px solid #fff; /* Borde blanco para modo oscuro */
+}
+
+/* Título del modal */
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--modal-title-color, #ffffff); /* Color de título */
+  display: flex;
+  align-items: center;
+}
+
+/* Asegura que el icono de advertencia no se vea tenue */
+.modal-title::before {
+  content: '⚠️'; /* Icono de advertencia */
+  margin-right: 8px;
+  font-size: 1.6rem;
+}
+
+/* Texto del cuerpo */
+.modal-body p {
+  font-size: 1.1rem;
+  color: var(--modal-text-color, #ffffff); /* Color del texto */
+  text-align: center;
+  margin: 16px 0;
+}
+
+/* Botones del modal con mayor tamaño */
+.modal-footer .btn {
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 12px 24px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  width: 48%; /* Ajustar el ancho de los botones */
+}
+
+/* Botón Cancelar (gris claro) */
+.modal-footer .btn-outline-secondary {
+  border: 2px solid #ccc;
+  color: var(--modal-text-color, #444);
+  background-color: #fff;
+}
+
+.modal-footer .btn-outline-secondary:hover {
+  background-color: #f1f1f1;
+  border-color: #999;
+}
+
+/* Botón Confirmar Logout (amarillo) */
+.modal-footer .btn-danger {
+  background-color: var(--modal-confirm-bg, #FFC857); /* Amarillo */
+  border: none;
+  color: #000;
+}
+
+.modal-footer .btn-danger:hover {
+  background-color: #e0a800;
+}
+
+/* Cierre (X) del modal */
+.btn-close-white {
+  filter: invert(0.9);
+  opacity: 0.8;
+}
+
+/* Animación de fade-in para el modal */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Para que cambie el color en modo oscuro */
+@media (prefers-color-scheme: dark) {
+  .modal-content {
+    background-color: #333; /* Fondo oscuro en modo oscuro */
+    border: 2px solid #fff; /* Borde blanco en modo oscuro */
+  }
+
+  /* Título blanco y más visible */
+  .modal-title {
+    color: #fff !important; /* Forzar color blanco en el título */
+  }
+
+  /* Texto del cuerpo en blanco */
+  .modal-body p {
+    color: #fff !important; /* Forzar color blanco en el texto */
+  }
+
+  /* Botones */
+  .modal-footer .btn-outline-secondary {
+    color: #fff;
+    background-color: #444;
+    border-color: #555;
+  }
+
+  .modal-footer .btn-danger {
+    background-color: #85cc00; /* Verde en modo oscuro */
+    color: #fff; /* Asegurar que el texto sea blanco */
+  }
+
+  .modal-footer .btn-danger:hover {
+    background-color: #5e8c00;
+  }
+
+  .btn-close-white {
+    filter: invert(1);
+  }
+}
+
+/* ====== Botón de estadísticas ====== */
+.stats-btn-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* centra el botón horizontalmente */
+  margin: 1rem 0 0.5rem 0; /* espacio arriba y abajo */
+}
+
+.btnStats {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 2px solid var(--primario, #1E7266);
+  background: var(--neutro, #F8F5EF);
+  color: var(--primario, #1E7266);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.btnStats:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+}
+
+.btnStats:active {
+  transform: translateY(0);
+}
+
+/* ====== Modal base ====== */
+.stats-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  display: grid; place-items: center;
+  z-index: 9999;
+}
+
+.stats-modal {
+  width: min(920px, 92vw);
+  max-height: 86vh;
+  overflow: auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.25);
+  padding: 16px;
+  border: 2px solid var(--primario, #1E7266);
+}
+
+.stats-header {
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px dashed rgba(0,0,0,.1);
+  padding-bottom: 8px; margin-bottom: 12px;
+}
+
+.stats-header h3 {
+  margin: 0;
+  color: var(--texto, #2D2D2D);
+  font-weight: 700;
+}
+
+.stats-close {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--texto, #2D2D2D);
+}
+
+.stats-meta {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  font-size: 14px; color: var(--texto, #2D2D2D);
+  margin-bottom: 8px;
+}
+.meta-item strong {
+  color: var(--primario, #1E7266);
+}
+
+/* ====== Contenido ====== */
+.stats-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 900px) {
+  .stats-content { grid-template-columns: 1fr; }
+}
+
+.chart-card {
+  background: var(--neutro, #F8F5EF);
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 14px;
+  padding: 14px;
+}
+.chart-card h4 {
+  margin: 0 0 10px 0;
+  color: var(--primario, #1E7266);
+}
+
+/* ====== Gráfico de dona (Estados) ====== */
+.donut {
+  width: 180px; height: 180px;
+  transform: rotate(-90deg);
+  margin-right: 12px;
+}
+.donut-ring {
+  fill: transparent;
+  stroke: rgba(0,0,0,.08);
+  stroke-width: 3;
+}
+.donut-segment {
+  fill: transparent;
+  stroke-width: 3;
+  transition: opacity .2s ease;
+}
+.donut-wrapper {
+  display: flex; align-items: center;
+}
+.donut-total text {
+  transform: rotate(90deg);
+  fill: var(--texto, #2D2D2D);
+  font-weight: 700;
+  font-size: 8px;
+}
+.legend {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 6px;
+}
+.legend li {
+  display: grid;
+  grid-template-columns: 16px auto auto;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+  color: var(--texto, #2D2D2D);
+}
+.legend .swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,.1);
+}
+.legend .label {
+  font-weight: 600;
+}
+
+/* ====== Gráfico de barras (Prioridades) ====== */
+.bars { display: grid; gap: 10px; }
+.bar-row {
+  display: grid;
+  grid-template-columns: 100px 1fr 80px;
+  gap: 8px;
+  align-items: center;
+}
+.bar-label {
+  font-weight: 600;
+  color: var(--texto, #2D2D2D);
+}
+.bar-track {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 999px;
+  height: 16px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width .4s ease;
+}
+.bar-value {
+  text-align: right;
+  color: var(--texto, #2D2D2D);
+}
+
+/* ====== Pie del modal ====== */
+.stats-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.btnSecondary {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,.1);
+  background: #fff;
+  color: var(--texto, #2D2D2D);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .2s ease, transform .2s ease;
+}
+.btnSecondary:hover {
+  background: var(--neutro, #F8F5EF);
+  transform: translateY(-1px);
+}
+
+
+
+
+
 

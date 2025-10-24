@@ -1,0 +1,14 @@
+:host {
+  display: inline-block;   /* evita que el host sea block y ocupe todo el ancho cuando se exporte */
+  width: 2em;              /* ancho por defecto del componente */
+}
+/* src/app/shared/theme-toggle/theme-toggle.component.css */
+.theme-toggle-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+.theme-toggle-btn img {
+  width: 100%; /* del 100% del botón que la img ocupe el 100% */
+}
