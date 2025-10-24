@@ -1,4 +1,9 @@
-<p align="center"> <img src="https://i.imgur.com/CCqW1R0.png" alt="Zenki Logo" width="400"/> </p>
+<p align="center">
+  <img src="https://i.imgur.com/2j8Mx7w.png" alt="Zenki Logo" width="200"/>
+</p>
+
+<h1 align="center">🌿 Zenki</h1>
+<p align="center">Tu asistente personal para una vida más organizada</p>
 
 
 
@@ -61,22 +66,22 @@ Zenki combina productividad y tecnología conversacional para que puedas **gesti
    cd zenki
 
 
-👥 Equipo de desarrollo
+## 👥 Equipo de desarrollo
 
 Proyecto desarrollado por:
 
-- Arthur Cañari
+# - Arthur Cañari
 
-- Cristian Sagardia
+# - Cristian Sagardia
 
-- Daniel Anzaldo
+# - Daniel Anzaldo
 
-- Melanie Zurdo
+# - Melanie Zurdo
 
-- Santiago Tortora
+# - Santiago Tortora
 
-- Victor Cancinos
+# - Victor Cancinos
 
 
 
-## ✨ Zenki: Tu asistente personal para una vida más organizada.
+
