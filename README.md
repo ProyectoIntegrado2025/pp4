@@ -1,5 +1,6 @@
 <img src="https://i.imgur.com/CCqW1R0.png" alt="Zenki Logo" width="400"/>  
 
+# ✨ Tu asistente personal para una vida más organizada.
 
 ## 🧠 Descripción
 
@@ -79,4 +80,4 @@ Proyecto desarrollado por:
 
 
 
- ✨ Zenki: Tu asistente personal para una vida más organizada.
+ 
