@@ -1,4 +1,4 @@
-## <img src="https://i.imgur.com/2j8Mx7w.png" alt="Zenki Logo" width="200"/>  Zenki
+<img src="https://i.imgur.com/CCqW1R0.png" alt="Zenki Logo" width="200"/>  
 
 
 ## 🧠 Descripción
@@ -77,4 +77,4 @@ Proyecto desarrollado por:
 - Victor Cancinos
 
 
-
+# ✨ Zenki: Tu asistente personal para una vida más organizada.
