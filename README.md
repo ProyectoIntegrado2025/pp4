@@ -1,4 +1,4 @@
-<p align="center"> <img src="https://imgur.com/CCqW1R0" alt="Zenki Logo" width="200"/> </p>
+<p align="center"> <img src="https://i.imgur.com/CCqW1R0.png" alt="Zenki Logo" width="200"/> </p>
 
 
 
