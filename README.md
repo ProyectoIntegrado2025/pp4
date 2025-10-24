@@ -60,7 +60,7 @@ Zenki combina productividad y tecnología conversacional para que puedas **gesti
    cd zenki
 
 
- 👥 Equipo de desarrollo
+## 👥 Equipo de desarrollo
 
 Proyecto desarrollado por:
 
@@ -75,6 +75,8 @@ Proyecto desarrollado por:
 - Santiago Tortora
 
 - Victor Cancinos
+
+
 
 
  ✨ Zenki: Tu asistente personal para una vida más organizada.
