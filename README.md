@@ -77,4 +77,4 @@ Proyecto desarrollado por:
 - Victor Cancinos
 
 
-# ✨ Zenki: Tu asistente personal para una vida más organizada.
+ ✨ Zenki: Tu asistente personal para una vida más organizada.
