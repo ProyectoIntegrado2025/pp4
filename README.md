@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/CCqW1R0.png" alt="Zenki Logo" width="200"/>  
+<img src="https://i.imgur.com/CCqW1R0.png" alt="Zenki Logo" width="400"/>  
 
 
 ## 🧠 Descripción
