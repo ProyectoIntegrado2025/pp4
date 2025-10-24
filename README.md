@@ -65,18 +65,18 @@ Zenki combina productividad y tecnología conversacional para que puedas **gesti
 
 Proyecto desarrollado por:
 
-Arthur Cañari
+- Arthur Cañari
 
-Cristian Sagardia
+- Cristian Sagardia
 
-Daniel Anzaldo
+- Daniel Anzaldo
 
-Melanie Zurdo
+- Melanie Zurdo
 
-Santiago Tortora
+- Santiago Tortora
 
-Victor Cancinos
+- Victor Cancinos
 
 
 
-✨ Zenki: Tu asistente personal para una vida más organizada.
+## ✨ Zenki: Tu asistente personal para una vida más organizada.
