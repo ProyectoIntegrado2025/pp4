@@ -60,7 +60,7 @@ Zenki combina productividad y tecnología conversacional para que puedas **gesti
    cd zenki
 
 
-# 👥 Equipo de desarrollo
+ 👥 Equipo de desarrollo
 
 Proyecto desarrollado por:
 
