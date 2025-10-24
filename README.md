@@ -1,6 +1,6 @@
 # 🌿 Zenki
 
-![Zenki Logo](./logo.png)
+![Zenki Logo](src/assets/logos/logo.png)
 
 ## 🧠 Descripción
 
