@@ -1,6 +1,9 @@
-# 🌿 Zenki
+<p align="center">
+  <img src="./logo.png" alt="Zenki Logo" width="200"/>
+</p>
 
-![Zenki Logo](src/assets/logos/logo.png)
+<h1 align="center">🌿 Zenki</h1>
+
 
 ## 🧠 Descripción
 
