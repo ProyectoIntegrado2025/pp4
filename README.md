@@ -2,6 +2,7 @@
 
 # ✨ Tu asistente personal para una vida más organizada.
 
+
 ## 🧠 Descripción
 
 **Zenki** es un **gestor de tareas personal inteligente**, diseñado para ayudarte a organizar tu día de forma más simple y eficiente.  
@@ -63,7 +64,6 @@ Zenki combina productividad y tecnología conversacional para que puedas **gesti
 
 ## 👥 Equipo de desarrollo
 
-Proyecto desarrollado por:
 
 - Arthur Cañari
 
