@@ -15,6 +15,17 @@
   <!-- Componente exportado theme-toggle -->
   <app-theme-toggle class="global-toggle"></app-theme-toggle>
 
+  <!-- ====== BOTÓN ESTADÍSTICAS (colocar arriba del botón +) ====== -->
+<div class="stats-btn-wrapper">
+  <button class="btnStats" type="button" (click)="openStats()">
+    <!-- Ícono simple de barras -->
+    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M4 22h16M6 18v-7M12 18V6M18 18v-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span>Ver estadísticas</span>
+  </button>
+</div>
+
   <!-- BUTTON CREAR TAREA --> <!-- BUTTON CREAR TAREA -->
   <!-- Icono que rutea al componente crear -->
   <a [routerLink]="['/crear']"><img class="iconCrearTarea" src="../../../assets/iconos/botonCrearTarea.png"
@@ -154,5 +165,81 @@
  
   <!-- Botón flotante + chat (solo Home) -->
   <app-chat-assistant></app-chat-assistant>
+
+  <!-- ====== MODAL ESTADÍSTICAS ====== -->
+<div class="stats-backdrop" *ngIf="showStats" (click)="closeStats()">
+  <div class="stats-modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+    <div class="stats-header">
+      <h3>Resumen de tus tareas</h3>
+      <button class="stats-close" type="button" (click)="closeStats()" aria-label="Cerrar">✕</button>
+    </div>
+
+    <div class="stats-meta">
+      <div class="meta-item">
+        <strong>Total:</strong> {{ totalTareas }}
+      </div>
+      <div class="meta-item" *ngIf="ultimaActualizacion">
+        <strong>Actualizado:</strong> {{ ultimaActualizacion | date:'short' }}
+      </div>
+    </div>
+
+    <div class="stats-content">
+      <!-- Gráfico 1: Estados (dona SVG sin librerías) -->
+      <section class="chart-card">
+        <h4>Estados</h4>
+        <div class="donut-wrapper" [attr.aria-label]="'Distribución por estado'">
+          <svg viewBox="0 0 42 42" class="donut">
+            <circle class="donut-ring" cx="21" cy="21" r="15.915"></circle>
+
+            <!-- Segmentos -->
+            <ng-container *ngFor="let seg of donutEstados; let i = index">
+              <circle
+                class="donut-segment"
+                cx="21" cy="21" r="15.915"
+                [attr.stroke]="seg.color"
+                [attr.stroke-dasharray]="seg.arc + ' ' + (100 - seg.arc)"
+                [attr.stroke-dashoffset]="seg.offset">
+              </circle>
+            </ng-container>
+
+            <g class="donut-total">
+              <text x="50%" y="50%" text-anchor="middle" dy="0.3em">{{ totalTareas }}</text>
+            </g>
+          </svg>
+          <ul class="legend">
+            <li *ngFor="let e of estadoStats">
+              <span class="swatch" [style.background]="e.color"></span>
+              <span class="label">{{ e.label }}</span>
+              <span class="value">{{ e.count }} ({{ e.percent }}%)</span>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Gráfico 2: Prioridades (barras horizontales puras CSS) -->
+      <section class="chart-card">
+        <h4>Prioridades</h4>
+        <div class="bars">
+          <div class="bar-row" *ngFor="let p of prioridadStats">
+            <div class="bar-label">{{ p.label }}</div>
+            <div class="bar-track">
+              <div class="bar-fill"
+                   [style.width.%]="p.percent"
+                   [style.background]="p.color"
+                   [attr.aria-label]="p.label + ': ' + p.count + ' (' + p.percent + '%)'">
+              </div>
+            </div>
+            <div class="bar-value">{{ p.count }} ({{ p.percent }}%)</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="stats-footer">
+      <button class="btnSecondary" type="button" (click)="closeStats()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
 
 </main>

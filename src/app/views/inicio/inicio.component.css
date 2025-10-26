@@ -569,6 +569,206 @@ nav {
   }
 }
 
+/* ====== Botón de estadísticas ====== */
+.stats-btn-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* centra el botón horizontalmente */
+  margin: 1rem 0 0.5rem 0; /* espacio arriba y abajo */
+}
+
+.btnStats {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 2px solid var(--primario, #1E7266);
+  background: var(--neutro, #F8F5EF);
+  color: var(--primario, #1E7266);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.btnStats:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+}
+
+.btnStats:active {
+  transform: translateY(0);
+}
+
+/* ====== Modal base ====== */
+.stats-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,.45);
+  display: grid; place-items: center;
+  z-index: 9999;
+}
+
+.stats-modal {
+  width: min(920px, 92vw);
+  max-height: 86vh;
+  overflow: auto;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,.25);
+  padding: 16px;
+  border: 2px solid var(--primario, #1E7266);
+}
+
+.stats-header {
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px dashed rgba(0,0,0,.1);
+  padding-bottom: 8px; margin-bottom: 12px;
+}
+
+.stats-header h3 {
+  margin: 0;
+  color: var(--texto, #2D2D2D);
+  font-weight: 700;
+}
+
+.stats-close {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: var(--texto, #2D2D2D);
+}
+
+.stats-meta {
+  display: flex; gap: 16px; flex-wrap: wrap;
+  font-size: 14px; color: var(--texto, #2D2D2D);
+  margin-bottom: 8px;
+}
+.meta-item strong {
+  color: var(--primario, #1E7266);
+}
+
+/* ====== Contenido ====== */
+.stats-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+@media (max-width: 900px) {
+  .stats-content { grid-template-columns: 1fr; }
+}
+
+.chart-card {
+  background: var(--neutro, #F8F5EF);
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 14px;
+  padding: 14px;
+}
+.chart-card h4 {
+  margin: 0 0 10px 0;
+  color: var(--primario, #1E7266);
+}
+
+/* ====== Gráfico de dona (Estados) ====== */
+.donut {
+  width: 180px; height: 180px;
+  transform: rotate(-90deg);
+  margin-right: 12px;
+}
+.donut-ring {
+  fill: transparent;
+  stroke: rgba(0,0,0,.08);
+  stroke-width: 3;
+}
+.donut-segment {
+  fill: transparent;
+  stroke-width: 3;
+  transition: opacity .2s ease;
+}
+.donut-wrapper {
+  display: flex; align-items: center;
+}
+.donut-total text {
+  transform: rotate(90deg);
+  fill: var(--texto, #2D2D2D);
+  font-weight: 700;
+  font-size: 8px;
+}
+.legend {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 6px;
+}
+.legend li {
+  display: grid;
+  grid-template-columns: 16px auto auto;
+  gap: 8px;
+  align-items: center;
+  font-size: 14px;
+  color: var(--texto, #2D2D2D);
+}
+.legend .swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  border: 1px solid rgba(0,0,0,.1);
+}
+.legend .label {
+  font-weight: 600;
+}
+
+/* ====== Gráfico de barras (Prioridades) ====== */
+.bars { display: grid; gap: 10px; }
+.bar-row {
+  display: grid;
+  grid-template-columns: 100px 1fr 80px;
+  gap: 8px;
+  align-items: center;
+}
+.bar-label {
+  font-weight: 600;
+  color: var(--texto, #2D2D2D);
+}
+.bar-track {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,.08);
+  border-radius: 999px;
+  height: 16px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width .4s ease;
+}
+.bar-value {
+  text-align: right;
+  color: var(--texto, #2D2D2D);
+}
+
+/* ====== Pie del modal ====== */
+.stats-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.btnSecondary {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(0,0,0,.1);
+  background: #fff;
+  color: var(--texto, #2D2D2D);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .2s ease, transform .2s ease;
+}
+.btnSecondary:hover {
+  background: var(--neutro, #F8F5EF);
+  transform: translateY(-1px);
+}
+
+
+
 
 
 
