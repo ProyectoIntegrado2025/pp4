@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit, OnDestroy, HostListener} from '@angular/core';
 import { Router } from "@angular/router";
 import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
@@ -304,5 +304,119 @@ private buildDonut(items: Array<{ percent: number; color: string }>) {
   }
   return segs;
 }
+
+
+// ===== VISTA: all | byEstado =====
+viewMode: 'all' | 'byEstado' = 'all';
+
+setView(mode: 'all' | 'byEstado') { this.viewMode = mode; }
+
+// --- Orden para "Por lista"
+showListSort = false;
+currentSort: 'estado' | 'fechaInicio' | 'fechaFin' = 'fechaInicio'; // default
+
+toggleListSort(ev: MouseEvent) {
+  ev.stopPropagation();
+  this.showListSort = !this.showListSort;
+}
+
+setListSort(type: 'estado' | 'fechaInicio' | 'fechaFin') {
+  this.currentSort = type;
+  this.showListSort = false;
+}
+
+// Cerrar el menú al clickear afuera
+@HostListener('document:click')
+onDocClick() {
+  this.showListSort = false;
+  this.showGroupSort = false;
+}
+
+// Normalizador (soporta 'En Desarrollo', 'En proceso', etc.)
+private normEstado(v?: string | null): 'pendiente' | 'desarrollo' | 'finalizado' | 'otro' {
+  const s = (v || '').toLowerCase();
+  if (s.includes('pend')) return 'pendiente';
+  if (s.includes('desa') || s.includes('pro')) return 'desarrollo'; // 'En proceso', 'En progreso'
+  if (s.includes('fin') || s.includes('comp') || s.includes('real')) return 'finalizado';
+  return 'otro';
+}
+
+// --- Orden para "Por estado"  // --- Orden para "Por estado"  // --- Orden para "Por estado"
+// --- Orden para "Por estado"  // --- Orden para "Por estado"  // --- Orden para "Por estado"
+showGroupSort = false;
+groupSort: 'fechaInicio' | 'fechaFin' = 'fechaInicio';
+
+toggleGroupSort(ev: MouseEvent) {
+  ev.stopPropagation();
+  this.showGroupSort = !this.showGroupSort;
+}
+
+setGroupSort(type: 'fechaInicio' | 'fechaFin') {
+  this.groupSort = type;
+  this.showGroupSort = false;
+}
+// Getters simples (filtran y ordenan por fecha “más nueva primero”)
+get tareasPendientes() {
+  return (this.tareas || [])
+    .filter(t => this.normEstado(t.Estado) === 'pendiente')
+    .sort((a,b) => this.timeOf(b, this.groupSort) - this.timeOf(a, this.groupSort));
+}
+
+get tareasEnDesarrollo() {
+  return (this.tareas || [])
+    .filter(t => this.normEstado(t.Estado) === 'desarrollo')
+    .sort((a,b) => this.timeOf(b, this.groupSort) - this.timeOf(a, this.groupSort));
+}
+
+get tareasFinalizadas() {
+  return (this.tareas || [])
+    .filter(t => this.normEstado(t.Estado) === 'finalizado')
+    .sort((a,b) => this.timeOf(b, this.groupSort) - this.timeOf(a, this.groupSort));
+}
+
+// (Opcional) trackBy para Swiper si querés performance:
+trackById(_: number, t: any) { return t.TareaId; }
+
+// Helper fecha -> timestamp seguro
+private toTime(s?: string | null): number {
+  if (!s) return 0;
+  const t = Date.parse(s);
+  return isNaN(t) ? 0 : t;
+}
+// Helper que devuelve el timestamp según la clave elegida
+private timeOf(t: any, key: 'fechaInicio' | 'fechaFin'): number {
+  const v = key === 'fechaInicio' ? t?.FechaInicio : t?.FechaFin;
+  return this.toTime(v);
+}
+
+
+// Getter que aplica el orden según currentSort (solo en vista "Por lista")
+get tareasOrdenadas(): Tarea[] {
+  const arr = [...(this.tareas || [])];
+
+  switch (this.currentSort) {
+    case 'estado': {
+      // Orden por estado: Pendiente -> En desarrollo -> Finalizado -> Otro
+      const rank: Record<string, number> = { pendiente: 0, desarrollo: 1, finalizado: 2, otro: 3 };
+      return arr.sort((a, b) => {
+        const ra = rank[this.normEstado(a.Estado)];
+        const rb = rank[this.normEstado(b.Estado)];
+        if (ra !== rb) return ra - rb;
+        // desempate por FechaInicio (más nuevo primero)
+        return this.toTime(b.FechaInicio) - this.toTime(a.FechaInicio);
+      });
+    }
+    case 'fechaInicio': {
+      // Más nuevo primero
+      return arr.sort((a, b) => this.toTime(b.FechaInicio) - this.toTime(a.FechaInicio));
+    }
+    case 'fechaFin': {
+      // Más nuevo primero por fin
+      return arr.sort((a, b) => this.toTime(b.FechaFin) - this.toTime(a.FechaFin));
+    }
+  }
+}
+
+
 
 }
