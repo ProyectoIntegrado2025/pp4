@@ -37,6 +37,7 @@ nav {
     }
 }
 
+
 /* Toggle cambio de tema, componente theme-toggle */
 /* Toggle cambio de tema, componente theme-toggle */
 .global-toggle{
@@ -751,10 +752,10 @@ nav {
  justify-content: center;
  align-items: center;
  gap: 8px;
+ margin-top:1%;
 }
-
-@media (max-width: 540px) {
-  /* barra superior con los botones */
+/* barra superior con los botones */
+/* @media (max-width: 540px) {
   .toolbar {
     flex-direction: column;   
     align-items: center;      
@@ -763,23 +764,27 @@ nav {
     text-align: center;      
     line-height: 85%;
   } 
-}
+} */
 
 /* Desktop / tablet (por defecto) */
-.view-buttons{
+/* .view-buttons{
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 8px;              /* <- recupera el espacio entre “Por lista” y “Por estado” */
-}
+  gap: 8px;              
+} */
 
 /* Móviles */
-@media (max-width: 380px){
+/* @media (max-width: 380px){
   .view-buttons{
     flex-direction: column;
-    gap: 8px;            /* mantiene el espacio en vertical */
+    gap: 8px;            
   }
+} */
+.view-buttons{
+  display: flex;
+  gap: 8px;
 }
 
 .btnToggle{
@@ -834,13 +839,10 @@ nav {
 
 
 
-
-
 /* SUB OPCIONES DE BOTÓN POR LISTA */
 .menu-anchor{ position: relative; display: inline-flex; }
 
 .btnChevron{
-  margin-left: 6px;
   padding: 6px;
   border: none;
   background: transparent;
@@ -848,6 +850,7 @@ nav {
   align-items: center;
   cursor: pointer;
   border-radius: 6px;
+  color: green;
 }
 .sort-menu{
   position: absolute;
@@ -871,6 +874,7 @@ nav {
   cursor: pointer;
   font-weight: 600;
   color: var(--area-Txt1);
+  text-align: center;
 }
 .sort-item:hover{ 
   background-color: #fff0d1;  
@@ -934,4 +938,40 @@ span + span {
 .btnStats:active {
   transform: translateY(0);
   background-color: #f0c56f;
+}
+
+/* Por defecto los iconos compactos no se muestran */
+.iconMini {
+  display: none;
+  margin-left: 6px;
+  line-height: 0;
+}
+
+/* A menos de 500 px: mostrar iconos en lugar de texto */
+@media (max-width: 500px) {
+  .iconMini {
+    display: inline-block;
+  }
+
+  /* Además ocultamos la palabra principal (Lista, Estados, Estadísticas) */
+  .txtPor + span,
+  .txtVer + span {
+    display: none;
+  }
+}
+/* Ajuste fino del espaciado cuando se activan iconos compactos */
+@media (max-width: 500px) {
+  /* Reducir el espacio entre icono principal (svg) y chevron */
+  .btnToggle,
+  .btnStats {
+    gap: 4px;                /* antes probablemente 8px, ahora más compacto */
+    padding-inline: 10px;    /* opcional: achica horizontalmente el botón */
+    color: var(--primario, #1E7266) !important;
+  }
+
+  /* Opcional: alinear mejor verticalmente el chevron */
+  .btnChevron {
+    padding: 0px;
+    margin-left: 2px;        /* antes 6px; lo acercamos */
+  }
 }
