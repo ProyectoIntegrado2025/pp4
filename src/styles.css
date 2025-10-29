@@ -10,8 +10,11 @@
   --bg: #ffffff;
   --fg: #111827;
   --card-bg: #ffffff;
+  --card-bgLogin: #ffffff;
+  --card-bgInicio: #ffffff;
+  --card-cardTask: #ffffff;
 }
-
+ 
 /* defecto */
 main, body, app-root, app-view, app-auth {
   height: 100%;
@@ -27,6 +30,11 @@ main.theme-light, html.theme-light {
   --bg: #f5f5f5;
   --fg: #111827;
   --area-Txt1:rgb(0, 84, 87);
+  --area-Txt2:rgb(0, 118, 122);
+  --card-bgLogin: #ffffff;
+  --card-bgInicio: #ffffff;
+  --card-cardTask: #ffffff;
+  --area-Pasos: #0099ff0a;
   --card-bg: #ffffff;
 }
  
@@ -34,6 +42,11 @@ main.theme-dark, html.theme-dark {
   --bg: #0e0f0e;
   --fg: #e5e7eb;
   --area-Txt1:rgb(25, 160, 119);
+  --area-Txt2:rgb(0, 190, 190);
+  --card-bgLogin: #191b19;
+  --card-bgInicio: #191b19;
+  --card-cardTask:#191b19;
+  --area-Pasos:#0086700c;
   --card-bg: #0d1329;
 }
 
@@ -54,11 +67,22 @@ main {
   transition: color 1000ms ease;
 }
 /* clases de la parte media y baja de la tarjeta tareas en inicio */
-.mid, .bot{
+.mid, .bot{ 
   background: var(--card-bgInicio);
   color: var(--fg);
   transition: background-color 500ms ease, color 1400ms ease;
 }
+
+/* Para cardTask tarea con la última estructura */
+.cardTask{
+  background: var(--card-cardTask);
+  transition: background-color 500ms ease, color 1400ms ease;
+}
+nav{
+  background: var(--bg);
+  transition: background-color 500ms ease, color 1400ms ease;
+}
+
 
 
 
@@ -90,3 +114,15 @@ input:-moz-autofill {
 /* ------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------ */
 /* ------------------------------------------------------------------------------ */
+
+
+
+/* FUENTES */
+/* src/styles.css */
+@font-face {
+  font-family: "Polya";
+  src: url("/assets/fuentes/POLYA.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap; /* buena práctica para performance */
+}

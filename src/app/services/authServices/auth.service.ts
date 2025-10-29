@@ -112,11 +112,21 @@ export class AuthService {
   }
 
   /** 🔹 Inicio de sesión */
-  async userSignIn(email: string, password: string): Promise<any> {
-    const result = await signIn({ username: email, password });
-    if (result.isSignedIn) {
-      this.updateAuthenticatedUser();
+   async userSignIn(email: string, password: string): Promise<any> {
+    // --- MEJORA CLAVE 1: VERIFICAR SI YA ESTÁ LOGUEADO ---
+    // Obtenemos el valor actual del BehaviorSubject. Si es 'true', lanzamos un error.
+    if (this._isAuthenticated.getValue() === true) {
+        console.warn('Intento de login fallido: El usuario ya está autenticado.');
+        // Creamos un error con un 'name' personalizado para poder identificarlo en el componente.
+        const error = new Error('Ya has iniciado sesión.');
+        error.name = 'AlreadyLoggedInError';
+        throw error;
     }
+
+    const result = await signIn({ username: email, password });
+    
+    // La llamada a updateAuthenticatedUser() aquí es redundante,
+    // porque el listener del Hub ya se encarga de hacerlo cuando recibe el evento 'signedIn'.
     return result;
   }
 

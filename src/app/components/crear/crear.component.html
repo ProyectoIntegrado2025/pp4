@@ -3,6 +3,10 @@
       <!-- Componente exportado theme-toggle -->
      <app-theme-toggle class="global-toggle"></app-theme-toggle>
 
+       <!-- BUTTON CREAR TAREA -->  <!-- BUTTON CREAR TAREA -->
+    <!-- Icono que rutea al componente inicio -->
+      <a [routerLink]="['/inicio']"><img class="iconVolver" src="../../../assets/iconos/botonVolver.png" alt="Volver"></a>
+
          <!-- IMG DE FONDO ZENKI -->
     <img class="imglogoback" src="../../../assets/Zenkiii.png" alt="logo">
 
@@ -64,19 +68,19 @@
       </div>
 
       <div class="crearTarea">
-        <button type="submit" class="btn btn-primary mt-3" [disabled]="formulario.invalid || cargando">
+        <button type="submit" class="btn btn-warning mt-3" [disabled]="formulario.invalid || cargando">
                 {{ cargando ? 'Creando...' : 'Crear tarea' }}
         </button>
       </div>
       
     </form>
 
-    <div *ngIf="alerta" class="alert alert-success mt-3">
-      La tarea "{{ formulario.value.Titulo }}" fue creada con éxito.
+    <div *ngIf="alerta" class="alert alert-success mt-3 creadaOrNot">
+      La tarea "{{ titulo }}" fue creada con éxito
     </div>
 
-    <div *ngIf="error" class="alert alert-danger mt-3">
-      Hubo un error al crear la tarea. Inténtalo nuevamente.
+    <div *ngIf="error" class="alert alert-danger mt-3 creadaOrNot">
+      Hubo un error al crear la tarea, inténtalo nuevamente
     </div>
   </div>
 </div>
