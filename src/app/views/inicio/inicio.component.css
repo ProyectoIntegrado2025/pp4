@@ -19,23 +19,45 @@ nav {
     user-select: none;
 }
 
-.btnLogout {
-    background-color: #FFC857;
-    color: #000;
-    font-weight: 500;
-    font-size: 105%;
-    padding-inline: clamp(10px, .6%, 20px);
-    /* izq der */
-    padding-block: clamp(7px, .4%, 16px);
-    /* top bot */
-    border-radius: .5em;
+/* Botón logout base */
+.btnLogout{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;                /* espacio entre ícono y texto */
+  background-color: #FFC857;
+  color: #000;
+  font-weight: 500;
+  font-size: 105%;
+  padding-inline: clamp(10px, .6%, 20px);
+  padding-block: clamp(7px, .4%, 16px);
+  border-radius: .5em;
+  border: none;
 }
 
-@media (max-width: 278px) {
+/* Ícono power oculto por defecto en pantallas grandes */
+.icoPower{
+  display: none;
+  line-height: 0;
+}
+
+/* < 550px: mostrar ícono, ocultar texto */
+@media (max-width: 550px){
+  .icoPower{ display: inline-block; }
+  .logout-text{ display: none; }
+  /* opcional: compactar un toque el botón en mobile */
+  .btnLogout{ gap: 6px; padding-inline: 12px; }
+}
+
+/* (Opcional) modo oscuro si usás theme variables */
+@media (prefers-color-scheme: dark){
+  .btnLogout{ color: #000; } /* el ícono hereda este color */
+}
+/* para Cerrar Sesión, cuando se achica mucho y queda debajo del logo Zenki */
+/* @media (max-width: 278px) {
     .btnLogout {
         margin-top: 5px;
     }
-}
+} */
 
 
 /* Toggle cambio de tema, componente theme-toggle */
@@ -99,17 +121,32 @@ nav {
 }
 
 
-
+/* Div Buscador */
+.divSearch{
+  display: flex;
+  justify-content: center;
+}
 /* Buscador */
 .form-control {
     background-color: rgb(241, 255, 220);
     color: rgb(0, 84, 87);
+    width: 28%;
 }
 
 .form-control::placeholder {
     color: rgb(0, 84, 87);
     font-style: italic;
 }
+  @media(max-width:1024px){
+    .form-control{
+      width: 50%;
+    }
+  }
+    @media(max-width:720px){
+    .form-control{
+      width: 70%;
+    }
+  }
 
 /* Div de titulo de tareas y swiper-container */
 .conteinerTasks {

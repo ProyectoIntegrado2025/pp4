@@ -5,10 +5,46 @@
 <main>
 
   <!-- NAVBAR -->
-  <nav class="navbar navbar-dark bg-dark justify-content-between p-3 mb-2">
+  <nav class="navbar navbar-dark bg-dark justify-content-between p-2">
     <img class="logoZenki" src="../../../assets/logos/logo+Zenki.png" alt="">
-    <button class="btnLogout" (click)="onLogout()">Cerrar Sesión</button>
+    <!-- <button class="btnLogout" (click)="onLogout()">Cerrar Sesión</button> -->
+    <button 
+      class="btnLogout"
+      (click)="onLogout()"
+      [attr.title]="'Cerrar Sesión'"
+      aria-label="Cerrar Sesión"
+    >
+      <!-- Ícono power -->
+      <svg class="icoPower" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
+        <!-- línea central -->
+        <line x1="12" y1="3" x2="12" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        <!-- arco circular -->
+        <path d="M6 7a8 8 0 1 0 12 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+
+      <!-- Texto (se oculta bajo 550px) -->
+      <span class="logout-text">Cerrar Sesión</span>
+    </button>
   </nav>
+            <!-- MODAL CONFIRMACIÓN LOGOUT -->
+            <div *ngIf="mostrarModalConfirmacion" class="modal-overlay d-flex justify-content-center align-items-center">
+              <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content bg-dark text-white"
+                  style="border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1);">
+                  <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title">Confirmación</h5>
+                    <button type="button" class="btn-close btn-close-white" (click)="cancelLogout()"></button>
+                  </div>
+                  <div class="modal-body text-center">
+                    <p>¿Seguro que deseas cerrar la sesión?</p>
+                  </div>
+                  <div class="modal-footer border-top-0 d-flex justify-content-between">
+                    <button class="btn btn-outline-secondary flex-fill me-2" (click)="cancelLogout()">Cancelar</button>
+                    <button class="btn btn-danger flex-fill" (click)="confirmLogout()">Cerrar Sesión</button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
 
   <!-- THEME TOGGLE --> <!-- THEME TOGGLE -->
@@ -172,28 +208,6 @@
   </div>
 </div>
 
- 
-
-
-  <!-- MODAL CONFIRMACIÓN LOGOUT -->
-  <div *ngIf="mostrarModalConfirmacion" class="modal-overlay d-flex justify-content-center align-items-center">
-    <div class="modal-dialog modal-md" role="document">
-      <div class="modal-content bg-dark text-white"
-        style="border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1);">
-        <div class="modal-header border-bottom-0">
-          <h5 class="modal-title">Confirmación</h5>
-          <button type="button" class="btn-close btn-close-white" (click)="cancelLogout()"></button>
-        </div>
-        <div class="modal-body text-center">
-          <p>¿Seguro que deseas cerrar la sesión?</p>
-        </div>
-        <div class="modal-footer border-top-0 d-flex justify-content-between">
-          <button class="btn btn-outline-secondary flex-fill me-2" (click)="cancelLogout()">Cancelar</button>
-          <button class="btn btn-danger flex-fill" (click)="confirmLogout()">Cerrar Sesión</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- ERROR -->
   <div *ngIf="error" class="alert alert-danger text-center m-3">
@@ -201,8 +215,8 @@
   </div>
 
   <!-- BUSCADOR -->
-  <div *ngIf="!error" class="d-flex justify-content-center mt-3">
-    <div class="m-3 w-50">
+  <div *ngIf="!error" class=" mt-3"> <!-- d-flex justify-content-center -->
+    <div class="m-2 divSearch">
       <!-- <p class="text-center fw-bold">Buscar</p> -->
       <input class="form-control" type="text" placeholder="Buscar por título..." (input)="buscarTarea($event)" />
     </div>
