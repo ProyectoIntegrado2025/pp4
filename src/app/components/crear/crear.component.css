@@ -8,36 +8,6 @@ main{
     flex-direction: column;
     position: relative;
 }
-/* a ICON volver */
-.iconVolver{
-    width: 1.7em;
-    position: absolute;
-    left: .5%;
-    top: 1.6%;
-    transition: filter 200ms ease;
-}
-    .iconVolver:hover{
-        filter: drop-shadow(1px 1px 2px rgba(2, 175, 62, 0.373))
-                drop-shadow(-1px -1px 2px rgba(2, 175, 63, 0.373));
-    }
-/* Mensaje "Tarea creada..... con éxito aplicado también al msj error */
-.creadaOrNot{
-  position: fixed;           
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: min(92vw, 560px);
-  text-align: center;
-  z-index: 1000;
-}
-/* Toggle cambio de tema, componente theme-toggle */
-/* Toggle cambio de tema, componente theme-toggle */
-.global-toggle{
-    width: 2.23em;
-    position: absolute;
-    right: 1%;
-    top: 1.5%;
-} 
 /* imagen de fondo */
 .imglogoback {
   position: absolute;
@@ -50,6 +20,7 @@ main{
   user-select: none;                  
   z-index: 0; 
 }
+
 .containerAll{
     z-index: 99;
 }
@@ -78,6 +49,14 @@ main{
     color: rgb(0, 184, 153);
     font-size: .73rem;
 }
+/* Toggle cambio de tema, componente theme-toggle */
+/* Toggle cambio de tema, componente theme-toggle */
+.global-toggle{
+    width: 2.23em;
+    position: absolute;
+    left: 1%;
+    top: 1%;
+} 
 /* 2 colores desde css global */
 .area-Txt1{ 
     font-weight: 700;

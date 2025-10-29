@@ -1,8 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/authServices/auth.service';
 
 /**
@@ -25,14 +23,14 @@ export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): {
   templateUrl: './reset-password.component.html',
   styleUrls: ['./reset-password.component.css']
 })
-export class ResetPasswordComponent implements OnInit, OnDestroy {
+export class ResetPasswordComponent implements OnInit {
 
   // Formulario para el Paso 1: Solicitud de código
   resetForm: FormGroup;
-
+  
   // Formulario para el Paso 2: Confirmación de código y nueva contraseña
   confirmForm: FormGroup;
-
+  
   // Estados de la UI
   mostrarFormularioConfirmacion: boolean = false;
   cargando: boolean = false;
@@ -42,8 +40,6 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   // Regex para validación de email y contraseña (consistente con el servicio de Cognito)
   // Contraseña: Min 8 chars, al menos 1 mayúscula, 1 minúscula, 1 número y 1 símbolo
   private passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-
-  private authSubscription: Subscription | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -57,7 +53,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
 
     this.confirmForm = this.formBuilder.group({
       // El valor inicial es una cadena vacía, pero se deshabilita el control aquí
-      email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
+      email: [{ value: '', disabled: true }, [Validators.required, Validators.email]], 
       code: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]],
       newPassword: ['', [Validators.required, Validators.pattern(this.passwordRegex)]],
       confirmPassword: ['', [Validators.required]],
@@ -68,16 +64,6 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
-    this.authSubscription = this.authService.isAuthenticated
-      .pipe(filter(isAuthenticated => isAuthenticated !== null))
-      .subscribe(isAuthenticated => {
-        if (isAuthenticated) {
-          console.log('Usuario ya autenticado. Redirigiendo desde la página de reseteo de contraseña...');
-          this.router.navigateByUrl('/inicio', { replaceUrl: true });
-        }
-      });
-
     this.mensajeError = null;
     this.mensajeExito = null;
   }
@@ -102,37 +88,38 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     
     const email = reenvio ? this.confirmForm.get('email')?.value : this.resetForm.value.email;
 
-    if (!email || (!reenvio && this.resetForm.invalid)) {
-      this.mensajeError = 'Debe ingresar un correo electrónico válido.';
+    if (!email) {
+      this.mensajeError = 'Debe ingresar un correo electrónico.';
       this.cargando = false;
       return;
     }
     
+    if (!reenvio && this.resetForm.invalid) {
+      this.cargando = false;
+      return;
+    }
+
     try {
       await this.authService.userResetPassword(email);
+      
+      if (!reenvio) {
+        this.mostrarFormularioConfirmacion = true;
+        this.confirmForm.get('email')?.setValue(email);
+      }
+
+      if (reenvio) {
+        this.mensajeExito = '¡Código reenviado con éxito! Por favor revisa tu correo.';
+        setTimeout(() => this.mensajeExito = null, 3000);
+      } else {
+        this.mensajeExito = 'Código de verificación enviado a tu correo electrónico.';
+        setTimeout(() => this.mensajeExito = null, 3000);
+      }
+
     } catch (error: any) {
-      // Solo capturamos errores REALES (ej. demasiados intentos), no "UserNotFound".
-      console.error('Error al solicitar código de reseteo:', error);
       this.mensajeError = this.handleCognitoError(error.name);
+    } finally {
       this.cargando = false;
-      return; // Detenemos la ejecución si hubo un error que sí queremos manejar.
     }
-
-    // Esta lógica ahora se ejecuta SIEMPRE, incluso si el usuario no fue encontrado.
-    this.cargando = false;
-    
-    if (!reenvio) {
-      this.mostrarFormularioConfirmacion = true;
-      this.confirmForm.get('email')?.setValue(email);
-    }
-    
-    // El mensaje de éxito es ahora genérico para mejorar la seguridad.
-    const mensaje = reenvio 
-        ? 'Si el correo está registrado, hemos reenviado el código.'
-        : 'Si el correo está registrado, recibirás un código de verificación. Revisa tu bandeja de entrada (y spam).';
-
-    this.mensajeExito = mensaje;
-    setTimeout(() => this.mensajeExito = null, 5000); // Ocultar el mensaje después de 5s
   }
 
   /**
@@ -147,16 +134,16 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       this.cargando = false;
       return;
     }
-
+    
     const { code, newPassword } = this.confirmForm.getRawValue();
     // Obtenemos el email usando getRawValue() o get('email')?.value ya que está deshabilitado
-    const email = this.confirmForm.get('email')?.value;
+    const email = this.confirmForm.get('email')?.value; 
 
     try {
       await this.authService.userConfirmResetPassword(email, code, newPassword);
 
       this.mensajeExito = '¡Contraseña restablecida con éxito! Serás redirigido al inicio de sesión.';
-
+      
       setTimeout(() => {
         this.router.navigate(['/login']);
       }, 2000);
@@ -173,6 +160,8 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
    */
   private handleCognitoError(errorName: string): string {
     switch (errorName) {
+      case 'UserNotFoundException':
+        return 'Error: El correo electrónico no está registrado.';
       case 'CodeMismatchException':
         return 'Error: El código de verificación es incorrecto.';
       case 'ExpiredCodeException':
@@ -184,9 +173,5 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       default:
         return 'Error desconocido. Por favor, intenta de nuevo.';
     }
-  }
-
-  ngOnDestroy(): void {
-    this.authSubscription?.unsubscribe();
   }
 }
