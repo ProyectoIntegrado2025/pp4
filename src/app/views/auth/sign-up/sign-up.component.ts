@@ -1,22 +1,19 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/authServices/auth.service';
-import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent implements OnInit, OnDestroy {
+export class SignUpComponent implements OnInit {
 
   regForm!: FormGroup;
   cargando = false;
   mensajeError: string | null = null;
   mensajeExito: string | null = null;
-  private authSubscription: Subscription | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,18 +22,6 @@ export class SignUpComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-
-    // --- MEJORA CLAVE: REDIRIGIR SI YA ESTÁ LOGUEADO ---
-    // Al igual que en el login, evitamos que un usuario autenticado vea esta página.
-    this.authSubscription = this.authService.isAuthenticated
-      .pipe(filter(isAuthenticated => isAuthenticated !== null))
-      .subscribe(isAuthenticated => {
-        if (isAuthenticated) {
-          console.log('Usuario ya autenticado. Redirigiendo desde la página de registro...');
-          this.router.navigateByUrl('/inicio', { replaceUrl: true });
-        }
-      });
-
     this.regForm = this.formBuilder.group({
       email: ['', [
         Validators.required,
@@ -83,9 +68,5 @@ export class SignUpComponent implements OnInit, OnDestroy {
     } finally {
       this.cargando = false;
     }
-  }
-  
-  ngOnDestroy(): void {
-    this.authSubscription?.unsubscribe();
   }
 }

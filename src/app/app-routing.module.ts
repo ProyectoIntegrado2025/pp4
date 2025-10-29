@@ -9,11 +9,11 @@ import { NewPasswordComponent } from './views/new-password/new-password.componen
 import {SplashScreenComponent} from './components/splash-screen/splash-screen.component';
 
 import { AuthGuard } from './guards/auth.guard';
-import { wildcardRedirectGuard } from './guards/wildcard-redirect.guard';
+
 import { SignUpComponent } from './views/auth/sign-up/sign-up.component';
 import { ConfirmSignUpComponent } from './views/auth/confirm-sign-up/confirm-sign-up.component';
 import { ResetPasswordComponent } from './views/auth/reset-password/reset-password.component';
-import { NotFoundComponent } from './components/not-found.component';
+
 import { ChatAssistantComponent } from './components/chat-assistant/chat-assistant.component';
 
 const routes: Routes = [
@@ -30,8 +30,8 @@ const routes: Routes = [
   { path: 'editar/:id', component: EditarComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   { path: 'eliminar', component: EliminarTareaComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   //{ path: 'newPasswordRequired', component: NewPasswordComponent },
-  { path: 'chat-assistant', component: ChatAssistantComponent, canActivate: [AuthGuard], data: { authRequired: true}},
-  { path: '**', redirectTo: 'login', pathMatch: 'full' }
+  { path: 'chat-assistant', component: ChatAssistantComponent, canActivate: [AuthGuard], data: { authRequired: true}}
+  
 ];
 
 @NgModule({

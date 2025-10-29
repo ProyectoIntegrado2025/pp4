@@ -1,8 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/authServices/auth.service';
 
 @Component({
@@ -10,14 +8,13 @@ import { AuthService } from 'src/app/services/authServices/auth.service';
   templateUrl: './confirm-sign-up.component.html',
   styleUrls: ['./confirm-sign-up.component.css']
 })
-export class ConfirmSignUpComponent implements OnInit, OnDestroy {
+export class ConfirmSignUpComponent implements OnInit {
 
   confirmForm!: FormGroup;
   email: string = '';
   cargando: boolean = false;
   mensajeError: string | null = null;
   mensajeExito: string | null = null;
-  private authSubscription: Subscription | undefined;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,16 +24,6 @@ export class ConfirmSignUpComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-
-    this.authSubscription = this.authService.isAuthenticated
-      .pipe(filter(isAuthenticated => isAuthenticated !== null))
-      .subscribe(isAuthenticated => {
-        if (isAuthenticated) {
-          console.log('Usuario ya autenticado. Redirigiendo desde la página de confirmación...');
-          this.router.navigateByUrl('/inicio', { replaceUrl: true });
-        }
-      });
-
     this.confirmForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       code: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]]
@@ -122,10 +109,6 @@ export class ConfirmSignUpComponent implements OnInit, OnDestroy {
     } finally {
       this.cargando = false;
     }
-  }
-
-  ngOnDestroy(): void {
-    this.authSubscription?.unsubscribe();
   }
 }
 
