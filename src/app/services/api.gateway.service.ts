@@ -37,25 +37,26 @@ export class ApiGatewayService {
     return this.http.get(this.apiUrl, { headers });
   }
 
-  // 🔹 Obtener una tarea por ID
-  async getTask(tareaId: string): Promise<Observable<any>> {
-    const headers = await this.buildHeaders();
-    const url = `${this.apiUrl}/${tareaId}`;
-    return this.http.get(url, { headers });
-  }
+// Obtener una tarea por ID
+async getTask(tareaId: string): Promise<Observable<any>> {
+  const headers = await this.buildHeaders();
+  const url = `${this.apiUrl}/${tareaId}`;
+  return this.http.get(url, { headers });
+}
 
-  // 🔹 Crear una nueva tarea
-  async postTask(tarea: any): Promise<Observable<any>> {
-    const headers = await this.buildHeaders();
-    return this.http.post(this.apiUrl, JSON.stringify(tarea), { headers });
-  }
+// Crear una nueva tarea
+async postTask(tarea: any): Promise<Observable<any>> {
+  const headers = await this.buildHeaders();
+  return this.http.post(this.apiUrl, JSON.stringify(tarea), { headers });
+}
 
-  // 🔹 Actualizar una tarea
-  async putTask(tareaId: string, tarea: any): Promise<Observable<any>> {
-    const headers = await this.buildHeaders();
-    const url = `${this.apiUrl}/${tareaId}`;
-    return this.http.put(url, JSON.stringify(tarea), { headers });
-  }
+// Actualizar una tarea existente
+async putTask(tareaId: string, tarea: any): Promise<Observable<any>> {
+  const headers = await this.buildHeaders();
+  const url = `${this.apiUrl}/${tareaId}`;
+  return this.http.put(url, JSON.stringify(tarea), { headers });
+}
+
 
   // 🔹 Eliminar una tarea
   async deleteTask(tareaId: string): Promise<Observable<any>> {
