@@ -19,22 +19,46 @@ nav {
     user-select: none;
 }
 
-.btnLogout {
-    background-color: #FFC857;
-    font-weight: 500;
-    font-size: 105%;
-    padding-inline: clamp(10px, .6%, 20px);
-    /* izq der */
-    padding-block: clamp(7px, .4%, 16px);
-    /* top bot */
-    border-radius: .5em;
+/* Botón logout base */
+.btnLogout{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;                /* espacio entre ícono y texto */
+  background-color: #FFC857;
+  color: #000;
+  font-weight: 500;
+  font-size: 105%;
+  padding-inline: clamp(10px, .6%, 20px);
+  padding-block: clamp(7px, .4%, 16px);
+  border-radius: .5em;
+  border: none;
 }
 
-@media (max-width: 278px) {
+/* Ícono power oculto por defecto en pantallas grandes */
+.icoPower{
+  display: none;
+  line-height: 0;
+}
+
+/* < 550px: mostrar ícono, ocultar texto */
+@media (max-width: 550px){
+  .icoPower{ display: inline-block; }
+  .logout-text{ display: none; }
+  /* opcional: compactar un toque el botón en mobile */
+  .btnLogout{ gap: 6px; padding-inline: 12px; }
+}
+
+/* (Opcional) modo oscuro si usás theme variables */
+@media (prefers-color-scheme: dark){
+  .btnLogout{ color: #000; } /* el ícono hereda este color */
+}
+/* para Cerrar Sesión, cuando se achica mucho y queda debajo del logo Zenki */
+/* @media (max-width: 278px) {
     .btnLogout {
         margin-top: 5px;
     }
-}
+} */
+
 
 /* Toggle cambio de tema, componente theme-toggle */
 /* Toggle cambio de tema, componente theme-toggle */
@@ -97,16 +121,32 @@ nav {
 }
 
 
+/* Div Buscador */
+.divSearch{
+  display: flex;
+  justify-content: center;
+}
 /* Buscador */
 .form-control {
     background-color: rgb(241, 255, 220);
     color: rgb(0, 84, 87);
+    width: 28%;
 }
 
 .form-control::placeholder {
     color: rgb(0, 84, 87);
     font-style: italic;
 }
+  @media(max-width:1024px){
+    .form-control{
+      width: 50%;
+    }
+  }
+    @media(max-width:720px){
+    .form-control{
+      width: 70%;
+    }
+  }
 
 /* Div de titulo de tareas y swiper-container */
 .conteinerTasks {
@@ -137,10 +177,10 @@ nav {
     border-radius: 5%;
     overflow: hidden;
 
-    width: 300px;
-    min-width: 280px;
-    height: 100%;
-    min-height: 470px;
+    width: clamp(250px, 15vw, 270px);
+    height: clamp(40vh, 60vh, 390px);
+    min-height: 310px;
+
     margin: 10px 10px 30px 10px;
 
     display: grid;
@@ -366,7 +406,8 @@ nav {
 .pasos-box {
     border-radius: 6px;
     padding: 8px 10px;
-    max-height: 120px;
+    max-height: 70px;
+    min-height: 50px;
     overflow-y: auto;
 }
 
@@ -569,36 +610,7 @@ nav {
   }
 }
 
-/* ====== Botón de estadísticas ====== */
-.stats-btn-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center; /* centra el botón horizontalmente */
-  margin: 1rem 0 0.5rem 0; /* espacio arriba y abajo */
-}
 
-.btnStats {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  padding: 10px 16px;
-  border-radius: 999px;
-  border: 2px solid var(--primario, #1E7266);
-  background: var(--neutro, #F8F5EF);
-  color: var(--primario, #1E7266);
-  cursor: pointer;
-  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
-}
-
-.btnStats:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(0,0,0,.08);
-}
-
-.btnStats:active {
-  transform: translateY(0);
-}
 
 /* ====== Modal base ====== */
 .stats-backdrop {
@@ -771,4 +783,232 @@ nav {
 
 
 
+/* CONTIENE LAS FUNCIONES DIVIDIR POR LISTA, POR ESTADO, VER ESTADÍSTICA */
+.toolbar{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ gap: 8px;
+ margin-top:1%;
+}
+/* barra superior con los botones */
+/* @media (max-width: 540px) {
+  .toolbar {
+    flex-direction: column;   
+    align-items: center;      
+    justify-content: center;  
+    gap: 8px;                
+    text-align: center;      
+    line-height: 85%;
+  } 
+} */
 
+/* Desktop / tablet (por defecto) */
+/* .view-buttons{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;              
+} */
+
+/* Móviles */
+/* @media (max-width: 380px){
+  .view-buttons{
+    flex-direction: column;
+    gap: 8px;            
+  }
+} */
+.view-buttons{
+  display: flex;
+  gap: 8px;
+}
+
+.btnToggle{
+  display:inline-flex; 
+  align-items:center; 
+  gap:8px;
+  font-weight: 600;
+  padding: 10px 16px; 
+  border-radius:999px; 
+  border: 2px solid var(--primario, #1E7266);
+  background: var(--bg);
+  color: var(--primario, #1E7266);  
+  cursor:pointer;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+.btnToggle,
+.btnStats {
+  height: 44px;          /* altura fija uniforme */
+  line-height: 1;        /* evita desbordes por el texto */
+  padding: 0 16px;       /* relleno horizontal parejo */
+  display: inline-flex;
+  align-items: center;   /* centra verticalmente icono y texto */
+  justify-content: center;
+}
+
+.btnToggle svg{ 
+  display:block; 
+}
+
+.btnToggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  background-color: #fff0d1; 
+}
+
+.btnToggle:active {
+  transform: translateY(0);
+}
+.btnToggle.active{ 
+  background-color: #f0c56f; 
+  color: var(--primario, #1E7266);   
+}
+
+/* TITULOS "ESTADO DE TAREAS: .......  CUANDO SE ACTIVA EL BOTÓN POR ESTADOS*/
+.titleCard{  
+  font-weight:600; 
+  font-size: 200%;
+  margin: auto;
+  text-align: center;
+  color: var(--area-Txt1);
+}
+
+
+
+/* SUB OPCIONES DE BOTÓN POR LISTA */
+.menu-anchor{ position: relative; display: inline-flex; }
+
+.btnChevron{
+  padding: 6px;
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 6px;
+  color: green;
+}
+.sort-menu{
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 10px;
+  width: 85%;
+  background: var(--bg);
+  border: 1px solid rgb(0, 136, 84);
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  padding: 6px;
+  z-index: 3000;
+}
+.sort-item{
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--area-Txt1);
+  text-align: center;
+}
+.sort-item:hover{ 
+  background-color: #fff0d1;  
+}
+.sort-item.active{
+  background: #f0c56f;
+  color: #1E7266;
+}
+
+/* "Por" y "Ver" de la barra de funciones arribe del buscador */
+/* Por defecto, ambos spans visibles */
+.txtPor,
+.txtVer {
+  display: inline;
+  transition: opacity .5s ease, width .5s ease;
+}
+
+/* Cuando el viewport es menor a 550px: oculta el primer span */
+@media (max-width: 550px) {
+  .txtPor,
+  .txtVer {
+    opacity: 0;
+    width: 0;
+    display: inline-block;
+    overflow: hidden;
+  }
+}
+/* Recorta el leve espacio extra que se agrega al usar 1 span por palabra */
+span + span {
+  margin-left: -2.7px; /* une visualmente las palabras actúa solo cuando hay otro span al lado */
+}
+
+/* ====== Botón de estadísticas ====== */
+.stats-btn-wrapper {
+  width: auto;
+  display: flex;
+  justify-content: center; /* centra el botón horizontalmente */
+  /* margin: 1rem 0 0.5rem 0; */ /* espacio arriba y abajo */
+}
+
+.btnStats {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 2px solid var(--primario, #1E7266);
+  background: var(--bg);
+  color: var(--primario, #1E7266);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.btnStats:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  background-color: #fff0d1; 
+}
+
+.btnStats:active {
+  transform: translateY(0);
+  background-color: #f0c56f;
+}
+
+/* Por defecto los iconos compactos no se muestran */
+.iconMini {
+  display: none;
+  margin-left: 6px;
+  line-height: 0;
+}
+
+/* A menos de 500 px: mostrar iconos en lugar de texto */
+@media (max-width: 500px) {
+  .iconMini {
+    display: inline-block;
+  }
+
+  /* Además ocultamos la palabra principal (Lista, Estados, Estadísticas) */
+  .txtPor + span,
+  .txtVer + span {
+    display: none;
+  }
+}
+/* Ajuste fino del espaciado cuando se activan iconos compactos */
+@media (max-width: 500px) {
+  /* Reducir el espacio entre icono principal (svg) y chevron */
+  .btnToggle,
+  .btnStats {
+    gap: 4px;                /* antes probablemente 8px, ahora más compacto */
+    padding-inline: 10px;    /* opcional: achica horizontalmente el botón */
+    color: var(--primario, #1E7266) !important;
+  }
+
+  /* Opcional: alinear mejor verticalmente el chevron */
+  .btnChevron {
+    padding: 0px;
+    margin-left: 2px;        /* antes 6px; lo acercamos */
+  }
+}
