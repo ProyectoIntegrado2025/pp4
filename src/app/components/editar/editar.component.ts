@@ -49,7 +49,8 @@ export class EditarComponent implements OnInit {
             Prioridad: tarea.Prioridad ?? 'Media',
             FechaInicio: tarea.FechaInicio ?? '',
             FechaFin: tarea.FechaFin ?? '',
-            Pasos: tarea.Pasos ?? []
+            Pasos: tarea.Pasos ?? [],
+            Favorito: tarea.Favorito ?? false
           };
 
           this.cargando = false;

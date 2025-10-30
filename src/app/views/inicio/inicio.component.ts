@@ -417,6 +417,18 @@ get tareasOrdenadas(): Tarea[] {
   }
 }
 
+  async onToggleFavorito(tarea: Tarea) {
+    // primero lo cambio en memoria
+    tarea.Favorito = !tarea.Favorito;
 
+    try {
+      await this.apiGatewayService.putTask(tarea.UsuarioId, tarea.TareaId);
+      console.log('✅ Favorito actualizado en API');
+    } catch (err) {
+      console.error('❌ Error al actualizar favorito', err);
+      // rollback si falló
+      tarea.Favorito = !tarea.Favorito;
+    }
+ } 
 
 }

@@ -315,6 +315,9 @@
               </button>
               <button class="btnTaskFunction" (click)="deleteTask(tarea.TareaId)"> 
                 <img class="iconTareaFuncion" src="../../../assets/iconos/deleteTask.png" alt="Eliminar Tarea">
+              </button>
+              <button  (click)="onToggleFavorito(tarea)" [ngClass]="tarea.Favorito ? 'text-green-500 drop-shadow' : 'text-slate-400'" class="text-xl leading-none transition-transform hover:scale-110" aria-label="Marcar como favorito">
+               ★
               </button>  
             </div>
       </swiper-slide>

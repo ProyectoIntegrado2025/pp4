@@ -56,7 +56,8 @@ export class CrearComponent implements OnInit {
       Prioridad: this.formulario.value.Prioridad,
       FechaInicio: this.formulario.value.FechaInicio,
       FechaFin: this.formulario.value.FechaFin,
-      Pasos: this.formulario.value.Pasos.filter((p: string) => p.trim() !== '')
+      Pasos: this.formulario.value.Pasos.filter((p: string) => p.trim() !== ''),
+      Favorito: this.formulario.value.Favorito
     };
 
     this.cargando = true;

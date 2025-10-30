@@ -64,4 +64,10 @@ async putTask(tareaId: string, tarea: any): Promise<Observable<any>> {
     const url = `${this.apiUrl}/${tareaId}`;
     return this.http.delete(url, { headers });
   }
+
+async updateFavorito(tareaId: string, tarea: any, favorito:boolean): Promise<Observable<any>> {
+  const headers = await this.buildHeaders();
+  const url = `${this.apiUrl}/${tareaId}`;
+  return this.http.put(url, JSON.stringify(tarea), { headers });
+}
 }

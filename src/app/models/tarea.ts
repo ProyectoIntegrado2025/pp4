@@ -7,6 +7,7 @@ export class Tarea {
     FechaInicio: string; // formato dd/mm/yyyy
     FechaFin: string;    // formato dd/mm/yyyy
     Pasos: string[];
+    Favorito: boolean;
 
     constructor() {
         this.UsuarioId = "";
@@ -17,5 +18,6 @@ export class Tarea {
         this.FechaInicio = "";
         this.FechaFin = "";
         this.Pasos = [];
+        this.Favorito = false;
     }
 }

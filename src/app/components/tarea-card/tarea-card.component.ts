@@ -41,7 +41,8 @@ export class TareaCardComponent implements OnInit {
             FechaInicio: t.FechaInicio,
             FechaFin: t.FechaFin,
             Pasos: t.Pasos || [],
-            UsuarioId: t.UsuarioId
+            UsuarioId: t.UsuarioId,
+            Favorito: t.Favorito
           }));
         },
         error: (error) => {
