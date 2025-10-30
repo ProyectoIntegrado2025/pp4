@@ -31,6 +31,7 @@ const routes: Routes = [
   { path: 'eliminar', component: EliminarTareaComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   //{ path: 'newPasswordRequired', component: NewPasswordComponent },
   { path: 'chat-assistant', component: ChatAssistantComponent, canActivate: [AuthGuard], data: { authRequired: true}},
+  { path: 'agenda', loadChildren: () => import('./agenda/agenda.module').then(m => m.AgendaModule) },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 

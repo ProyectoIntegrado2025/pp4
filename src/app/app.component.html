@@ -1,7 +1,6 @@
 <div *ngIf="isLogedIn()">
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <!-- <a class="navbar-brand" routerLink="/inicio">TaskFlow</a> -->
       <button
         class="navbar-toggler"
         type="button"
@@ -24,9 +23,12 @@
           <li class="nav-item">
             <a class="nav-link" routerLink="/eliminar">Eliminar</a>
           </li>
-          <!-- 🔹 Nuevo enlace al asistente -->
           <li class="nav-item">
             <a class="nav-link" routerLink="/assistant">Asistente</a>
+          </li>
+          <!-- ✅ Nuevo enlace a la agenda -->
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/agenda">Agenda</a>
           </li>
         </ul>
       </div>
@@ -40,3 +42,4 @@
 
 <!-- Mantén el router-outlet aquí -->
 <router-outlet></router-outlet>
+
