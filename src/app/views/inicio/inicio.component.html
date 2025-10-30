@@ -5,9 +5,14 @@
 <main>
 
   <!-- NAVBAR -->
-  <nav class="navbar navbar-dark bg-dark justify-content-between p-2">
-    <img class="logoZenki" src="../../../assets/logos/logo+Zenki.png" alt="">
+  <nav class="p-2">
+    <div>
+      <img class="logoZenki" src="../../../assets/logos/logo+Zenki.png" alt="">
+      <!-- THEME TOGGLE --><!-- Componente exportado theme-toggle -->
+      <app-theme-toggle class="global-toggle"></app-theme-toggle>
+    </div>
     <!-- <button class="btnLogout" (click)="onLogout()">Cerrar Sesión</button> -->
+     
     <button 
       class="btnLogout"
       (click)="onLogout()"
@@ -47,9 +52,7 @@
             </div>
 
 
-  <!-- THEME TOGGLE --> <!-- THEME TOGGLE -->
-  <!-- Componente exportado theme-toggle -->
-  <app-theme-toggle class="global-toggle"></app-theme-toggle>
+
 
 <div class="toolbar">
   <div class="view-buttons" role="tablist" aria-label="Cambiar vista de tareas">
@@ -234,9 +237,10 @@
     </div>
   </div>
 
+
   <!-- LISTA DE TAREAS -->  <!-- LISTA DE TAREAS -->  <!-- LISTA DE TAREAS -->  <!-- LISTA DE TAREAS -->  <!-- LISTA DE TAREAS -->  <!-- LISTA DE TAREAS -->  <!-- LISTA DE TAREAS -->
      <!-- LISTA DE TAREAS -->  <!-- LISTA DE TAREAS -->  <!-- LISTA DE TAREAS -->  <!-- LISTA DE TAREAS -->  <!-- LISTA DE TAREAS -->  <!-- LISTA DE TAREAS -->  <!-- LISTA DE TAREAS -->
-  <div class="conteinerTasks mt-4" *ngIf="!cargando && tareas.length && viewMode==='all'">
+  <div class="conteinerTasks" *ngIf="!cargando && tareas.length && viewMode==='all'">
 
     <h2 class="headerTareas">Tareas</h2>
 
@@ -323,7 +327,6 @@
 
 <!-- VISTA 2 POR ESTADOS -->
 <section *ngIf="!cargando && tareas.length && viewMode==='byEstado'">
-    <h2 class="headerTareas">Tareas</h2>
   <h2 class="titleCard">Estado de Tareas: Pendientes</h2>
   <swiper-container class="container"
       slides-per-view="auto" pagination="bullets"

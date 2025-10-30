@@ -10,7 +10,10 @@ main {
 
 /* NAVBAR */
 nav {
-    background-color: var(--bg) !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--bg);
 }
 
 .logoZenki {
@@ -23,7 +26,6 @@ nav {
 .btnLogout{
   display: inline-flex;
   align-items: center;
-  gap: 8px;                /* espacio entre ícono y texto */
   background-color: #FFC857;
   color: #000;
   font-weight: 500;
@@ -31,7 +33,8 @@ nav {
   padding-inline: clamp(10px, .6%, 20px);
   padding-block: clamp(7px, .4%, 16px);
   border-radius: .5em;
-  border: none;
+  border: 1px outset black;
+  text-wrap: nowrap;
 }
 
 /* Ícono power oculto por defecto en pantallas grandes */
@@ -45,19 +48,16 @@ nav {
   .icoPower{ display: inline-block; }
   .logout-text{ display: none; }
   /* opcional: compactar un toque el botón en mobile */
-  .btnLogout{ gap: 6px; padding-inline: 12px; }
+  .btnLogout{
+    padding-inline: 9px; 
+  }
 }
 
 /* (Opcional) modo oscuro si usás theme variables */
 @media (prefers-color-scheme: dark){
   .btnLogout{ color: #000; } /* el ícono hereda este color */
 }
-/* para Cerrar Sesión, cuando se achica mucho y queda debajo del logo Zenki */
-/* @media (max-width: 278px) {
-    .btnLogout {
-        margin-top: 5px;
-    }
-} */
+
 
 
 /* Toggle cambio de tema, componente theme-toggle */
@@ -155,9 +155,8 @@ nav {
 
 /* Título previo a las tareas con swiper-container */
 .headerTareas {
-    font-family: "Polya", sans-serif;
+    font-family: "DMSerifDisplay-Italic", sans-serif;
     font-weight: 500;
-    /* importante si no tenés Polya-Bold */
     margin: auto;
     text-align: center;
     font-size: 300%;
@@ -283,15 +282,17 @@ nav {
     /* Fade al final (cross-browser moderno) */
     -webkit-mask-image: linear-gradient(to right, black 93%, transparent 102%);
 
+    font-family: "DMSerifDisplay-Italic", sans-serif;
 }
 
 .area-pri {
     grid-area: pri;
-    /* line-height: 0; */
-    font-size: .95rem;
     display: flex;
     align-items: center;
-    gap: 2%;
+    gap: 2%;    
+    font-size: .95rem;
+
+
     transition: color 0.3s ease;
 }
 
@@ -302,16 +303,19 @@ nav {
 /* color según prioridad */
 .txt-alta {
     color: #e53935;
+    font-family: "DMSerifDisplay-Italic", sans-serif;
 }
 
 /* rojo */
 .txt-media {
     color: #f59e0b;
+    font-family: "DMSerifDisplay-Italic", sans-serif;
 }
 
 /* naranja */
 .txt-baja {
     color: #85cc00;
+    font-family: "DMSerifDisplay-Italic", sans-serif;
 }
 
 /* celeste */
@@ -319,9 +323,6 @@ nav {
 /* Punto de prioridad a la derecha del ID (mock: rojo con glow) */
 .area-point {
     grid-area: point;
-    /*     display:flex; 
-    align-items:center; 
-    justify-content:center;  */
     position: relative;
 }
 
@@ -335,10 +336,6 @@ nav {
     display: inline-block;
 }
 
-/* rojo c21310d1 background */
-/* rojo rgba(164, 3, 0, 0.619) shadow */
-/* celest #00bdc0  background*/
-/* celest #00b1b1   box-shadow */
 .prio-alta {
     background: #e53935;
     box-shadow: 0 0 6px 2px rgba(229, 57, 53, .45);
@@ -357,11 +354,11 @@ nav {
 /* Estado */
 .area-est {
     grid-area: est;
-    font-size: .95rem;
     line-height: 0;
     display: flex;
     align-items: flex-start;
     gap: 2%;
+    font-size: .95rem;
 }
 
 /* Fecha Inicio */
@@ -431,7 +428,7 @@ nav {
 
 /* Colores para los textos */
 .area-Txt1 {
-    color: var(--area-Txt1);
+    color: var(--area-Txt1);  
 }
 
 .area-Txt2 {
@@ -789,7 +786,7 @@ nav {
  justify-content: center;
  align-items: center;
  gap: 8px;
- margin-top:1%;
+ margin-top:.5%;
 }
 /* barra superior con los botones */
 /* @media (max-width: 540px) {
@@ -868,10 +865,11 @@ nav {
 /* TITULOS "ESTADO DE TAREAS: .......  CUANDO SE ACTIVA EL BOTÓN POR ESTADOS*/
 .titleCard{  
   font-weight:600; 
-  font-size: 200%;
+  font-size: 260%;
   margin: auto;
   text-align: center;
   color: var(--area-Txt1);
+  font-family: "DMSerifDisplay-Italic", sans-serif;
 }
 
 
