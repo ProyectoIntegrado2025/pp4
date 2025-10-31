@@ -91,7 +91,7 @@ nav {
   position: fixed;
   left: 2%;
   bottom: 2%;
-  width: 4.2em;
+  width: clamp(50px, 10vmin, 4.7vmax );
   height: auto;
   border-radius: 50%;
   background-color: #ffffff;
@@ -159,19 +159,17 @@ nav {
     font-weight: 500;
     margin: auto;
     text-align: center;
-    font-size: 300%;
+    font-size: clamp(29px, 6vmin, 500px);
     color: var(--area-Txt1);
 }
 
-/* container del swiper-container*/
+/*  container del swiper-container  */
 .container {
     min-width: 92%;
 
 }
 
-/*  */
-/*  */
-/*  */
+/*  swiper-slide Contiene la tarjeta de la tarea  */
 .cardTask {
     border-radius: 5%;
     overflow: hidden;
@@ -464,6 +462,7 @@ nav {
                         width: 110%;
                     }
 
+  /* Modal para el cerrar sesión  */
 .modal-overlay {
     position: fixed;
     /* Esto asegura que el modal ignore el scroll y la ubicación en el body */
@@ -865,12 +864,18 @@ nav {
 /* TITULOS "ESTADO DE TAREAS: .......  CUANDO SE ACTIVA EL BOTÓN POR ESTADOS*/
 .titleCard{  
   font-weight:600; 
-  font-size: 260%;
+  font-size: clamp(21.5px, 5vmin, 500px);
   margin: auto;
   text-align: center;
   color: var(--area-Txt1);
   font-family: "DMSerifDisplay-Italic", sans-serif;
+  padding: 0% 5%;
 }
+/*     @media (max-width: 650px){
+      .titleCard{
+        font-size: 240%;
+      }
+    } */
 
 
 
@@ -1010,3 +1015,37 @@ span + span {
     margin-left: 2px;        /* antes 6px; lo acercamos */
   }
 }
+
+/* ACHICA elementos */
+  @media(max-height:680px) and (max-width:1155px){
+
+    /* TARJETA TAREA */
+    .cardTask{
+      max-height: 330px;
+      max-width: 230px;
+    }
+    .area-tit h2{
+      font-size: 1rem;
+    }
+    .area-pri{
+      font-size: .8rem;
+    }
+    .area-est{
+      font-size: .8rem;
+    }
+    .area-fchA .label,
+    .area-fchB .label {
+        font-size: .65rem;
+    }
+    .area-fchA .date,
+    .area-fchB .date {
+        font-size: .75rem;
+    }
+    .areaPasos{
+      font-size: .75rem;
+    }
+
+    app-chat-assistant{
+      width: 10px;
+    }
+  }

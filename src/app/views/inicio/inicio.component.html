@@ -53,7 +53,7 @@
 
 
 
-
+<!-- Contiene todas las funciones sobre tareas -->
 <div class="toolbar">
   <div class="view-buttons" role="tablist" aria-label="Cambiar vista de tareas">
 
@@ -98,52 +98,49 @@
           </svg>
         </button>
       </button>
-
-      <!-- Menú de orden (solo para Por lista) -->
-      <div
-        class="sort-menu"
-        *ngIf="showListSort"
-        role="menu"
-        (click)="$event.stopPropagation()"
-      >
-        <button role="menuitem" class="sort-item"
-                [class.active]="currentSort==='estado'"
-                (click)="setListSort('estado')">
-          Estado
-        </button>
-        <button role="menuitem" class="sort-item"
-                [class.active]="currentSort==='fechaInicio'"
-                (click)="setListSort('fechaInicio')">
-          Fecha inicio
-        </button>
-        <button role="menuitem" class="sort-item"
-                [class.active]="currentSort==='fechaFin'"
-                (click)="setListSort('fechaFin')">
-          Fecha fin
-        </button>
-      </div>
-
-
+          <!-- Menú de orden (solo para Por lista) -->
+          <div
+            class="sort-menu"
+            *ngIf="showListSort"
+            role="menu"
+            (click)="$event.stopPropagation()"
+          >
+            <button role="menuitem" class="sort-item"
+                    [class.active]="currentSort==='estado'"
+                    (click)="setListSort('estado')">
+              Estado
+            </button>
+            <button role="menuitem" class="sort-item"
+                    [class.active]="currentSort==='fechaInicio'"
+                    (click)="setListSort('fechaInicio')">
+              Fecha inicio
+            </button>
+            <button role="menuitem" class="sort-item"
+                    [class.active]="currentSort==='fechaFin'"
+                    (click)="setListSort('fechaFin')">
+              Fecha fin
+            </button>
+          </div>
     </div>
 
     <!-- Botón: Por estado (vista agrupada) -->
     <div class="menu-anchor">
-  <button
-    type="button"
-    class="btnToggle"
-    role="tab"
-    [class.active]="viewMode==='byEstado'"
-    [attr.aria-selected]="viewMode==='byEstado'"
-    (click)="setView('byEstado')"
-    title="Ver tareas agrupadas por estado"
-  >
-    <svg class="icoTask" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-      <rect x="3" y="2.5" width="18" height="19" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
-      <rect x="6.2" y="6"  width="11.6" height="2" rx="1" fill="currentColor"/>
-      <rect x="6.2" y="10" width="11.6" height="2" rx="1" fill="currentColor"/>
-      <rect x="6.2" y="14" width="8.8"  height="2" rx="1" fill="currentColor"/>
-    </svg>
-    <span class="txtPor">Por</span><span>Estados</span>
+      <button
+        type="button"
+        class="btnToggle"
+        role="tab"
+        [class.active]="viewMode==='byEstado'"
+        [attr.aria-selected]="viewMode==='byEstado'"
+        (click)="setView('byEstado')"
+        title="Ver tareas agrupadas por estado"
+      >
+        <svg class="icoTask" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="2.5" width="18" height="19" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+          <rect x="6.2" y="6"  width="11.6" height="2" rx="1" fill="currentColor"/>
+          <rect x="6.2" y="10" width="11.6" height="2" rx="1" fill="currentColor"/>
+          <rect x="6.2" y="14" width="8.8"  height="2" rx="1" fill="currentColor"/>
+        </svg>
+        <span class="txtPor">Por</span><span>Estados</span>
 
                     <!-- mini icon svg para displays más angostos -->
                     <span class="iconMini iconEstado" aria-hidden="true">
@@ -168,47 +165,46 @@
           </svg>
         </button>
       </button>
-
-      <!-- Menú de orden (solo para Por estado) -->
-      <div
-        class="sort-menu"
-        *ngIf="showGroupSort"
-        role="menu"
-        (click)="$event.stopPropagation()"
-      >
-        <button role="menuitem" class="sort-item"
-                [class.active]="groupSort==='fechaInicio'"
-                (click)="setGroupSort('fechaInicio')">
-          Fecha inicio
-        </button>
-        <button role="menuitem" class="sort-item"
-                [class.active]="groupSort==='fechaFin'"
-                (click)="setGroupSort('fechaFin')">
-          Fecha fin
-        </button>
-      </div>
+          <!-- Menú de orden (solo para Por estado) -->
+          <div
+            class="sort-menu"
+            *ngIf="showGroupSort"
+            role="menu"
+            (click)="$event.stopPropagation()"
+          >
+            <button role="menuitem" class="sort-item"
+                    [class.active]="groupSort==='fechaInicio'"
+                    (click)="setGroupSort('fechaInicio')">
+              Fecha inicio
+            </button>
+            <button role="menuitem" class="sort-item"
+                    [class.active]="groupSort==='fechaFin'"
+                    (click)="setGroupSort('fechaFin')">
+              Fecha fin
+            </button>
+          </div>
     </div>
     
   </div>
 
-  <!-- tu botón de estadísticas puede quedar a la derecha -->
-  <div class="stats-btn-wrapper">
-    <button class="btnStats" type="button" (click)="openStats()">
-      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M4 22h16M6 18v-7M12 18V6M18 18v-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-      <span class="txtVer">Ver</span><span>Estadísticas</span>
+    <!-- botón de estadísticas -->
+    <div class="stats-btn-wrapper">
+      <button class="btnStats" type="button" (click)="openStats()">
+        <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M4 22h16M6 18v-7M12 18V6M18 18v-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span class="txtVer">Ver</span><span>Estadísticas</span>
 
-                  <!-- mini icon svg para displays más angostos -->
-                  <span class="iconMini iconStats" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" width="18" height="18">
-                      <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2" />
-                      <circle cx="12" cy="12" r="4" fill="var(--bg)" />
-                    </svg>
-                  </span>
-    </button>
-    
-  </div>
+                    <!-- mini icon svg para displays más angostos -->
+                    <span class="iconMini iconStats" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" width="18" height="18">
+                        <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2" />
+                        <circle cx="12" cy="12" r="4" fill="var(--bg)" />
+                      </svg>
+                    </span>
+      </button>
+    </div>
+
 </div>
 
 
@@ -286,9 +282,9 @@
                     'txt-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
                     'txt-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
                   }">
-                        {{ tarea.Prioridad }}
-              </p>
-            </div>
+                      {{ tarea.Prioridad }}
+          </p>
+        </div>
             <!-- Estado -->
             <div class="area-est">
               <p class="area-Txt1"><strong>Estado:</strong></p><p class="area-Txt2">{{ tarea.Estado }}</p>
