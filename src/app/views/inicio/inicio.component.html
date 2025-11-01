@@ -553,10 +553,28 @@
 
 
 
-  <!-- BUTTON CREAR TAREA --> <!-- BUTTON CREAR TAREA -->
+  <!-- BUTTON CREAR TAREA --> 
   <!-- Icono que rutea al componente crear -->
-  <a [routerLink]="['/crear']"><img class="iconCrearTarea" src="../../../assets/iconos/botonCrearTarea.png"
-      alt="Crear Tarea"></a>
+  <!-- <a [routerLink]="['/crear']"><img class="iconCrearTarea" src="../../../assets/iconos/botonCrearTarea.png"
+      alt="Crear Tarea"></a> -->
+
+
+      <!-- Para persistir la acción de despelgarlo y ocultarlo -->
+      <input type="checkbox" id="fabToggle" class="visually-hidden" />
+  <!-- Contenedor del botón Crear Tarea + Chevron -->
+  <div class="fab-container">
+    <!-- Botón Crear Tarea -->
+    <a [routerLink]="['/crear']">
+      <img class="iconCrearTarea" src="../../../assets/iconos/botonCrearTarea.png" alt="Crear Tarea">
+    </a>
+
+      <!-- Chevron como label que toggla el checkbox -->
+      <label class="fab-chevron" for="fabToggle" role="button" aria-controls="fabArea" aria-expanded="false" title="Mostrar/Ocultar">
+        <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+          <path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </label>
+  </div>      
 
   <!-- Botón flotante + chat (solo Home) --> 
   <app-chat-assistant></app-chat-assistant>
