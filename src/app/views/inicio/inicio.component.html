@@ -577,7 +577,23 @@
   </div>      
 
   <!-- Botón flotante + chat (solo Home) --> 
-  <app-chat-assistant></app-chat-assistant>
+<!--   <app-chat-assistant></app-chat-assistant> -->
+
+      <!-- Toggle persistente del chat -->
+      <input type="checkbox" id="chatToggle" class="visually-hidden" />
+    <!-- Contenedor del CHAT + Chevron -->
+    <div class="chat-container">
+      <!-- Chevron que toggla el checkbox -->
+      <label class="chat-chevron" for="chatToggle" role="button" aria-controls="chatArea" aria-expanded="false" title="Mostrar/Ocultar chat">
+        <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+          <!-- Chevron apuntando a la IZQUIERDA (porque el chat está a la derecha) -->
+          <path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </label>
+
+      <!-- Tu componente de chat -->
+      <app-chat-assistant></app-chat-assistant>
+    </div>
 
   
   <!-- ====== MODAL ESTADÍSTICAS ====== -->

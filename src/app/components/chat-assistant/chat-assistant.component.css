@@ -193,7 +193,7 @@
 }
 
 /* ---------- Responsive ---------- */
-@media (max-width: 420px) {
+/* @media (max-width: 420px) {
   .zenki-chat-window {
     right: 10px;
     left: 10px;
@@ -204,4 +204,4 @@
     right: 14px;
     bottom: 14px;
   }
-}
+} */

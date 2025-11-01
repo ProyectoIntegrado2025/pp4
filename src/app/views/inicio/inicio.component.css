@@ -1031,10 +1031,13 @@ span + span {
 .fab-chevron { 
     display: none;
 }
+.chat-chevron {
+    display: none;
+}
 /* 3) Reglas para pantallas chicas (donde querés el comportamiento) */
 @media (max-width: 680px) and (max-height: 580px) {
 
-  /* Contenedor del FAB + chevron */
+  /* Contenedor del FAB + chevron svg apuntando a la derecha*/
   .fab-container {
     position: fixed;
     left: -50px;
@@ -1066,7 +1069,7 @@ span + span {
     opacity: 0;
     pointer-events: none;                 /* no clickeable cuando está oculto */
     transform: translateX(-10px) scale(.98);
-    transition: opacity .25s ease, transform .25s ease, box-shadow .25s ease;
+    transition: opacity .25s ease, transform .25s ease;
   }
   /* —— TOGGLE SIN :has() ——
      Cuando el checkbox está tildado, mové el hermano .fab-container */
@@ -1074,11 +1077,73 @@ span + span {
     transform: translateX(70%); 
   }
     #fabToggle:checked ~ .fab-container .iconCrearTarea{
-      position: fixed;
+    position: fixed;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0) scale(1);
+  }
+
+
+  /* Contenedor del app-chat-assistant + chevron svg apuntando a la izq*/
+  .chat-container {
+    position: fixed;
+    right: -1%;
+    bottom: 2.5%;
+    display: flex;
+    align-items: center;
+    gap: 40px;            
+    z-index: 2000;
+   /*  border: 1px solid green;   */
+    transition: transform .3s ease;
+    will-change: transform;
+  }
+    /* Mostrar el chevron a la izquerda del asistente  */
+  .chat-chevron {
+    display:  flex;
+    background: transparent;
+    border: none;
+    width: 45px; height: 45px;
+    align-items: center; justify-content: center;
+    cursor: pointer;
+    color: #1E7266;
+    transition: transform .2s ease;
+  }
+  .chat-chevron:hover { transform: scale(1.2); }
+
+    /* --- asistente oculto por defecto, pero animable --- */
+  app-chat-assistant{
+    position: fixed;
+    right: -127%;
+    bottom: -10%;
+    opacity: 0;
+    pointer-events: none;                 /* no clickeable cuando está oculto */
+    transform: translateX(10px) scale(.98);
+    transition: opacity .25s ease, transform .25s ease;
+  }
+    /* —— TOGGLE
+     Cuando el checkbox está tildado, mové el hermano .fab-container */
+  #chatToggle:checked ~ .chat-container {
+    transform: translateX(-160%); 
+  }
+    #chatToggle:checked ~ .chat-container app-chat-assistant{
+    position: fixed;
     opacity: 1;
     pointer-events: auto;
     transform: translateX(0) scale(1);
   }
 
 }
+
+/* Útilcuando desde el componente chat-assistant css estaba activo el query de la linea 195*/
+/* @media (max-width: 420px) {
+    app-chat-assistant{
+    position: fixed;
+    right: -160%;
+    bottom: -40%;
+    opacity: 0;
+    pointer-events: none;                 
+    transform: translateX(10px) scale(.98);
+    transition: opacity .25s ease, transform .25s ease;
+  }
+} */
 
