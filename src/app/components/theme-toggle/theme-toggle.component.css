@@ -1,14 +1,35 @@
 :host {
-  display: inline-block;   /* evita que el host sea block y ocupe todo el ancho cuando se exporte */
-  width: 2em;              /* ancho por defecto del componente */
+  display: inline-block;
+  width: 3.2em; /* tamaño ampliado */
+  margin-left: 14px; /* 💡 separa un poco del borde izquierdo */
+  transition: transform 0.3s ease;
 }
-/* src/app/shared/theme-toggle/theme-toggle.component.css */
+
+:host(:hover) {
+  transform: scale(1.15);
+}
+
+/* ====== BOTÓN DEL TOGGLE ====== */
 .theme-toggle-btn {
   background: transparent;
   border: none;
   cursor: pointer;
   width: 100%;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
+
+.theme-toggle-btn:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 6px rgba(30, 114, 102, 0.35)); /* Glow sutil verde */
+}
+
+/* ====== IMAGEN (ícono sol/luna) ====== */
 .theme-toggle-btn img {
-  width: 100%; /* del 100% del botón que la img ocupe el 100% */
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle-btn img:hover {
+  transform: rotate(15deg);
 }

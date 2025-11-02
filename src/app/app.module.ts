@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
 import { EliminarTareaComponent } from './components/eliminarTareas/eliminar-tarea/eliminar-tarea.component';
-
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { TareaCardComponent } from './components/tarea-card/tarea-card.component';
 import { DatePipe } from '@angular/common';
@@ -48,7 +48,8 @@ import { AuthTokenInterceptor } from './interceptors/auth-token.interceptor';
     ResetPasswordComponent,
     ThemeToggleComponent,
     EditarComponent,
-    ChatAssistantComponent
+    ChatAssistantComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

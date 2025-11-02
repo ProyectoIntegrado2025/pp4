@@ -3,40 +3,28 @@
 </head>
 
 <main>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-dark bg-dark justify-content-between p-3 mb-2">
-    <!-- <a class="navbar-brand">Zenki</a> -->
-    <img class="logoZenki" src="../../../assets/logos/logo+Zenki.png" alt="">
-    <!-- <button class="btn btn-outline-danger" (click)="onLogout()">Cerrar Sesión</button> -->
-    <button class="btnLogout" (click)="onLogout()">Cerrar Sesión</button>
-  </nav>
+  <!-- NAVBAR MODERNO -->
+  <app-navbar (logoutRequested)="mostrarModalConfirmacion = true"></app-navbar>
 
-  <!-- THEME TOGGLE --> <!-- THEME TOGGLE -->
-  <!-- Componente exportado theme-toggle -->
-  <app-theme-toggle class="global-toggle"></app-theme-toggle>
+  <!-- ====== BOTÓN ESTADÍSTICAS ====== -->
+  <div class="stats-btn-wrapper">
+    <button class="btnStats" type="button" (click)="openStats()">
+      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M4 22h16M6 18v-7M12 18V6M18 18v-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span>Ver estadísticas</span>
+    </button>
+  </div>
 
-  <!-- ====== BOTÓN ESTADÍSTICAS (colocar arriba del botón +) ====== -->
-<div class="stats-btn-wrapper">
-  <button class="btnStats" type="button" (click)="openStats()">
-    <!-- Ícono simple de barras -->
-    <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M4 22h16M6 18v-7M12 18V6M18 18v-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-    <span>Ver estadísticas</span>
-  </button>
-</div>
+  <!-- ====== BOTÓN CREAR TAREA ====== -->
+  <a [routerLink]="['/crear']">
+    <img class="iconCrearTarea" src="../../../assets/iconos/botonCrearTarea.png" alt="Crear Tarea" />
+  </a>
 
-  <!-- BUTTON CREAR TAREA --> <!-- BUTTON CREAR TAREA -->
-  <!-- Icono que rutea al componente crear -->
-  <a [routerLink]="['/crear']"><img class="iconCrearTarea" src="../../../assets/iconos/botonCrearTarea.png"
-      alt="Crear Tarea"></a>
-
-
-  <!-- MODAL CONFIRMACIÓN LOGOUT -->
+  <!-- ====== MODAL CONFIRMACIÓN LOGOUT ====== -->
   <div *ngIf="mostrarModalConfirmacion" class="modal-overlay d-flex justify-content-center align-items-center">
     <div class="modal-dialog modal-md" role="document">
-      <div class="modal-content bg-dark text-white"
-        style="border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1);">
+      <div class="modal-content bg-dark text-white" style="border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1);">
         <div class="modal-header border-bottom-0">
           <h5 class="modal-title">Confirmación</h5>
           <button type="button" class="btn-close btn-close-white" (click)="cancelLogout()"></button>
@@ -52,33 +40,30 @@
     </div>
   </div>
 
-  <!-- ERROR -->
+  <!-- ====== ERROR ====== -->
   <div *ngIf="error" class="alert alert-danger text-center m-3">
     Ocurrió un error al cargar las tareas.
   </div>
 
-  <!-- BUSCADOR -->
+  <!-- ====== BUSCADOR ====== -->
   <div *ngIf="!error" class="d-flex justify-content-center mt-3">
     <div class="m-3 w-50">
-      <!-- <p class="text-center fw-bold">Buscar</p> -->
       <input class="form-control" type="text" placeholder="Buscar por título..." (input)="buscarTarea($event)" />
     </div>
   </div>
 
-  <!-- SPINNER DE CARGA -->
+  <!-- ====== SPINNER ====== -->
   <div *ngIf="cargando" class="text-center mt-4 text-primary">
     <div class="spinner-border" role="status">
       <span class="visually-hidden">Cargando...</span>
     </div>
   </div>
 
-  <!-- LISTA DE TAREAS -->
-
+  <!-- ====== LISTA DE TAREAS ====== -->
   <div class="conteinerTasks mt-4" *ngIf="!cargando && tareas.length">
-
     <h2 class="headerTareas">Tareas</h2>
 
-  <swiper-container
+    <swiper-container
       class="container"
       slides-per-view="auto"
       pagination="bullets"
@@ -86,75 +71,71 @@
       centered-slides="true"
       initial-slide="3"
     >
-      <swiper-slide
-        class="cardTask"
-        *ngFor="let tarea of tareas"
-        [id]="'tarea-' + tarea.TareaId"
-      >
-            <img class="imglogoback" src="../../../assets/logos/logo.png" alt="logo">
-            <!-- ID -->
-            <div class="area-id">
-                <!-- <h2 class="area-Txt1">ID:</h2>
-                <p class="area-Txt2 id-code">{{ tarea.TareaId }}</p> --> 
-            </div>
-            <!-- Punto (círculo con glow rojo) -->
-            <div class="area-point">
-                <span
-                  class="priority"
-                  [ngClass]="{
-                    'prio-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
-                    'prio-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
-                    'prio-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
-                  }">
+      <swiper-slide class="cardTask" *ngFor="let tarea of tareas" [id]="'tarea-' + tarea.TareaId">
+        <img class="imglogoback" src="../../../assets/logos/logo.png" alt="logo">
+
+        <!-- Punto de prioridad -->
+        <div class="area-point">
+          <span class="priority"
+            [ngClass]="{
+              'prio-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
+              'prio-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
+              'prio-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj')
+            }">
           </span>
         </div>
-        <!-- Título (sin la palabra “Título”) -->
+
+        <!-- Título -->
         <div class="area-tit">
           <h2 class="area-Txt1">{{ tarea.Titulo }}</h2>
         </div>
+
         <!-- Prioridad -->
         <div class="area-pri">
           <p class="area-Txt1"><strong>Prioridad:</strong></p>
           <p [ngClass]="{
-                    'txt-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
-                    'txt-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
-                    'txt-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
-                  }">
-                        {{ tarea.Prioridad }}
-              </p>
-            </div>
-            <!-- Estado -->
-            <div class="area-est">
-              <p class="area-Txt1"><strong>Estado:</strong></p><p class="area-Txt2">{{ tarea.Estado }}</p>
-            </div>  
-            <!-- Fechas -->
-            <div class="area-fchA">
-              <span class="label area-Txt1">Inicio</span>
-              <span class="date area-Txt2">{{ tarea.FechaInicio }}</span>
-            </div>
-            <div class="area-fchB">
-              <span class="label area-Txt1">Fin</span>
-              <span class="date area-Txt2">{{ tarea.FechaFin }}</span>
-            </div>
-            <!-- Pasos --> 
-            <div class="area-pso pasos-box areaPasos">
-              <strong class="pasos-title area-Txt1">Pasos:</strong>
-              <ul class="pasos-list area-Txt2">
-                <li *ngFor="let paso of tarea.Pasos">{{ paso }}</li>
-              </ul>
-            </div>
-            <!-- Funcionalidades -->
-            <div class="cfg"> 
-              <button class="btnTaskFunction" (click)="editarTarea(tarea)" *ngIf="tarea.TareaId">
-                <img class="iconTareaFuncion" src="../../../assets/iconos/editTast.png" alt="Editar Tarea">
-              </button>  
-              <button class="btnTaskFunction" (click)="capturarYCompartir(tarea.TareaId)">
-                <img class="iconTareaFuncion" src="../../../assets/iconos/downloadTask.png" alt="Compartir Tarea" />
-              </button>
-              <button class="btnTaskFunction" (click)="deleteTask(tarea.TareaId)"> 
-                <img class="iconTareaFuncion" src="../../../assets/iconos/deleteTask.png" alt="Eliminar Tarea">
-              </button>  
-            </div>
+            'txt-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
+            'txt-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
+            'txt-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj')
+          }">{{ tarea.Prioridad }}</p>
+        </div>
+
+        <!-- Estado -->
+        <div class="area-est">
+          <p class="area-Txt1"><strong>Estado:</strong></p>
+          <p class="area-Txt2">{{ tarea.Estado }}</p>
+        </div>
+
+        <!-- Fechas -->
+        <div class="area-fchA">
+          <span class="label area-Txt1">Inicio</span>
+          <span class="date area-Txt2">{{ tarea.FechaInicio }}</span>
+        </div>
+        <div class="area-fchB">
+          <span class="label area-Txt1">Fin</span>
+          <span class="date area-Txt2">{{ tarea.FechaFin }}</span>
+        </div>
+
+        <!-- Pasos -->
+        <div class="area-pso pasos-box areaPasos">
+          <strong class="pasos-title area-Txt1">Pasos:</strong>
+          <ul class="pasos-list area-Txt2">
+            <li *ngFor="let paso of tarea.Pasos">{{ paso }}</li>
+          </ul>
+        </div>
+
+        <!-- Funcionalidades -->
+        <div class="cfg">
+          <button class="btnTaskFunction" (click)="editarTarea(tarea)" *ngIf="tarea.TareaId">
+            <img class="iconTareaFuncion" src="../../../assets/iconos/editTast.png" alt="Editar Tarea">
+          </button>
+          <button class="btnTaskFunction" (click)="capturarYCompartir(tarea.TareaId)">
+            <img class="iconTareaFuncion" src="../../../assets/iconos/downloadTask.png" alt="Compartir Tarea" />
+          </button>
+          <button class="btnTaskFunction" (click)="deleteTask(tarea.TareaId)">
+            <img class="iconTareaFuncion" src="../../../assets/iconos/deleteTask.png" alt="Eliminar Tarea">
+          </button>
+        </div>
       </swiper-slide>
     </swiper-container>
   </div>
@@ -163,83 +144,79 @@
     <p>No hay tareas registradas.</p>
   </div>
 
-  <!-- Botón flotante + chat (solo Home) -->
+  <!-- ====== CHAT FLOTANTE ====== -->
   <app-chat-assistant></app-chat-assistant>
 
   <!-- ====== MODAL ESTADÍSTICAS ====== -->
-<div class="stats-backdrop" *ngIf="showStats" (click)="closeStats()">
-  <div class="stats-modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
-    <div class="stats-header">
-      <h3>Resumen de tus tareas</h3>
-      <button class="stats-close" type="button" (click)="closeStats()" aria-label="Cerrar">✕</button>
-    </div>
-
-    <div class="stats-meta">
-      <div class="meta-item">
-        <strong>Total:</strong> {{ totalTareas }}
+  <div class="stats-backdrop" *ngIf="showStats" (click)="closeStats()">
+    <div class="stats-modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+      <div class="stats-header">
+        <h3>Resumen de tus tareas</h3>
+        <button class="stats-close" type="button" (click)="closeStats()" aria-label="Cerrar">✕</button>
       </div>
-      <div class="meta-item" *ngIf="ultimaActualizacion">
-        <strong>Actualizado:</strong> {{ ultimaActualizacion | date:'short' }}
-      </div>
-    </div>
 
-    <div class="stats-content">
-      <!-- Gráfico 1: Estados (dona SVG sin librerías) -->
-      <section class="chart-card">
-        <h4>Estados</h4>
-        <div class="donut-wrapper" [attr.aria-label]="'Distribución por estado'">
-          <svg viewBox="0 0 42 42" class="donut">
-            <circle class="donut-ring" cx="21" cy="21" r="15.915"></circle>
-
-            <!-- Segmentos -->
-            <ng-container *ngFor="let seg of donutEstados; let i = index">
-              <circle
-                class="donut-segment"
-                cx="21" cy="21" r="15.915"
-                [attr.stroke]="seg.color"
-                [attr.stroke-dasharray]="seg.arc + ' ' + (100 - seg.arc)"
-                [attr.stroke-dashoffset]="seg.offset">
-              </circle>
-            </ng-container>
-
-            <g class="donut-total">
-              <text x="50%" y="50%" text-anchor="middle" dy="0.3em">{{ totalTareas }}</text>
-            </g>
-          </svg>
-          <ul class="legend">
-            <li *ngFor="let e of estadoStats">
-              <span class="swatch" [style.background]="e.color"></span>
-              <span class="label">{{ e.label }}</span>
-              <span class="value">{{ e.count }} ({{ e.percent }}%)</span>
-            </li>
-          </ul>
+      <div class="stats-meta">
+        <div class="meta-item"><strong>Total:</strong> {{ totalTareas }}</div>
+        <div class="meta-item" *ngIf="ultimaActualizacion">
+          <strong>Actualizado:</strong> {{ ultimaActualizacion | date:'short' }}
         </div>
-      </section>
+      </div>
 
-      <!-- Gráfico 2: Prioridades (barras horizontales puras CSS) -->
-      <section class="chart-card">
-        <h4>Prioridades</h4>
-        <div class="bars">
-          <div class="bar-row" *ngFor="let p of prioridadStats">
-            <div class="bar-label">{{ p.label }}</div>
-            <div class="bar-track">
-              <div class="bar-fill"
-                   [style.width.%]="p.percent"
-                   [style.background]="p.color"
-                   [attr.aria-label]="p.label + ': ' + p.count + ' (' + p.percent + '%)'">
-              </div>
-            </div>
-            <div class="bar-value">{{ p.count }} ({{ p.percent }}%)</div>
+      <div class="stats-content">
+        <!-- Gráfico 1 -->
+        <section class="chart-card">
+          <h4>Estados</h4>
+          <div class="donut-wrapper">
+            <svg viewBox="0 0 42 42" class="donut">
+              <circle class="donut-ring" cx="21" cy="21" r="15.915"></circle>
+
+              <ng-container *ngFor="let seg of donutEstados; let i = index">
+                <circle
+                  class="donut-segment"
+                  cx="21" cy="21" r="15.915"
+                  [attr.stroke]="seg.color"
+                  [attr.stroke-dasharray]="seg.arc + ' ' + (100 - seg.arc)"
+                  [attr.stroke-dashoffset]="seg.offset">
+                </circle>
+              </ng-container>
+
+              <g class="donut-total">
+                <text x="50%" y="50%" text-anchor="middle" dy="0.3em">{{ totalTareas }}</text>
+              </g>
+            </svg>
+            <ul class="legend">
+              <li *ngFor="let e of estadoStats">
+                <span class="swatch" [style.background]="e.color"></span>
+                <span class="label">{{ e.label }}</span>
+                <span class="value">{{ e.count }} ({{ e.percent }}%)</span>
+              </li>
+            </ul>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
 
-    <div class="stats-footer">
-      <button class="btnSecondary" type="button" (click)="closeStats()">Cerrar</button>
+        <!-- Gráfico 2 -->
+        <section class="chart-card">
+          <h4>Prioridades</h4>
+          <div class="bars">
+            <div class="bar-row" *ngFor="let p of prioridadStats">
+              <div class="bar-label">{{ p.label }}</div>
+              <div class="bar-track">
+                <div
+                  class="bar-fill"
+                  [style.width.%]="p.percent"
+                  [style.background]="p.color"
+                  [attr.aria-label]="p.label + ': ' + p.count + ' (' + p.percent + '%)'">
+                </div>
+              </div>
+              <div class="bar-value">{{ p.count }} ({{ p.percent }}%)</div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div class="stats-footer">
+        <button class="btnSecondary" type="button" (click)="closeStats()">Cerrar</button>
+      </div>
     </div>
   </div>
-</div>
-
-
 </main>
