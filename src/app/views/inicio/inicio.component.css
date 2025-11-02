@@ -13,9 +13,14 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap:nowrap;
     background-color: var(--bg);
 }
-
+.brand{
+  display:flex;
+  align-items:center;           
+  flex-wrap:nowrap;   
+}
 .logoZenki {
     width: clamp(125px, 6%, 130px);
     pointer-events: none;
@@ -552,6 +557,7 @@ nav {
 
 /* Cierre (X) del modal */
 .btn-close-white {
+  display: none;
   filter: invert(0.9);
   opacity: 0.8;
 }
@@ -808,7 +814,7 @@ nav {
 }
 .btnToggle,
 .btnStats {
-  height: 44px;          /* altura fija uniforme */
+  height: 42px;          /* altura fija uniforme */
   line-height: 1;        /* evita desbordes por el texto */
   padding: 0 16px;       /* relleno horizontal parejo */
   display: inline-flex;
@@ -977,13 +983,21 @@ span + span {
     gap: 2px;                /* antes probablemente 8px, ahora más compacto */
     padding-inline: 10px;    /* opcional: achica horizontalmente el botón */
     color: var(--primario, #1E7266) !important;
-    height: 35px;
+    height: 36px;
   }
 
   /* Opcional: alinear mejor verticalmente el chevron */
   .btnChevron {
     padding: 0px;
     margin-left: 2px;        /* antes 6px; lo acercamos */
+  }
+  .sort-menu{
+    width: 25vw;
+  }
+  .sort-item{
+    padding: 5%;
+    font-size: 12px;
+    font-weight: 600;
   }
 }
 
@@ -992,28 +1006,28 @@ span + span {
 
     /* TARJETA TAREA */
     .cardTask{
-      max-height: 330px;
-      max-width: 230px;
+      max-height: 350px;
+      max-width: 240px;
     }
     .area-tit h2{
-      font-size: 1rem;
+      font-size: 1.1rem;
     }
     .area-pri{
-      font-size: .8rem;
+      font-size: .9rem;
     }
     .area-est{
-      font-size: .8rem;
+      font-size: .9rem;
     }
     .area-fchA .label,
     .area-fchB .label {
-        font-size: .65rem;
+        font-size: .70rem;
     }
     .area-fchA .date,
     .area-fchB .date {
-        font-size: .75rem;
+        font-size: .80rem;
     }
     .areaPasos{
-      font-size: .75rem;
+      font-size: .80rem;
     }
 
 }
@@ -1035,8 +1049,9 @@ span + span {
     display: none;
 }
 /* 3) Reglas para pantallas chicas (donde querés el comportamiento) */
-@media (max-width: 680px) and (max-height: 580px) {
-
+@media (max-width: 680px) and (max-height: 580px),
+       (max-width: 450px)  {
+  
   /* Contenedor del FAB + chevron svg apuntando a la derecha*/
   .fab-container {
     position: fixed;
@@ -1062,7 +1077,9 @@ span + span {
     color: #1E7266;
     transition: transform .2s ease;
   }
-  .fab-chevron:hover { transform: scale(1.2); }
+  .fab-chevron:hover { 
+    transform: scale(1.2); 
+  }
 
     /* --- FAB (iconCrearTarea) oculto por defecto, pero animable --- */
   .iconCrearTarea{
@@ -1132,9 +1149,15 @@ span + span {
     transform: translateX(0) scale(1);
   }
 
+  .global-toggle{
+    width: 1.75em;
+    /* min-width: 30px;
+    margin-left: .9%; */
+  }
+
 }
 
-/* Útilcuando desde el componente chat-assistant css estaba activo el query de la linea 195*/
+/* Útil cuando desde el componente chat-assistant css estaba activo el query de la linea 195*/
 /* @media (max-width: 420px) {
     app-chat-assistant{
     position: fixed;

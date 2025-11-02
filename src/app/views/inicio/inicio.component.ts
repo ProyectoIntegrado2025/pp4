@@ -148,7 +148,7 @@ export class InicioComponent implements OnInit, OnDestroy {
   }
 
     async deleteTask(tareaId: string): Promise<void> {
-    if (!confirm('¿Seguro que deseas eliminar esta tarea?')) return;
+    /* if (!confirm('¿Seguro que deseas eliminar esta tarea?')) return; */   /* modal localhost */
 
     this.cargando = true;
     try {
@@ -417,6 +417,21 @@ get tareasOrdenadas(): Tarea[] {
   }
 }
 
+/* MODAL PARA ELIMIAR TAREA */
+showDelete = false;
+tareaIdAEliminar: string | null = null;
+
+openDelete(t: Tarea) {
+  this.tareaIdAEliminar = t.TareaId;
+  this.showDelete = true;
+}
+cancelDelete() { this.showDelete = false; this.tareaIdAEliminar = null; }
+
+onConfirmDelete() {
+  if (this.tareaIdAEliminar) this.deleteTask(this.tareaIdAEliminar);
+  this.showDelete = false;
+  this.tareaIdAEliminar = null;
+}
 
 
 }

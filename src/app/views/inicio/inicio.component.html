@@ -6,10 +6,14 @@
 
   <!-- NAVBAR -->
   <nav class="p-2">
-    <div>
-      <img class="logoZenki" src="../../../assets/logos/logo+Zenki.png" alt="">
+<!--     <div>
+      <img class="logoZenki" src="../../../assets/logos/logo+Zenki.png" alt=""> -->
       <!-- THEME TOGGLE --><!-- Componente exportado theme-toggle -->
-      <app-theme-toggle class="global-toggle"></app-theme-toggle>
+ <!--      <app-theme-toggle class="global-toggle"></app-theme-toggle>
+    </div> -->
+    <div class="brand">
+        <img class="logoZenki" src="../../../assets/logos/logo+Zenki.png" alt="">
+        <app-theme-toggle class="global-toggle"></app-theme-toggle>
     </div>
     <!-- <button class="btnLogout" (click)="onLogout()">Cerrar Sesión</button> -->
      
@@ -51,6 +55,25 @@
               </div>
             </div>
 
+
+            <!-- MODAL PARA LA FUNCIÓN ELIMINAR TAREA -->
+            <div *ngIf="showDelete" class="modal-overlay d-flex justify-content-center align-items-center" (click)="cancelDelete()">
+              <div class="modal-dialog modal-md" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
+                <div class="modal-content bg-dark text-white" style="border-radius:1rem;border:1px solid rgba(255,255,255,.1);">
+                  <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title">Confirmación</h5>
+                    <button type="button" class="btn-close btn-close-white" (click)="cancelDelete()"></button>
+                  </div>
+                  <div class="modal-body text-center">
+                    <p>¿Seguro que deseas eliminar esta tarea?</p>
+                  </div>
+                  <div class="modal-footer border-top-0 d-flex justify-content-between">
+                    <button class="btn btn-outline-secondary flex-fill me-2" (click)="cancelDelete()">Cancelar</button>
+                    <button class="btn btn-danger flex-fill" (click)="onConfirmDelete()">Eliminar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
 
 <!-- Contiene todas las funciones sobre tareas -->
@@ -313,9 +336,12 @@
               <button class="btnTaskFunction" (click)="capturarYCompartir(tarea.TareaId)">
                 <img class="iconTareaFuncion" src="../../../assets/iconos/downloadTask.png" alt="Compartir Tarea" />
               </button>
-              <button class="btnTaskFunction" (click)="deleteTask(tarea.TareaId)"> 
+             <!--  <button class="btnTaskFunction" (click)="deleteTask(tarea.TareaId)"> 
                 <img class="iconTareaFuncion" src="../../../assets/iconos/deleteTask.png" alt="Eliminar Tarea">
-              </button>  
+              </button>  -->
+              <button class="btnTaskFunction" (click)="openDelete(tarea)">
+                <img class="iconTareaFuncion" src="../../../assets/iconos/deleteTask.png" alt="Eliminar Tarea">
+              </button> 
             </div>
       </swiper-slide>
     </swiper-container>
