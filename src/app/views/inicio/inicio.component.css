@@ -83,6 +83,9 @@ nav {
     .global-toggle {
         margin-right: 2%;
     }
+    .global-toggle{
+        width: 1.2em;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1036,7 +1039,7 @@ span + span {
 
 /* 1) Utilidad para ocultar el checkbox manteniendo accesibilidad */
 .visually-hidden {
-    position: absolute !important;
+    position: fixed !important;
     width: 1px; height: 1px;
     padding: 0; margin: -1px; overflow: hidden;
     clip: rect(0 0 0 0); white-space: nowrap; border: 0;
@@ -1149,11 +1152,7 @@ span + span {
     transform: translateX(0) scale(1);
   }
 
-  .global-toggle{
-    width: 1.75em;
-    /* min-width: 30px;
-    margin-left: .9%; */
-  }
+ 
 
 }
 
