@@ -35,6 +35,8 @@
       <span class="logout-text">Cerrar Sesión</span>
     </button>
   </nav>
+
+
             <!-- MODAL CONFIRMACIÓN LOGOUT -->
             <div *ngIf="mostrarModalConfirmacion" class="modal-overlay d-flex justify-content-center align-items-center">
               <div class="modal-dialog modal-md" role="document">
@@ -78,9 +80,9 @@
 
 <!-- Contiene todas las funciones sobre tareas -->
 <div class="toolbar">
-  <div class="view-buttons" role="tablist" aria-label="Cambiar vista de tareas">
 
-    <!-- ANCLA para el menú de orden -->
+  <div class="view-buttons" role="tablist" aria-label="Cambiar vista de tareas">
+    <!-- Botón Por Lista (por default) para el menú de orden -->
     <div class="menu-anchor">
       <!-- Botón: Por lista (activa vista) -->
       <button
@@ -207,7 +209,6 @@
             </button>
           </div>
     </div>
-    
   </div>
 
     <!-- botón de estadísticas -->
@@ -348,241 +349,235 @@
   </div>
 
 <!-- VISTA 2 POR ESTADOS -->
-<section *ngIf="!cargando && tareas.length && viewMode==='byEstado'">
-  <h2 class="titleCard">Estado de Tareas: Pendientes</h2>
-  <swiper-container class="container"
-      slides-per-view="auto" pagination="bullets"
-      effect="slide" centered-slides="true" initial-slide="3">
-    <swiper-slide class="cardTask"
-                  *ngFor="let tarea of tareasPendientes; trackBy: trackById"
-                  [id]="'tarea-' + tarea.TareaId">
-      <!-- TU CARD -->
-      <img class="imglogoback" src="../../../assets/logos/logo.png" alt="logo">
-            <!-- ID -->
-            <div class="area-id">
-                <!-- <h2 class="area-Txt1">ID:</h2>
-                <p class="area-Txt2 id-code">{{ tarea.TareaId }}</p> --> 
-            </div>
-            <!-- Punto (círculo con glow rojo) -->
-            <div class="area-point">
-                <span
-                  class="priority"
-                  [ngClass]="{
-                    'prio-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
-                    'prio-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
-                    'prio-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
-                  }">
-                </span>
-            </div>
-        <!-- Título (sin la palabra “Título”) -->
-        <div class="area-tit">
-          <h2 class="area-Txt1">{{ tarea.Titulo }}</h2>
-        </div>
-        <!-- Prioridad -->
-        <div class="area-pri">
-          <p class="area-Txt1"><strong>Prioridad:</strong></p>
-          <p [ngClass]="{
-                    'txt-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
-                    'txt-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
-                    'txt-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
-                  }">
-                        {{ tarea.Prioridad }}
-              </p>
-            </div>
-            <!-- Estado -->
-            <div class="area-est">
-              <p class="area-Txt1"><strong>Estado:</strong></p><p class="area-Txt2">{{ tarea.Estado }}</p>
-            </div>  
-            <!-- Fechas -->
-            <div class="area-fchA">
-              <span class="label area-Txt1">Inicio</span>
-              <span class="date area-Txt2">{{ tarea.FechaInicio }}</span>
-            </div>
-            <div class="area-fchB">
-              <span class="label area-Txt1">Fin</span>
-              <span class="date area-Txt2">{{ tarea.FechaFin }}</span>
-            </div>
-            <!-- Pasos --> 
-            <div class="area-pso pasos-box areaPasos">
-              <strong class="pasos-title area-Txt1">Pasos:</strong>
-              <ul class="pasos-list area-Txt2">
-                <li *ngFor="let paso of tarea.Pasos">{{ paso }}</li>
-              </ul>
-            </div>
-            <!-- Funcionalidades -->
-            <div class="cfg"> 
-              <button class="btnTaskFunction" (click)="editarTarea(tarea)" *ngIf="tarea.TareaId">
-                <img class="iconTareaFuncion" src="../../../assets/iconos/editTast.png" alt="Editar Tarea">
-              </button>  
-              <button class="btnTaskFunction" (click)="capturarYCompartir(tarea.TareaId)">
-                <img class="iconTareaFuncion" src="../../../assets/iconos/downloadTask.png" alt="Compartir Tarea" />
-              </button>
-              <button class="btnTaskFunction" (click)="deleteTask(tarea.TareaId)"> 
-                <img class="iconTareaFuncion" src="../../../assets/iconos/deleteTask.png" alt="Eliminar Tarea">
-              </button>  
-            </div>
-    </swiper-slide>
-  </swiper-container>
+  <section *ngIf="!cargando && tareas.length && viewMode==='byEstado'">
+    <h2 class="titleCard">Estado de Tareas: Pendientes</h2>
+    <swiper-container class="container"
+        slides-per-view="auto" pagination="bullets"
+        effect="slide" centered-slides="true" initial-slide="3">
+      <swiper-slide class="cardTask"
+                    *ngFor="let tarea of tareasPendientes; trackBy: trackById"
+                    [id]="'tarea-' + tarea.TareaId">
+        <!-- TU CARD -->
+        <img class="imglogoback" src="../../../assets/logos/logo.png" alt="logo">
+              <!-- ID -->
+              <div class="area-id">
+                  <!-- <h2 class="area-Txt1">ID:</h2>
+                  <p class="area-Txt2 id-code">{{ tarea.TareaId }}</p> --> 
+              </div>
+              <!-- Punto (círculo con glow rojo) -->
+              <div class="area-point">
+                  <span
+                    class="priority"
+                    [ngClass]="{
+                      'prio-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
+                      'prio-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
+                      'prio-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
+                    }">
+                  </span>
+              </div>
+          <!-- Título (sin la palabra “Título”) -->
+          <div class="area-tit">
+            <h2 class="area-Txt1">{{ tarea.Titulo }}</h2>
+          </div>
+          <!-- Prioridad -->
+          <div class="area-pri">
+            <p class="area-Txt1"><strong>Prioridad:</strong></p>
+            <p [ngClass]="{
+                      'txt-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
+                      'txt-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
+                      'txt-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
+                    }">
+                          {{ tarea.Prioridad }}
+                </p>
+              </div>
+              <!-- Estado -->
+              <div class="area-est">
+                <p class="area-Txt1"><strong>Estado:</strong></p><p class="area-Txt2">{{ tarea.Estado }}</p>
+              </div>  
+              <!-- Fechas -->
+              <div class="area-fchA">
+                <span class="label area-Txt1">Inicio</span>
+                <span class="date area-Txt2">{{ tarea.FechaInicio }}</span>
+              </div>
+              <div class="area-fchB">
+                <span class="label area-Txt1">Fin</span>
+                <span class="date area-Txt2">{{ tarea.FechaFin }}</span>
+              </div>
+              <!-- Pasos --> 
+              <div class="area-pso pasos-box areaPasos">
+                <strong class="pasos-title area-Txt1">Pasos:</strong>
+                <ul class="pasos-list area-Txt2">
+                  <li *ngFor="let paso of tarea.Pasos">{{ paso }}</li>
+                </ul>
+              </div>
+              <!-- Funcionalidades -->
+              <div class="cfg"> 
+                <button class="btnTaskFunction" (click)="editarTarea(tarea)" *ngIf="tarea.TareaId">
+                  <img class="iconTareaFuncion" src="../../../assets/iconos/editTast.png" alt="Editar Tarea">
+                </button>  
+                <button class="btnTaskFunction" (click)="capturarYCompartir(tarea.TareaId)">
+                  <img class="iconTareaFuncion" src="../../../assets/iconos/downloadTask.png" alt="Compartir Tarea" />
+                </button>
+                <button class="btnTaskFunction" (click)="deleteTask(tarea.TareaId)"> 
+                  <img class="iconTareaFuncion" src="../../../assets/iconos/deleteTask.png" alt="Eliminar Tarea">
+                </button>  
+              </div>
+      </swiper-slide>
+    </swiper-container>
 
-  <h2 class="titleCard">Estado de Tareas: En desarrollo</h2>
-  <swiper-container class="container"
-      slides-per-view="auto" pagination="bullets"
-      effect="slide" centered-slides="true" initial-slide="3">
-    <swiper-slide class="cardTask"
-                  *ngFor="let tarea of tareasEnDesarrollo; trackBy: trackById"
-                  [id]="'tarea-' + tarea.TareaId">
-      <!-- TU CARD -->
-      <img class="imglogoback" src="../../../assets/logos/logo.png" alt="logo">
-            <!-- ID -->
-            <div class="area-id">
-                <!-- <h2 class="area-Txt1">ID:</h2>
-                <p class="area-Txt2 id-code">{{ tarea.TareaId }}</p> --> 
-            </div>
-            <!-- Punto (círculo con glow rojo) -->
-            <div class="area-point">
-                <span
-                  class="priority"
-                  [ngClass]="{
-                    'prio-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
-                    'prio-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
-                    'prio-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
-                  }">
-                </span>
-            </div>
-        <!-- Título (sin la palabra “Título”) -->
-        <div class="area-tit">
-          <h2 class="area-Txt1">{{ tarea.Titulo }}</h2>
-        </div>
-        <!-- Prioridad -->
-        <div class="area-pri">
-          <p class="area-Txt1"><strong>Prioridad:</strong></p>
-          <p [ngClass]="{
-                    'txt-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
-                    'txt-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
-                    'txt-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
-                  }">
-                        {{ tarea.Prioridad }}
-              </p>
-            </div>
-            <!-- Estado -->
-            <div class="area-est">
-              <p class="area-Txt1"><strong>Estado:</strong></p><p class="area-Txt2">{{ tarea.Estado }}</p>
-            </div>  
-            <!-- Fechas -->
-            <div class="area-fchA">
-              <span class="label area-Txt1">Inicio</span>
-              <span class="date area-Txt2">{{ tarea.FechaInicio }}</span>
-            </div>
-            <div class="area-fchB">
-              <span class="label area-Txt1">Fin</span>
-              <span class="date area-Txt2">{{ tarea.FechaFin }}</span>
-            </div>
-            <!-- Pasos --> 
-            <div class="area-pso pasos-box areaPasos">
-              <strong class="pasos-title area-Txt1">Pasos:</strong>
-              <ul class="pasos-list area-Txt2">
-                <li *ngFor="let paso of tarea.Pasos">{{ paso }}</li>
-              </ul>
-            </div>
-            <!-- Funcionalidades -->
-            <div class="cfg"> 
-              <button class="btnTaskFunction" (click)="editarTarea(tarea)" *ngIf="tarea.TareaId">
-                <img class="iconTareaFuncion" src="../../../assets/iconos/editTast.png" alt="Editar Tarea">
-              </button>  
-              <button class="btnTaskFunction" (click)="capturarYCompartir(tarea.TareaId)">
-                <img class="iconTareaFuncion" src="../../../assets/iconos/downloadTask.png" alt="Compartir Tarea" />
-              </button>
-              <button class="btnTaskFunction" (click)="deleteTask(tarea.TareaId)"> 
-                <img class="iconTareaFuncion" src="../../../assets/iconos/deleteTask.png" alt="Eliminar Tarea">
-              </button>  
-            </div>
-    </swiper-slide>
-  </swiper-container>
+    <h2 class="titleCard">Estado de Tareas: En desarrollo</h2>
+    <swiper-container class="container"
+        slides-per-view="auto" pagination="bullets"
+        effect="slide" centered-slides="true" initial-slide="3">
+      <swiper-slide class="cardTask"
+                    *ngFor="let tarea of tareasEnDesarrollo; trackBy: trackById"
+                    [id]="'tarea-' + tarea.TareaId">
+        <!-- TU CARD -->
+        <img class="imglogoback" src="../../../assets/logos/logo.png" alt="logo">
+              <!-- ID -->
+              <div class="area-id">
+                  <!-- <h2 class="area-Txt1">ID:</h2>
+                  <p class="area-Txt2 id-code">{{ tarea.TareaId }}</p> --> 
+              </div>
+              <!-- Punto (círculo con glow rojo) -->
+              <div class="area-point">
+                  <span
+                    class="priority"
+                    [ngClass]="{
+                      'prio-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
+                      'prio-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
+                      'prio-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
+                    }">
+                  </span>
+              </div>
+          <!-- Título (sin la palabra “Título”) -->
+          <div class="area-tit">
+            <h2 class="area-Txt1">{{ tarea.Titulo }}</h2>
+          </div>
+          <!-- Prioridad -->
+          <div class="area-pri">
+            <p class="area-Txt1"><strong>Prioridad:</strong></p>
+            <p [ngClass]="{
+                      'txt-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
+                      'txt-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
+                      'txt-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
+                    }">
+                          {{ tarea.Prioridad }}
+                </p>
+              </div>
+              <!-- Estado -->
+              <div class="area-est">
+                <p class="area-Txt1"><strong>Estado:</strong></p><p class="area-Txt2">{{ tarea.Estado }}</p>
+              </div>  
+              <!-- Fechas -->
+              <div class="area-fchA">
+                <span class="label area-Txt1">Inicio</span>
+                <span class="date area-Txt2">{{ tarea.FechaInicio }}</span>
+              </div>
+              <div class="area-fchB">
+                <span class="label area-Txt1">Fin</span>
+                <span class="date area-Txt2">{{ tarea.FechaFin }}</span>
+              </div>
+              <!-- Pasos --> 
+              <div class="area-pso pasos-box areaPasos">
+                <strong class="pasos-title area-Txt1">Pasos:</strong>
+                <ul class="pasos-list area-Txt2">
+                  <li *ngFor="let paso of tarea.Pasos">{{ paso }}</li>
+                </ul>
+              </div>
+              <!-- Funcionalidades -->
+              <div class="cfg"> 
+                <button class="btnTaskFunction" (click)="editarTarea(tarea)" *ngIf="tarea.TareaId">
+                  <img class="iconTareaFuncion" src="../../../assets/iconos/editTast.png" alt="Editar Tarea">
+                </button>  
+                <button class="btnTaskFunction" (click)="capturarYCompartir(tarea.TareaId)">
+                  <img class="iconTareaFuncion" src="../../../assets/iconos/downloadTask.png" alt="Compartir Tarea" />
+                </button>
+                <button class="btnTaskFunction" (click)="deleteTask(tarea.TareaId)"> 
+                  <img class="iconTareaFuncion" src="../../../assets/iconos/deleteTask.png" alt="Eliminar Tarea">
+                </button>  
+              </div>
+      </swiper-slide>
+    </swiper-container>
 
-  <h2 class="titleCard">Estado de Tareas: Finalizadas</h2>
-  <swiper-container class="container"
-      slides-per-view="auto" pagination="bullets"
-      effect="slide" centered-slides="true" initial-slide="3">
-    <swiper-slide class="cardTask"
-                  *ngFor="let tarea of tareasFinalizadas; trackBy: trackById"
-                  [id]="'tarea-' + tarea.TareaId">
-      <!-- TU CARD -->
-      <img class="imglogoback" src="../../../assets/logos/logo.png" alt="logo">
-            <!-- ID -->
-            <div class="area-id">
-                <!-- <h2 class="area-Txt1">ID:</h2>
-                <p class="area-Txt2 id-code">{{ tarea.TareaId }}</p> --> 
-            </div>
-            <!-- Punto (círculo con glow rojo) -->
-            <div class="area-point">
-                <span
-                  class="priority"
-                  [ngClass]="{
-                    'prio-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
-                    'prio-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
-                    'prio-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
-                  }">
-                </span>
-            </div>
-        <!-- Título (sin la palabra “Título”) -->
-        <div class="area-tit">
-          <h2 class="area-Txt1">{{ tarea.Titulo }}</h2>
-        </div>
-        <!-- Prioridad -->
-        <div class="area-pri">
-          <p class="area-Txt1"><strong>Prioridad:</strong></p>
-          <p [ngClass]="{
-                    'txt-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
-                    'txt-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
-                    'txt-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
-                  }">
-                        {{ tarea.Prioridad }}
-              </p>
-            </div>
-            <!-- Estado -->
-            <div class="area-est">
-              <p class="area-Txt1"><strong>Estado:</strong></p><p class="area-Txt2">{{ tarea.Estado }}</p>
-            </div>  
-            <!-- Fechas -->
-            <div class="area-fchA">
-              <span class="label area-Txt1">Inicio</span>
-              <span class="date area-Txt2">{{ tarea.FechaInicio }}</span>
-            </div>
-            <div class="area-fchB">
-              <span class="label area-Txt1">Fin</span>
-              <span class="date area-Txt2">{{ tarea.FechaFin }}</span>
-            </div>
-            <!-- Pasos --> 
-            <div class="area-pso pasos-box areaPasos">
-              <strong class="pasos-title area-Txt1">Pasos:</strong>
-              <ul class="pasos-list area-Txt2">
-                <li *ngFor="let paso of tarea.Pasos">{{ paso }}</li>
-              </ul>
-            </div>
-            <!-- Funcionalidades -->
-            <div class="cfg"> 
-              <button class="btnTaskFunction" (click)="editarTarea(tarea)" *ngIf="tarea.TareaId">
-                <img class="iconTareaFuncion" src="../../../assets/iconos/editTast.png" alt="Editar Tarea">
-              </button>  
-              <button class="btnTaskFunction" (click)="capturarYCompartir(tarea.TareaId)">
-                <img class="iconTareaFuncion" src="../../../assets/iconos/downloadTask.png" alt="Compartir Tarea" />
-              </button>
-              <button class="btnTaskFunction" (click)="deleteTask(tarea.TareaId)"> 
-                <img class="iconTareaFuncion" src="../../../assets/iconos/deleteTask.png" alt="Eliminar Tarea">
-              </button>  
-            </div>
-    </swiper-slide>
-  </swiper-container>
+    <h2 class="titleCard">Estado de Tareas: Finalizadas</h2>
+    <swiper-container class="container"
+        slides-per-view="auto" pagination="bullets"
+        effect="slide" centered-slides="true" initial-slide="3">
+      <swiper-slide class="cardTask"
+                    *ngFor="let tarea of tareasFinalizadas; trackBy: trackById"
+                    [id]="'tarea-' + tarea.TareaId">
+        <!-- TU CARD -->
+        <img class="imglogoback" src="../../../assets/logos/logo.png" alt="logo">
+              <!-- ID -->
+              <div class="area-id">
+                  <!-- <h2 class="area-Txt1">ID:</h2>
+                  <p class="area-Txt2 id-code">{{ tarea.TareaId }}</p> --> 
+              </div>
+              <!-- Punto (círculo con glow rojo) -->
+              <div class="area-point">
+                  <span
+                    class="priority"
+                    [ngClass]="{
+                      'prio-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
+                      'prio-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
+                      'prio-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
+                    }">
+                  </span>
+              </div>
+          <!-- Título (sin la palabra “Título”) -->
+          <div class="area-tit">
+            <h2 class="area-Txt1">{{ tarea.Titulo }}</h2>
+          </div>
+          <!-- Prioridad -->
+          <div class="area-pri">
+            <p class="area-Txt1"><strong>Prioridad:</strong></p>
+            <p [ngClass]="{
+                      'txt-alta':  (tarea.Prioridad || '').toLowerCase().startsWith('alt'),
+                      'txt-media': (tarea.Prioridad || '').toLowerCase().startsWith('med'),
+                      'txt-baja':  (tarea.Prioridad || '').toLowerCase().startsWith('baj'),
+                    }">
+                          {{ tarea.Prioridad }}
+                </p>
+              </div>
+              <!-- Estado -->
+              <div class="area-est">
+                <p class="area-Txt1"><strong>Estado:</strong></p><p class="area-Txt2">{{ tarea.Estado }}</p>
+              </div>  
+              <!-- Fechas -->
+              <div class="area-fchA">
+                <span class="label area-Txt1">Inicio</span>
+                <span class="date area-Txt2">{{ tarea.FechaInicio }}</span>
+              </div>
+              <div class="area-fchB">
+                <span class="label area-Txt1">Fin</span>
+                <span class="date area-Txt2">{{ tarea.FechaFin }}</span>
+              </div>
+              <!-- Pasos --> 
+              <div class="area-pso pasos-box areaPasos">
+                <strong class="pasos-title area-Txt1">Pasos:</strong>
+                <ul class="pasos-list area-Txt2">
+                  <li *ngFor="let paso of tarea.Pasos">{{ paso }}</li>
+                </ul>
+              </div>
+              <!-- Funcionalidades -->
+              <div class="cfg"> 
+                <button class="btnTaskFunction" (click)="editarTarea(tarea)" *ngIf="tarea.TareaId">
+                  <img class="iconTareaFuncion" src="../../../assets/iconos/editTast.png" alt="Editar Tarea">
+                </button>  
+                <button class="btnTaskFunction" (click)="capturarYCompartir(tarea.TareaId)">
+                  <img class="iconTareaFuncion" src="../../../assets/iconos/downloadTask.png" alt="Compartir Tarea" />
+                </button>
+                <button class="btnTaskFunction" (click)="deleteTask(tarea.TareaId)"> 
+                  <img class="iconTareaFuncion" src="../../../assets/iconos/deleteTask.png" alt="Eliminar Tarea">
+                </button>  
+              </div>
+      </swiper-slide>
+    </swiper-container>
 
-</section>
-
-
+  </section>
 
 
-  <!-- BUTTON CREAR TAREA --> 
-  <!-- Icono que rutea al componente crear -->
-  <!-- <a [routerLink]="['/crear']"><img class="iconCrearTarea" src="../../../assets/iconos/botonCrearTarea.png"
-      alt="Crear Tarea"></a> -->
 
 
       <!-- Para persistir la acción de despelgarlo y ocultarlo -->
@@ -594,7 +589,7 @@
       <img class="iconCrearTarea" src="../../../assets/iconos/botonCrearTarea.png" alt="Crear Tarea">
     </a>
 
-      <!-- Chevron como label que toggla el checkbox -->
+      <!-- Chevron en label que toggla el checkbox -->
       <label class="fab-chevron" for="fabToggle" role="button" aria-controls="fabArea" aria-expanded="false" title="Mostrar/Ocultar">
         <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
           <path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -602,8 +597,7 @@
       </label>
   </div>      
 
-  <!-- Botón flotante + chat (solo Home) --> 
-<!--   <app-chat-assistant></app-chat-assistant> -->
+
 
       <!-- Toggle persistente del chat -->
       <input type="checkbox" id="chatToggle" class="visually-hidden" />
@@ -617,7 +611,7 @@
         </svg>
       </label>
 
-      <!-- Tu componente de chat -->
+      <!-- Componente de chat -->
       <app-chat-assistant></app-chat-assistant>
     </div>
 
