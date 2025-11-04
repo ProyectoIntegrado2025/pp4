@@ -1,9 +1,8 @@
 /* Para cuando no se carga el back sale este modal en la parte t */
 main {
-    min-height: 100dvh;
-    /* principal */
-    min-height: 100vh;
-    /* respaldo */
+    min-height: 100dvh;     /* principal */
+    min-height: 100vh;      /* respaldo */
+    min-height: 100dvh;     /* preferido en móviles modernos */
     width: 100%;
     position: relative;
 }
@@ -179,8 +178,9 @@ nav {
     border-radius: 5%;
     overflow: hidden;
 
-    width: clamp(250px, 15vw, 270px);
-    height: clamp(40vh, 60vh, 390px);
+    width: clamp(270px, 16vw, 290px);
+    /* height: clamp(40vh, 60vh, 390px); */
+    height: clamp(310px, 420px, 450px);
     min-height: 310px;
 
     margin: 10px 10px 30px 10px;
@@ -851,7 +851,6 @@ nav {
   padding: 0% 5%;
 }
 
-
 /* SUB OPCIONES DE BOTÓN POR LISTA */
 .menu-anchor{ 
   position: relative; 
@@ -983,7 +982,7 @@ span + span {
     gap: 2px;                /* antes probablemente 8px, ahora más compacto */
     padding-inline: 10px;    /* opcional: achica horizontalmente el botón */
     color: var(--primario, #1E7266) !important;
-    height: 36px;
+    height: 38px;
   }
 
   /* Opcional: alinear mejor verticalmente el chevron */
@@ -1160,7 +1159,7 @@ span + span {
       /* reducción del theme toggle  */
         .global-toggle{
         width: 1.2em;
-        min-width: 28px;
+        min-width: 25px;
         margin-left: 1%;
     }
     /* En celulares es mucho menos notorio el margin top por default */
