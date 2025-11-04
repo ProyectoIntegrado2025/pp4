@@ -28,6 +28,7 @@ export class CalendarioComponent implements OnInit {
   availableYears: number[] = [];
   selectedMonth: number = new Date().getMonth();
   selectedYear: number = new Date().getFullYear();
+  dateFilter: 'inicio' | 'fin' = 'fin'; // Por defecto muestra por fecha de fin
 
   grid: CalendarDay[] = [];
 
@@ -133,11 +134,12 @@ export class CalendarioComponent implements OnInit {
       grid.push({ date: null, titles: [], showAll: false });
     }
 
-    // Mapear títulos por FechaFin (yyyy/mm/dd)
+    // Mapear títulos por fecha seleccionada (FechaInicio o FechaFin)
     const byKey = new Map<string, string[]>();
     for (const t of this.tareas) {
-      if (!t.FechaFin) continue;
-      const key = this.normalizeToYyyyMmDd(t.FechaFin);
+      const fecha = this.dateFilter === 'inicio' ? t.FechaInicio : t.FechaFin;
+      if (!fecha) continue;
+      const key = this.normalizeToYyyyMmDd(fecha);
       if (!key) continue;
       if (!byKey.has(key)) byKey.set(key, []);
       byKey.get(key)!.push(t.Titulo);
@@ -150,6 +152,11 @@ export class CalendarioComponent implements OnInit {
     }
 
     this.grid = grid;
+  }
+
+  onDateFilterChange(filter: 'inicio' | 'fin'): void {
+    this.dateFilter = filter;
+    this.construirCalendario();
   }
 
   toggleDropdown(index: number): void {

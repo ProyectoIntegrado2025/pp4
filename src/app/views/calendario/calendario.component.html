@@ -20,6 +20,27 @@
   <div *ngIf="error" class="alert">Ocurrió un error al cargar las tareas.</div>
   <div *ngIf="loading" class="loading">Cargando...</div>
 
+  <!-- Filtro de fecha -->
+  <div class="date-filter" *ngIf="!loading && !error">
+    <label class="filter-label">Mostrar por:</label>
+    <div class="filter-options">
+      <button
+        type="button"
+        class="filter-btn"
+        [class.active]="dateFilter === 'inicio'"
+        (click)="onDateFilterChange('inicio')">
+        Fecha de inicio
+      </button>
+      <button
+        type="button"
+        class="filter-btn"
+        [class.active]="dateFilter === 'fin'"
+        (click)="onDateFilterChange('fin')">
+        Fecha de fin
+      </button>
+    </div>
+  </div>
+
   <section *ngIf="!loading && !error" class="calendar-grid">
     <div class="week-header">Lun</div>
     <div class="week-header">Mar</div>
