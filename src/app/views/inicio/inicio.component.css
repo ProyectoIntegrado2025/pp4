@@ -1,40 +1,68 @@
 /* Para cuando no se carga el back sale este modal en la parte t */
 main {
-    min-height: 100dvh;
-    /* principal */
-    min-height: 100vh;
-    /* respaldo */
+    min-height: 100dvh;     /* principal */
+    min-height: 100vh;      /* respaldo */
+    min-height: 100dvh;     /* preferido en móviles modernos */
     width: 100%;
     position: relative;
 }
 
 /* NAVBAR */
 nav {
-    background-color: var(--bg) !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap:nowrap;
+    background-color: var(--bg);
 }
-
+.brand{
+  display:flex;
+  align-items:center;           
+  flex-wrap:nowrap;   
+}
 .logoZenki {
     width: clamp(125px, 6%, 130px);
     pointer-events: none;
     user-select: none;
 }
 
-.btnLogout {
-    background-color: #FFC857;
-    font-weight: 500;
-    font-size: 105%;
-    padding-inline: clamp(10px, .6%, 20px);
-    /* izq der */
-    padding-block: clamp(7px, .4%, 16px);
-    /* top bot */
-    border-radius: .5em;
+/* Botón logout base */
+.btnLogout{
+  display: inline-flex;
+  align-items: center;
+  background-color: #FFC857;
+  color: #000;
+  font-weight: 500;
+  font-size: 105%;
+  padding-inline: clamp(10px, .6%, 20px);
+  padding-block: clamp(7px, .4%, 16px);
+  border-radius: .5em;
+  border: 1px outset black;
+  text-wrap: nowrap;
 }
 
-@media (max-width: 278px) {
-    .btnLogout {
-        margin-top: 5px;
-    }
+/* Ícono power oculto por defecto en pantallas grandes */
+.icoPower{
+  display: none;
+  line-height: 0;
 }
+
+/* < 550px: mostrar ícono, ocultar texto */
+@media (max-width: 550px){
+  .icoPower{ display: inline-block; }
+  .logout-text{ display: none; }
+  /* opcional: compactar un toque el botón en mobile */
+  .btnLogout{
+    padding-inline: 9px; 
+  }
+}
+
+/* (Opcional) modo oscuro si usás theme variables */
+@media (prefers-color-scheme: dark){
+  .btnLogout{ color: #000; } /* el ícono hereda este color */
+}
+
+
 
 /* Toggle cambio de tema, componente theme-toggle */
 /* Toggle cambio de tema, componente theme-toggle */
@@ -67,7 +95,7 @@ nav {
   position: fixed;
   left: 2%;
   bottom: 2%;
-  width: 4.2em;
+  width: clamp(50px, 10vmin, 4.7vmax );
   height: auto;
   border-radius: 50%;
   background-color: #ffffff;
@@ -97,16 +125,32 @@ nav {
 }
 
 
+/* Div Buscador */
+.divSearch{
+  display: flex;
+  justify-content: center;
+}
 /* Buscador */
 .form-control {
     background-color: rgb(241, 255, 220);
     color: rgb(0, 84, 87);
+    width: 28%;
 }
 
 .form-control::placeholder {
     color: rgb(0, 84, 87);
     font-style: italic;
 }
+  @media(max-width:1024px){
+    .form-control{
+      width: 50%;
+    }
+  }
+    @media(max-width:720px){
+    .form-control{
+      width: 70%;
+    }
+  }
 
 /* Div de titulo de tareas y swiper-container */
 .conteinerTasks {
@@ -115,32 +159,30 @@ nav {
 
 /* Título previo a las tareas con swiper-container */
 .headerTareas {
-    font-family: "Polya", sans-serif;
+    font-family: "DMSerifDisplay-Italic", sans-serif;
     font-weight: 500;
-    /* importante si no tenés Polya-Bold */
     margin: auto;
     text-align: center;
-    font-size: 300%;
+    font-size: clamp(29px, 6vmin, 500px);
     color: var(--area-Txt1);
 }
 
-/* container del swiper-container*/
+/*  container del swiper-container  */
 .container {
     min-width: 92%;
 
 }
 
-/*  */
-/*  */
-/*  */
+/*  swiper-slide Contiene la tarjeta de la tarea  */
 .cardTask {
     border-radius: 5%;
     overflow: hidden;
 
-    width: 300px;
-    min-width: 280px;
-    height: 100%;
-    min-height: 470px;
+    width: clamp(270px, 16vw, 290px);
+    /* height: clamp(40vh, 60vh, 390px); */
+    height: clamp(310px, 420px, 450px);
+    min-height: 310px;
+
     margin: 10px 10px 30px 10px;
 
     display: grid;
@@ -243,15 +285,17 @@ nav {
     /* Fade al final (cross-browser moderno) */
     -webkit-mask-image: linear-gradient(to right, black 93%, transparent 102%);
 
+    font-family: "DMSerifDisplay-Italic", sans-serif;
 }
 
 .area-pri {
     grid-area: pri;
-    /* line-height: 0; */
-    font-size: .95rem;
     display: flex;
     align-items: center;
-    gap: 2%;
+    gap: 2%;    
+    font-size: .95rem;
+
+
     transition: color 0.3s ease;
 }
 
@@ -262,16 +306,19 @@ nav {
 /* color según prioridad */
 .txt-alta {
     color: #e53935;
+    font-family: "DMSerifDisplay-Italic", sans-serif;
 }
 
 /* rojo */
 .txt-media {
     color: #f59e0b;
+    font-family: "DMSerifDisplay-Italic", sans-serif;
 }
 
 /* naranja */
 .txt-baja {
     color: #85cc00;
+    font-family: "DMSerifDisplay-Italic", sans-serif;
 }
 
 /* celeste */
@@ -279,9 +326,6 @@ nav {
 /* Punto de prioridad a la derecha del ID (mock: rojo con glow) */
 .area-point {
     grid-area: point;
-    /*     display:flex; 
-    align-items:center; 
-    justify-content:center;  */
     position: relative;
 }
 
@@ -295,10 +339,6 @@ nav {
     display: inline-block;
 }
 
-/* rojo c21310d1 background */
-/* rojo rgba(164, 3, 0, 0.619) shadow */
-/* celest #00bdc0  background*/
-/* celest #00b1b1   box-shadow */
 .prio-alta {
     background: #e53935;
     box-shadow: 0 0 6px 2px rgba(229, 57, 53, .45);
@@ -317,11 +357,11 @@ nav {
 /* Estado */
 .area-est {
     grid-area: est;
-    font-size: .95rem;
     line-height: 0;
     display: flex;
     align-items: flex-start;
     gap: 2%;
+    font-size: .95rem;
 }
 
 /* Fecha Inicio */
@@ -366,7 +406,8 @@ nav {
 .pasos-box {
     border-radius: 6px;
     padding: 8px 10px;
-    max-height: 120px;
+    max-height: 70px;
+    min-height: 50px;
     overflow-y: auto;
 }
 
@@ -390,7 +431,7 @@ nav {
 
 /* Colores para los textos */
 .area-Txt1 {
-    color: var(--area-Txt1);
+    color: var(--area-Txt1);  
 }
 
 .area-Txt2 {
@@ -426,6 +467,7 @@ nav {
                         width: 110%;
                     }
 
+  /* Modal para el cerrar sesión  */
 .modal-overlay {
     position: fixed;
     /* Esto asegura que el modal ignore el scroll y la ubicación en el body */
@@ -515,6 +557,7 @@ nav {
 
 /* Cierre (X) del modal */
 .btn-close-white {
+  display: none;
   filter: invert(0.9);
   opacity: 0.8;
 }
@@ -569,36 +612,7 @@ nav {
   }
 }
 
-/* ====== Botón de estadísticas ====== */
-.stats-btn-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center; /* centra el botón horizontalmente */
-  margin: 1rem 0 0.5rem 0; /* espacio arriba y abajo */
-}
 
-.btnStats {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 600;
-  padding: 10px 16px;
-  border-radius: 999px;
-  border: 2px solid var(--primario, #1E7266);
-  background: var(--neutro, #F8F5EF);
-  color: var(--primario, #1E7266);
-  cursor: pointer;
-  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
-}
-
-.btnStats:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(0,0,0,.08);
-}
-
-.btnStats:active {
-  transform: translateY(0);
-}
 
 /* ====== Modal base ====== */
 .stats-backdrop {
@@ -771,4 +785,407 @@ nav {
 
 
 
+/* CONTIENE LAS FUNCIONES DIVIDIR POR LISTA, POR ESTADO, VER ESTADÍSTICA */
+.toolbar{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ gap: 8px;
+ margin-top:.5%;
+}
+
+.view-buttons{
+  display: flex;
+  gap: 8px;
+}
+
+.btnToggle{
+  display:inline-flex; 
+  align-items:center; 
+  gap:8px;
+  font-weight: 600;
+  padding: 10px 16px; 
+  border-radius:999px; 
+  border: 2px solid var(--primario, #1E7266);
+  background: var(--bg);
+  color: var(--primario, #1E7266);  
+  cursor:pointer;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+.btnToggle,
+.btnStats {
+  height: 42px;          /* altura fija uniforme */
+  line-height: 1;        /* evita desbordes por el texto */
+  padding: 0 16px;       /* relleno horizontal parejo */
+  display: inline-flex;
+  align-items: center;   /* centra verticalmente icono y texto */
+  justify-content: center;
+}
+
+.btnToggle svg{ 
+  display:block; 
+}
+
+.btnToggle:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  background-color: #fff0d1; 
+}
+
+.btnToggle:active {
+  transform: translateY(0);
+}
+.btnToggle.active{ 
+  background-color: #f0c56f; 
+  color: var(--primario, #1E7266);   
+}
+
+/* TITULOS "ESTADO DE TAREAS: .......  CUANDO SE ACTIVA EL BOTÓN POR ESTADOS*/
+.titleCard{  
+  font-weight:600; 
+  font-size: clamp(21.5px, 5vmin, 500px);
+  margin: auto;
+  text-align: center;
+  color: var(--area-Txt1);
+  font-family: "DMSerifDisplay-Italic", sans-serif;
+  padding: 0% 5%;
+}
+
+/* SUB OPCIONES DE BOTÓN POR LISTA */
+.menu-anchor{ 
+  position: relative; 
+  display: inline-flex; 
+}
+
+.btnChevron{
+  padding: 6px;
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 6px;
+  color: green;
+}
+.sort-menu{
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 10px;
+  width: 85%;
+  background: var(--bg);
+  border: 1px solid rgb(0, 136, 84);
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  padding: 6px;
+  z-index: 3000;
+}
+.sort-item{
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--area-Txt1);
+  text-align: center;
+}
+.sort-item:hover{ 
+  background-color: #fff0d1;  
+}
+.sort-item.active{
+  background: #f0c56f;
+  color: #1E7266;
+}
+
+/* "Por" y "Ver" textos de POR lista, POR estados, Ver estadísticas */
+/* Por defecto, ambos spans visibles */
+.txtPor,
+.txtVer {
+  display: inline;
+  transition: opacity .5s ease, width .5s ease;
+}
+
+/* Cuando el viewport es menor a 550px: oculta el primer span */
+@media (max-width: 550px) {
+  .txtPor,
+  .txtVer {
+    opacity: 0;
+    width: 0;
+    display: inline-block;
+    overflow: hidden;
+  }
+}
+/* Recorta el leve espacio extra que se agrega al usar 1 span por palabra */
+span + span {
+  margin-left: -2.7px; /* une visualmente las palabras actúa solo cuando hay otro span al lado */
+}
+
+/* ====== Botón de estadísticas ====== */
+.stats-btn-wrapper {
+  width: auto;
+  display: flex;
+  justify-content: center; /* centra el botón horizontalmente */
+  /* margin: 1rem 0 0.5rem 0; */ /* espacio arriba y abajo */
+}
+
+.btnStats {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 2px solid var(--primario, #1E7266);
+  background: var(--bg);
+  color: var(--primario, #1E7266);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.btnStats:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  background-color: #fff0d1; 
+}
+
+.btnStats:active {
+  transform: translateY(0);
+  background-color: #f0c56f;
+}
+
+/* Por defecto los iconos compactos no se muestran */
+.iconMini {
+  display: none;
+  margin-left: 6px;
+  line-height: 0;
+}
+
+/* A menos de 500 px: mostrar iconos en lugar de texto */
+@media (max-width: 500px) {
+  .iconMini {
+    display: inline-block;
+  }
+
+  /* Además ocultamos la palabra principal (Lista, Estados, Estadísticas) */
+  .txtPor + span,
+  .txtVer + span {
+    display: none;
+  }
+}
+/* Ajuste fino del espaciado cuando se activan iconos compactos */
+@media (max-width: 500px) {
+  /* Reducir el espacio entre icono principal (svg) y chevron */
+  .btnToggle,
+  .btnStats {
+    gap: 2px;                /* antes probablemente 8px, ahora más compacto */
+    padding-inline: 10px;    /* opcional: achica horizontalmente el botón */
+    color: var(--primario, #1E7266) !important;
+    height: 38px;
+  }
+
+  /* Opcional: alinear mejor verticalmente el chevron */
+  .btnChevron {
+    padding: 0px;
+    margin-left: 2px;        /* antes 6px; lo acercamos */
+  }
+  .sort-menu{
+    width: 25vw;
+  }
+  .sort-item{
+    padding: 5%;
+    font-size: 12px;
+    font-weight: 600;
+  }
+}
+
+/* ACHICA elementos */
+  @media(max-height:680px) and (max-width:1155px){
+
+    /* TARJETA TAREA */
+    .cardTask{
+      max-height: 350px;
+      max-width: 240px;
+    }
+    .area-tit h2{
+      font-size: 1.1rem;
+    }
+    .area-pri{
+      font-size: .9rem;
+    }
+    .area-est{
+      font-size: .9rem;
+    }
+    .area-fchA .label,
+    .area-fchB .label {
+        font-size: .70rem;
+    }
+    .area-fchA .date,
+    .area-fchB .date {
+        font-size: .80rem;
+    }
+    .areaPasos{
+      font-size: .80rem;
+    }
+
+
+}
+
+ 
+
+/* 1) Utilidad para ocultar el checkbox manteniendo accesibilidad */
+.visually-hidden {
+    position: fixed !important;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px; overflow: hidden;
+    clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+/* 2) Por defecto el chevron no se muestra (solo mobile/chico) */
+.fab-chevron { 
+    display: none;
+}
+.chat-chevron {
+    display: none;
+}
+/* 3) Reglas para pantallas chicas (donde querés el comportamiento) */
+@media (max-width: 680px) and (max-height: 580px),
+       (max-width: 450px)  {
+  
+  /* Contenedor del FAB + chevron svg apuntando a la derecha*/
+  .fab-container {
+    position: fixed;
+    left: -47px;
+    bottom: 2.5%;
+    display: flex;
+    align-items: center;
+    gap: 40px;            
+    z-index: 2000;
+   /*  border: 1px solid green;   */
+    transition: transform .3s ease;
+    will-change: transform;
+  }
+
+  /* Mostrar el chevron a la derecha de Crear Tarea */
+  .fab-chevron {
+    display: flex;
+    background: transparent;
+    border: none;
+    width: 45px; height: 45px;
+    align-items: center; justify-content: center;
+    cursor: pointer;
+    color: #1E7266;
+    transition: transform .2s ease;
+
+    position: relative;
+    bottom: 3px;
+  }
+  .fab-chevron:hover { 
+    transform: scale(1.2); 
+  }
+
+    /* --- FAB (iconCrearTarea) oculto por defecto, pero animable --- */
+  .iconCrearTarea{
+    opacity: 0;
+    pointer-events: none;                 /* no clickeable cuando está oculto */
+    transform: translateX(-10px) scale(.98);
+    transition: opacity .25s ease, transform .25s ease;
+  }
+  /* —— TOGGLE SIN :has() ——
+     Cuando el checkbox está tildado, mové el hermano .fab-container */
+  #fabToggle:checked ~ .fab-container {
+    transform: translateX(70%); 
+  }
+    #fabToggle:checked ~ .fab-container .iconCrearTarea{
+    position: fixed;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0) scale(1);
+  }
+
+
+  /* Contenedor del app-chat-assistant + chevron svg apuntando a la izq*/
+  .chat-container {
+    position: fixed;
+    right: -1%;
+    bottom: 2.5%;
+    display: flex;
+    align-items: center;
+    gap: 40px;            
+    z-index: 2000;
+   /*  border: 1px solid green;   */
+    transition: transform .3s ease;
+    will-change: transform;
+  }
+    /* Mostrar el chevron a la izquerda del asistente  */
+  .chat-chevron {
+    display:  flex;
+    background: transparent;
+    border: none;
+    width: 45px; height: 45px;
+    align-items: center; justify-content: center;
+    cursor: pointer;
+    color: #1E7266;
+    transition: transform .2s ease;
+
+    position: relative;
+    bottom: 3px;
+  }
+  .chat-chevron:hover { transform: scale(1.2); }
+
+    /* --- asistente oculto por defecto, pero animable --- */
+  app-chat-assistant{
+    position: fixed;
+    right: -127%;
+    bottom: -10%;
+    opacity: 0;
+    pointer-events: none;                 /* no clickeable cuando está oculto */
+    transform: translateX(10px) scale(.98);
+    transition: opacity .25s ease, transform .25s ease;
+  }
+    /* —— TOGGLE
+     Cuando el checkbox está tildado, mové el hermano .fab-container */
+  #chatToggle:checked ~ .chat-container {
+    transform: translateX(-160%); 
+  }
+    #chatToggle:checked ~ .chat-container app-chat-assistant{
+    position: fixed;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0) scale(1);
+  }
+
+
+      /* reducción del theme toggle  */
+        .global-toggle{
+        width: 1.2em;
+        min-width: 25px;
+        margin-left: 1%;
+    }
+    /* En celulares es mucho menos notorio el margin top por default */
+  .toolbar{
+    margin-top: 5%;
+  }
+  /* Buscador */
+  .form-control{
+    margin-top: 2%;
+  }
+  .headerTareas{
+    margin-top: 3%;
+  }
+}
+
+
+/* Útil cuando desde el componente chat-assistant css estaba activo el query de la linea 195*/
+/* @media (max-width: 420px) {
+    app-chat-assistant{
+    position: fixed;
+    right: -160%;
+    bottom: -40%;
+    opacity: 0;
+    pointer-events: none;                 
+    transform: translateX(10px) scale(.98);
+    transition: opacity .25s ease, transform .25s ease;
+  }
+} */
 
