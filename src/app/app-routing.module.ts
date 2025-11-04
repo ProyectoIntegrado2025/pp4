@@ -15,10 +15,12 @@ import { ConfirmSignUpComponent } from './views/auth/confirm-sign-up/confirm-sig
 import { ResetPasswordComponent } from './views/auth/reset-password/reset-password.component';
 import { NotFoundComponent } from './components/not-found.component';
 import { ChatAssistantComponent } from './components/chat-assistant/chat-assistant.component';
+import { LandingComponent } from './views/landing/landing.component'; //landing
 
 const routes: Routes = [
   //{ path: '**', redirectTo: 'login', pathMatch: 'full' },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  //{ path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', component: LandingComponent }, // Página principal,
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard], data: { authRequired: false } },
   { path: 'sign-up', component: SignUpComponent, canActivate: [AuthGuard], data: { authRequired: false } },
   { path: 'confirm-sign-up/:email', component: ConfirmSignUpComponent, canActivate: [AuthGuard], data: { authRequired: false } },

@@ -31,6 +31,7 @@ import { ChatAssistantComponent } from './components/chat-assistant/chat-assista
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthTokenInterceptor } from './interceptors/auth-token.interceptor';
+import { LandingComponent } from './views/landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { AuthTokenInterceptor } from './interceptors/auth-token.interceptor';
     ResetPasswordComponent,
     ThemeToggleComponent,
     EditarComponent,
-    ChatAssistantComponent
+    ChatAssistantComponent,
+    LandingComponent
   ],
   imports: [
     BrowserModule,

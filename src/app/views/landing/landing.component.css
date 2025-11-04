@@ -1,0 +1,249 @@
+/* 🎨 Paleta de colores Zenki */
+:host {
+  --color-primario: #1E7266;
+  --color-secundario: #3FAE49;
+  --color-acento: #FFC857;
+  --color-neutro: #F8F5EF;
+  --color-texto: #2D2D2D;
+  display: block;
+}
+
+/* 🔹 Reset y fuentes */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body, :host {
+  background-color: var(--color-neutro);
+  color: var(--color-texto);
+}
+
+/* 🔹 NAVBAR */
+nav {
+  background-color: var(--color-primario);
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+nav .logo {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: var(--color-acento);
+}
+
+/* 🔹 HERO */
+header {
+  height: 90vh;
+  background: linear-gradient(rgba(30, 114, 102, 0.7), rgba(30, 114, 102, 0.8)),
+              url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1600&q=80') center/cover;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  margin-top: 60px;
+}
+
+header h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+header p {
+  font-size: 1.3rem;
+  max-width: 700px;
+  margin-bottom: 2rem;
+}
+
+/* 🔹 BOTÓN PRINCIPAL */
+.cta-btn {
+  background-color: var(--color-acento);
+  color: var(--color-texto);
+  padding: 0.9rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cta-btn:hover {
+  background-color: var(--color-secundario);
+  color: #fff;
+}
+
+/* 🔹 SECCIONES */
+section {
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+#login {
+  padding: 0;
+  text-align: initial;
+  display: block;
+}
+
+#login h2 {
+  text-align: center;
+  margin-top: 3rem;
+  color: var(--color-primario);
+}
+
+
+section h2 {
+  font-size: 2.2rem;
+  margin-bottom: 3rem;
+  color: var(--color-primario);
+}
+
+/* 🔹 TARJETAS */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card h3 {
+  padding: 1rem;
+  color: var(--color-secundario);
+  font-size: 1.3rem;
+}
+
+.card p {
+  padding: 0 1rem 1.5rem;
+}
+
+/* 🔹 EQUIPO */
+.team {
+  display: grid;
+  gap: 2rem;
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* 📱 Móvil: 1 integrante */
+@media (max-width: 599px) {
+  .team {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* 💻 Tablets: 2 integrantes */
+@media (min-width: 600px) and (max-width: 991px) {
+  .team {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 🖥️ Escritorio: 3 integrantes */
+@media (min-width: 992px) {
+  .team {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+.member {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.member:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+}
+
+.member img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.member h4 {
+  margin-top: 1rem;
+  color: var(--color-primario);
+}
+
+.member p {
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+}
+
+/* 🔹 FOOTER */
+footer {
+  background-color: var(--color-primario);
+  color: #fff;
+  text-align: center;
+  padding: 2rem;
+  margin-top: 3rem;
+}
+
+@media (max-width: 768px) {
+  header h1 { font-size: 2.2rem; }
+  header p { font-size: 1.1rem; }
+  nav ul { gap: 1rem; }
+}
+
+#login app-login main {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
