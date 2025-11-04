@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ApiGatewayService } from '../../services/api.gateway.service';
 import { Tarea } from '../../models/tarea';
 
@@ -18,6 +18,7 @@ export class CalendarioComponent implements OnInit {
   tareas: Tarea[] = [];
   loading = true;
   error = false;
+  isMobile = false;
 
   months = [
     'Enero','Febrero','Marzo','Abril','Mayo','Junio',
@@ -36,7 +37,17 @@ export class CalendarioComponent implements OnInit {
     // Rango de 3 años: año actual y los próximos dos
     const start = new Date().getFullYear();
     this.availableYears = [start, start + 1, start + 2];
+    this.updateIsMobile();
     this.cargarTareas();
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    this.updateIsMobile();
+  }
+
+  private updateIsMobile(): void {
+    this.isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
   }
 
   async cargarTareas(): Promise<void> {

@@ -32,24 +32,42 @@
     <div *ngFor="let cell of grid; index as i" class="day-cell" [class.is-empty]="!cell.date">
       <div class="day-number" *ngIf="cell.date">{{ cell.date.getDate() }}</div>
 
-      <ul class="tasks" *ngIf="cell.date && cell.titles.length">
-        <li *ngFor="let title of (cell.titles | slice:0:2)" class="task-title" title="{{ title }}">{{ title }}</li>
-      </ul>
-
-      <button
-        *ngIf="cell.date && cell.titles.length > 2"
-        type="button"
-        class="more-btn"
-        (click)="toggleDropdown(i)"
-        [attr.aria-expanded]="cell.showAll === true">
-        ▼ {{ cell.titles.length - 2 }}
-      </button>
-
-      <div class="dropdown" *ngIf="cell.showAll === true">
-        <ul>
-          <li *ngFor="let title of (cell.titles | slice:2)" class="dropdown-item" title="{{ title }}">{{ title }}</li>
+      <!-- Escritorio: mostrar hasta 2 + botón para el resto -->
+      <ng-container *ngIf="!isMobile">
+        <ul class="tasks" *ngIf="cell.date && cell.titles.length">
+          <li *ngFor="let title of (cell.titles | slice:0:2)" class="task-title" title="{{ title }}">{{ title }}</li>
         </ul>
-      </div>
+        <button
+          *ngIf="cell.date && cell.titles.length > 2"
+          type="button"
+          class="more-btn"
+          (click)="toggleDropdown(i)"
+          [attr.aria-expanded]="cell.showAll === true">
+          ▼ {{ cell.titles.length - 2 }}
+        </button>
+        <div class="dropdown" *ngIf="cell.showAll === true">
+          <ul>
+            <li *ngFor="let title of (cell.titles | slice:2)" class="dropdown-item" title="{{ title }}">{{ title }}</li>
+          </ul>
+        </div>
+      </ng-container>
+
+      <!-- Móvil: no mostrar inline; solo botón con total y dropdown con todos -->
+      <ng-container *ngIf="isMobile">
+        <button
+          *ngIf="cell.date && cell.titles.length > 0"
+          type="button"
+          class="more-btn"
+          (click)="toggleDropdown(i)"
+          [attr.aria-expanded]="cell.showAll === true">
+          {{ cell.showAll ? '▲' : '▼' }} {{ cell.titles.length }}
+        </button>
+        <div class="dropdown" *ngIf="cell.showAll === true">
+          <ul>
+            <li *ngFor="let title of cell.titles" class="dropdown-item" title="{{ title }}">{{ title }}</li>
+          </ul>
+        </div>
+      </ng-container>
     </div>
   </section>
 </main>
