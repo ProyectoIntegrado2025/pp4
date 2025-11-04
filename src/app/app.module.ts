@@ -27,6 +27,7 @@ import { ConfirmSignUpComponent } from './views/auth/confirm-sign-up/confirm-sig
 import { ResetPasswordComponent } from './views/auth/reset-password/reset-password.component';
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { ChatAssistantComponent } from './components/chat-assistant/chat-assistant.component'; 
+import { CalendarioComponent } from './views/calendario/calendario.component';
 
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -49,7 +50,8 @@ import { AuthTokenInterceptor } from './interceptors/auth-token.interceptor';
     ThemeToggleComponent,
     EditarComponent,
     ChatAssistantComponent,
-    NavbarComponent
+    NavbarComponent,
+    CalendarioComponent
   ],
   imports: [
     BrowserModule,

@@ -15,6 +15,7 @@ import { ConfirmSignUpComponent } from './views/auth/confirm-sign-up/confirm-sig
 import { ResetPasswordComponent } from './views/auth/reset-password/reset-password.component';
 import { NotFoundComponent } from './components/not-found.component';
 import { ChatAssistantComponent } from './components/chat-assistant/chat-assistant.component';
+import { CalendarioComponent } from './views/calendario/calendario.component';
 
 const routes: Routes = [
   //{ path: '**', redirectTo: 'login', pathMatch: 'full' },
@@ -31,6 +32,7 @@ const routes: Routes = [
   { path: 'eliminar', component: EliminarTareaComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   //{ path: 'newPasswordRequired', component: NewPasswordComponent },
   { path: 'chat-assistant', component: ChatAssistantComponent, canActivate: [AuthGuard], data: { authRequired: true}},
+  { path: 'calendario', component: CalendarioComponent, canActivate: [AuthGuard], data: { authRequired: true}},
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 
