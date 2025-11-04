@@ -46,6 +46,8 @@ export class InicioComponent implements OnInit, OnDestroy {
         this.router.navigate(['/login']);
       }
     });
+
+    
   }
 
   async loadTasks() {
@@ -66,7 +68,8 @@ export class InicioComponent implements OnInit, OnDestroy {
             Prioridad: task.Prioridad,
             FechaInicio: task.FechaInicio,
             FechaFin: task.FechaFin,
-            Pasos: task.Pasos || []
+            Pasos: task.Pasos || [],
+            Favorito: task.Favorito
           }));
 
           this.tareasTotal = [...this.tareas];
@@ -418,17 +421,28 @@ get tareasOrdenadas(): Tarea[] {
 }
 
   async onToggleFavorito(tarea: Tarea) {
-    // primero lo cambio en memoria
-    tarea.Favorito = !tarea.Favorito;
+  // Cambiás primero en memoria
+  console.log(tarea.Favorito)
+  tarea.Favorito = !tarea.Favorito;
 
-    try {
-      await this.apiGatewayService.putTask(tarea.UsuarioId, tarea.TareaId);
-      console.log('✅ Favorito actualizado en API');
-    } catch (err) {
-      console.error('❌ Error al actualizar favorito', err);
-      // rollback si falló
-      tarea.Favorito = !tarea.Favorito;
-    }
- } 
+  try {
+    const obs = await this.apiGatewayService.putTask(tarea.TareaId, tarea);
+    obs.subscribe({
+      next: (res) => {
+        console.log('✅ Favorito actualizado en API:', res);
+      },
+      error: (err) => {
+        console.error('❌ Error al actualizar favorito', err);
+        // rollback si falla
+        tarea.Favorito = !tarea.Favorito;
+      }
+    });
+  } catch (e) {
+    console.error('❌ Error inesperado en putTask', e);
+    tarea.Favorito = !tarea.Favorito;
+  }
+
+  console.log(tarea.Favorito)
+}
 
 }
