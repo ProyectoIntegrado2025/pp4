@@ -14,6 +14,7 @@ import {
   fetchUserAttributes,
 } from 'aws-amplify/auth';
 import { Hub } from 'aws-amplify/utils';
+import { NotificationService } from '../notification.service';
 
 export interface AuthenticatedUser {
   userId: string | null;
@@ -30,7 +31,11 @@ export class AuthService {
   private _authenticatedUser = new BehaviorSubject<AuthenticatedUser | null>(null);
   authenticatedUser$: Observable<AuthenticatedUser | null> = this._authenticatedUser.asObservable();
 
-  constructor(private router: Router, private ngZone: NgZone) {
+  constructor(
+    private router: Router, 
+    private ngZone: NgZone,
+    private notificationService: NotificationService
+  ) {
     // Escucha global de eventos de autenticación de Amplify
     Hub.listen('auth', ({ payload }) => {
       this.ngZone.run(() => {
@@ -152,6 +157,9 @@ async logout(): Promise<void> {
     // 🔹 Limpieza adicional: elimina cualquier token o dato residual
     localStorage.clear();
     sessionStorage.clear();
+
+    // 🔹 Limpiar notificaciones
+    this.notificationService.limpiarNotificaciones();
 
     // 🔹 Actualiza estados locales
     this._authenticatedUser.next(null);

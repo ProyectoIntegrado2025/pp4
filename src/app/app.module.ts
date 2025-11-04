@@ -28,6 +28,7 @@ import { ResetPasswordComponent } from './views/auth/reset-password/reset-passwo
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { ChatAssistantComponent } from './components/chat-assistant/chat-assistant.component'; 
 import { CalendarioComponent } from './views/calendario/calendario.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -51,7 +52,8 @@ import { AuthTokenInterceptor } from './interceptors/auth-token.interceptor';
     EditarComponent,
     ChatAssistantComponent,
     NavbarComponent,
-    CalendarioComponent
+    CalendarioComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

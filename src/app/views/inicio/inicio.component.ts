@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { Tarea } from 'src/app/models/tarea';
 import { ApiGatewayService } from 'src/app/services/api.gateway.service';
 import { AuthService, AuthenticatedUser } from 'src/app/services/authServices/auth.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 import html2canvas from 'html2canvas';
 
@@ -32,7 +33,8 @@ export class InicioComponent implements OnInit, OnDestroy {
     private apiGatewayService: ApiGatewayService,
     private datePipe: DatePipe,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
@@ -71,6 +73,9 @@ export class InicioComponent implements OnInit, OnDestroy {
 
           this.tareasTotal = [...this.tareas];
           this.cargando = false;
+
+          // 🔔 Verificar y generar notificaciones de tareas que vencen pronto
+          this.notificationService.generarNotificacionesTareas(this.tareas);
         },
         error: (err) => {
           console.error("❌ Error al obtener tareas:", err);

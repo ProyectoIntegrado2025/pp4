@@ -1,0 +1,162 @@
+.notification-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  max-width: 400px;
+  width: auto;
+}
+
+.notification-alert {
+  margin-bottom: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  animation: slideInRight 0.3s ease-out;
+  padding: 12px 16px;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.notification-alert ul {
+  font-size: 0.9em;
+  margin-top: 8px;
+  padding-left: 1.2rem;
+}
+
+.notification-icon {
+  font-size: 1.2em;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Botón de cierre personalizado - más visible */
+.notification-alert .btn-close {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-left: 12px;
+  width: 24px;
+  height: 24px;
+  opacity: 0.75;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease;
+}
+
+.notification-alert .btn-close:hover {
+  opacity: 1;
+}
+
+.notification-alert .btn-close::before {
+  content: '×';
+  font-size: 28px;
+  line-height: 1;
+  color: #333;
+  font-weight: bold;
+  display: block;
+}
+
+/* Para alertas de tipo warning, usar color más oscuro */
+.notification-alert.alert-warning .btn-close::before {
+  color: #856404;
+}
+
+/* Para alertas de tipo danger */
+.notification-alert.alert-danger .btn-close::before {
+  color: #721c24;
+}
+
+/* Para alertas de tipo info */
+.notification-alert.alert-info .btn-close::before {
+  color: #0c5460;
+}
+
+/* Responsive para tablets */
+@media (max-width: 992px) {
+  .notification-container {
+    max-width: 350px;
+  }
+  
+  .notification-alert {
+    padding: 10px 14px;
+    font-size: 0.95em;
+  }
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .notification-container {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+    width: calc(100% - 20px);
+  }
+  
+  .notification-alert {
+    padding: 12px 14px;
+    margin-bottom: 8px;
+    font-size: 0.9em;
+  }
+  
+  .notification-icon {
+    font-size: 1.1em;
+  }
+  
+  .notification-alert .btn-close {
+    width: 28px;
+    height: 28px;
+    margin-left: 8px;
+  }
+  
+  .notification-alert .btn-close::before {
+    font-size: 32px;
+  }
+  
+  .notification-alert ul {
+    font-size: 0.85em;
+    margin-top: 6px;
+    padding-left: 1rem;
+  }
+  
+  .notification-alert strong {
+    font-size: 0.95em;
+  }
+}
+
+/* Responsive para móviles pequeños */
+@media (max-width: 480px) {
+  .notification-container {
+    top: 8px;
+    right: 8px;
+    left: 8px;
+    width: calc(100% - 16px);
+  }
+  
+  .notification-alert {
+    padding: 10px 12px;
+    font-size: 0.85em;
+  }
+  
+  .notification-alert .d-flex {
+    flex-wrap: wrap;
+  }
+  
+  .notification-alert .flex-grow-1 {
+    min-width: 0;
+    flex-basis: calc(100% - 60px);
+  }
+}
+
