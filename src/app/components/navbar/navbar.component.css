@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+/* ======== NAVBAR GENERAL ======== */
+.zenki-navbar {
+  width: 100%;
+  background: rgb(247, 247, 247);
+  color: #1E7266;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+  font-family: "Inter", sans-serif;
+  transition: all 0.3s ease;
+}
+
+.nav-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.9rem 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* ======== LOGO ======== */
+.logo {
+  height: 46px;
+  max-width: 100%;
+  width: auto;
+  cursor: pointer;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
+}
+.logo:hover {
+  transform: scale(1.05);
+}
+@media (max-width: 480px) {
+  .logo {
+    height: 38px;
+  }
+}
+
+/* ======== ENLACES DESKTOP ======== */
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #2D2D2D;
+  font-weight: 600;
+  font-size: 1.15rem;
+  letter-spacing: 0.5px;
+  position: relative;
+  transition: color 0.25s ease, transform 0.25s ease, text-shadow 0.25s ease;
+}
+
+/* Subrayado animado (solo desktop) */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  left: 0;
+  bottom: -4px;
+  background: linear-gradient(90deg, #1E7266, #3FAE49);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+.nav-links a:hover {
+  color: #1E7266;
+  transform: translateY(-2px);
+  text-shadow: 0 0 6px rgba(63, 174, 73, 0.25);
+}
+.nav-links a:hover::after {
+  width: 100%;
+}
+.nav-links a.active {
+  color: #1E7266;
+  font-weight: 700;
+}
+.nav-links a.active::after {
+  width: 100%;
+}
+
+/* ======== BOTÓN LOGOUT (DESKTOP) ======== */
+.btnLogoutDesktop {
+  display: block;
+}
+.btnLogout {
+  background-color: #FFC857;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+}
+.btnLogout:hover {
+  background-color: #eb7373;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+/* ======== BOTÓN LOGOUT (MÓVIL) ======== */
+.logout-mobile {
+  display: none;
+}
+.btnLogoutMobile {
+  width: 100%;
+  background-color: #FFC857;
+  color: white;
+  border: none;
+  border-radius: 0;
+  padding: 16px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  text-align: center;
+}
+.btnLogoutMobile:hover {
+  background-color: #eb7373;
+}
+.btnLogoutMobile:active {
+  transform: scale(0.98);
+}
+
+/* ======== MENÚ HAMBURGUESA ======== */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 1101;
+  margin-left: 12px;
+  transition: transform 0.25s ease;
+  padding: 0;
+}
+.menu-toggle span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #2D2D2D;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+.menu-toggle:hover span {
+  background-color: #1E7266;
+}
+.menu-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Animación del botón hamburguesa cuando está activo (se convierte en X) */
+.menu-toggle.active span:nth-child(1) {
+  transform: translateY(8.5px) rotate(45deg);
+}
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.menu-toggle.active span:nth-child(3) {
+  transform: translateY(-8.5px) rotate(-45deg);
+}
+
+/* ======== RESPONSIVE MENÚ ======== */
+
+/* Tablet y pantallas medianas */
+@media (max-width: 992px) {
+  .nav-content {
+    padding: 0.9rem 1.5rem;
+  }
+  .nav-links {
+    gap: 2rem;
+  }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+  .nav-content {
+    padding: 0.9rem 1.2rem;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .btnLogoutDesktop {
+    display: none;
+  }
+
+  /* CONTENEDOR DEL MENÚ */
+  .nav-links {
+    display: none;               /* se muestra sólo con .open */
+    position: absolute;
+    top: 70px; left: 0; width: 100%;
+    background: #ffffff;
+    border-radius: 0 0 16px 16px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.12);
+    overflow: hidden;
+    padding: 0; margin: 0;
+    list-style: none;
+    animation: fadeSlideDown 0.35s ease;
+    z-index: 1000;
+  }
+  .nav-links.open { 
+    display: block; 
+  }
+
+  /* CADA ITEM DEL MENÚ (li) */
+  .nav-links li {
+    position: relative;
+  }
+
+  /* Separador fino entre items (no afecta altura) */
+  .nav-links li:not(:first-child):not(.logout-mobile)::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 16px; right: 16px;
+    height: 1px;
+    background: rgba(30,114,102,0.15); /* verde suave */
+    pointer-events: none;
+  }
+
+  /* Separador antes del botón de logout */
+  .logout-mobile::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 16px; right: 16px;
+    height: 1px;
+    background: rgba(30,114,102,0.2);
+    pointer-events: none;
+  }
+
+  /* ENLACES: todos con misma altura exacta */
+  .nav-links a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 64px;                /* <- altura uniforme */
+    width: 100%;
+    padding: 0 16px;
+    text-decoration: none;
+    color: #2D2D2D;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: background-color .2s ease, color .2s ease;
+  }
+
+  /* Hover y active para enlaces */
+  .nav-links a:hover {
+    background: rgba(63,174,73,0.08);
+    color: #1E7266;
+  }
+
+  /* ACTIVO: fondo suave + barrita inferior ABSOLUTA (no cambia el alto) */
+  .nav-links a.active {
+    background: #F1FFF6; /* verde muy claro */
+    color: #1E7266;
+    font-weight: 700;
+  }
+  .nav-links a.active::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 2px;
+    background: #1E7266; /* barrita verde */
+  }
+
+  /* Mostrar botón de logout en móvil */
+  .logout-mobile {
+    display: block;
+  }
+
+  /* Animación entrada */
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+}
+
+/* Móvil pequeño */
+@media (max-width: 480px) {
+  .nav-content {
+    padding: 0.75rem 1rem;
+  }
+  
+  .nav-links {
+    top: 64px;
+  }
+  
+  .nav-links a {
+    font-size: 1rem;
+    height: 58px;
+  }
+  
+  .btnLogoutMobile {
+    padding: 14px 20px;
+    font-size: 0.95rem;
+  }
+}
+
+/* ======== TOGGLE CLARO/OSCURO ======== */
+.theme-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32px;
+  padding: 8px 0;
+  transition: all 0.3s ease;
+}
+.theme-toggle button,
+.theme-toggle input[type="checkbox"] {
+  transform: scale(1.7);
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.theme-toggle button:hover,
+.theme-toggle input[type="checkbox"]:hover {
+  transform: scale(1.85);
+  box-shadow: 0 0 10px rgba(30, 114, 102, 0.35);
+}

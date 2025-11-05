@@ -1,14 +1,61 @@
 :host {
-  display: inline-block;   /* evita que el host sea block y ocupe todo el ancho cuando se exporte */
-  width: 2em;              /* ancho por defecto del componente */
+  display: inline-block;
+  width: 3.2em; /* tamaño ampliado */
+  margin-left: 14px; /* 💡 separa un poco del borde izquierdo */
 }
-/* src/app/shared/theme-toggle/theme-toggle.component.css */
+
+/* Hover sólo en dispositivos con puntero fino (desktop/laptop) */
+@media (hover: hover) and (pointer: fine) {
+  :host {
+    transition: transform 0.3s ease;
+  }
+  :host(:hover) {
+    transform: scale(1.15);
+  }
+}
+
+/* Feedback táctil en móviles: sin hover, leve escala en active */
+@media (hover: none), (pointer: coarse) {
+  :host:active {
+    transform: scale(0.96);
+    transition: transform 80ms ease;
+  }
+}
+
+/* ====== BOTÓN DEL TOGGLE ====== */
 .theme-toggle-btn {
   background: transparent;
   border: none;
   cursor: pointer;
   width: 100%;
+  transition: transform 0.3s ease, filter 0.3s ease;
 }
+
+/* Hover sólo en puntero fino */
+@media (hover: hover) and (pointer: fine) {
+  .theme-toggle-btn:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 6px rgba(30, 114, 102, 0.35)); /* Glow sutil verde */
+  }
+}
+
+/* En móviles, usar active en lugar de hover */
+@media (hover: none), (pointer: coarse) {
+  .theme-toggle-btn:active {
+    transform: scale(0.97);
+    filter: none;
+  }
+}
+
+/* ====== IMAGEN (ícono sol/luna) ====== */
 .theme-toggle-btn img {
-  width: 100%; /* del 100% del botón que la img ocupe el 100% */
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .theme-toggle-btn img:hover {
+    transform: rotate(15deg);
+  }
 }
