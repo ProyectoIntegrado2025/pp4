@@ -159,7 +159,7 @@ nav {
 
 /* Título previo a las tareas con swiper-container */
 .headerTareas {
-    font-family: "DMSerifDisplay-Italic", sans-serif;
+    font-family: "Inter", sans-serif;
     font-weight: 500;
     margin: auto;
     text-align: center;
@@ -285,7 +285,7 @@ nav {
     /* Fade al final (cross-browser moderno) */
     -webkit-mask-image: linear-gradient(to right, black 93%, transparent 102%);
 
-    font-family: "DMSerifDisplay-Italic", sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 .area-pri {
@@ -306,19 +306,19 @@ nav {
 /* color según prioridad */
 .txt-alta {
     color: #e53935;
-    font-family: "DMSerifDisplay-Italic", sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 /* rojo */
 .txt-media {
     color: #f59e0b;
-    font-family: "DMSerifDisplay-Italic", sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 /* naranja */
 .txt-baja {
     color: #85cc00;
-    font-family: "DMSerifDisplay-Italic", sans-serif;
+    font-family: "Inter", sans-serif;
 }
 
 /* celeste */
@@ -881,7 +881,7 @@ nav {
   margin: auto;
   text-align: center;
   color: var(--area-Txt1);
-  font-family: "DMSerifDisplay-Italic", sans-serif;
+  font-family: "Inter", sans-serif;
   padding: 0% 5%;
 }
 

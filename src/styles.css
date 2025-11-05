@@ -119,17 +119,4 @@ input:-moz-autofill {
 
 /* FUENTES */
 /* src/styles.css */
-@font-face {
-  font-family: "DMSerifDisplay-Regular";
-  src: url("/assets/fuentes/DMSerifDisplay-Regular.ttf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap; /* buena práctica para performance */
-} 
-@font-face {
-  font-family: "DMSerifDisplay-Italic";
-  src: url("/assets/fuentes/DMSerifDisplay-Italic.ttf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap; /* buena práctica para performance */
-}
+/* Todas las fuentes utilizadas son Inter, importada desde index.html */

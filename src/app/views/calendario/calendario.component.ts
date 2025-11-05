@@ -1,6 +1,8 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ApiGatewayService } from '../../services/api.gateway.service';
 import { Tarea } from '../../models/tarea';
+import { AuthService } from '../../services/authServices/auth.service';
+import { Router } from '@angular/router';
 
 interface CalendarDay {
   date: Date | null;
@@ -31,8 +33,13 @@ export class CalendarioComponent implements OnInit {
   dateFilter: 'inicio' | 'fin' = 'fin'; // Por defecto muestra por fecha de fin
 
   grid: CalendarDay[] = [];
+  mostrarModalConfirmacion = false;
 
-  constructor(private apiGatewayService: ApiGatewayService) {}
+  constructor(
+    private apiGatewayService: ApiGatewayService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     // Rango de 3 años: año actual y los próximos dos
@@ -191,6 +198,25 @@ export class CalendarioComponent implements OnInit {
     const mm = String(Number(m)).padStart(2, '0');
     const dd = String(Number(d)).padStart(2, '0');
     return `${y}/${mm}/${dd}`;
+  }
+
+  onLogout(): void {
+    this.mostrarModalConfirmacion = true;
+  }
+
+  cancelLogout(): void {
+    this.mostrarModalConfirmacion = false;
+  }
+
+  async confirmLogout(): Promise<void> {
+    this.mostrarModalConfirmacion = false;
+    try {
+      await this.authService.logout();
+      this.router.navigate(['/']);
+      console.log('👋 Sesión cerrada correctamente');
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+    }
   }
 }
 

@@ -28,6 +28,7 @@ const routes: Routes = [
   { path: 'reset-password', component: ResetPasswordComponent,canActivate: [AuthGuard], data: { authRequired: false } },
   { path: 'splash', component: SplashScreenComponent, canActivate: [AuthGuard], data: { authRequired: true } },
   { path: 'inicio', component: InicioComponent, canActivate: [AuthGuard], data: { authRequired: true } },
+  { path: 'mis-tareas', redirectTo: 'inicio', pathMatch: 'full' },
   { path: 'crear', component: CrearComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 
   { path: '__dev/crear',  component: CrearComponent }, /* Para acceder desde el front directamente, borrar al finalizar */
   { path: 'editar/:id', component: EditarComponent, canActivate: [AuthGuard], data: { authRequired: true } }, 

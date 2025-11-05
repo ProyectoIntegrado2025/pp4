@@ -145,7 +145,7 @@ export class InicioComponent implements OnInit, OnDestroy {
     this.mostrarModalConfirmacion = false;
     try {
       await this.authService.logout();
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
       console.log('👋 Sesión cerrada correctamente');
     } catch (error) {
       console.error('Error al cerrar sesión:', error);

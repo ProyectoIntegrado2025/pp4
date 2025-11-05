@@ -111,7 +111,7 @@ export class AuthenticateService {
       localStorage.removeItem("refreshToken");
       localStorage.removeItem("user");
 
-      this.router.navigate(["login"]);
+      this.router.navigate([""]);
     }
   }
 

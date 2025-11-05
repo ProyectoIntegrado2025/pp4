@@ -165,9 +165,9 @@ async logout(): Promise<void> {
     this._authenticatedUser.next(null);
     this._isAuthenticated.next(false);
 
-    // 🔹 Redirige al login
+    // 🔹 Redirige al landing page
     this.ngZone.run(() => {
-      this.router.navigateByUrl('/login', { replaceUrl: true }).catch(() => {});
+      this.router.navigateByUrl('/', { replaceUrl: true }).catch(() => {});
     });
 
     console.log('✅ Sesión cerrada y almacenamiento limpiado.');

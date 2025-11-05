@@ -13,7 +13,6 @@
   <div *ngIf="mostrarModalConfirmacion" class="modal-overlay d-flex justify-content-center align-items-center">
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content bg-dark text-white" style="border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1);">
-      <div class="modal-content bg-dark text-white" style="border-radius: 1rem; border: 1px solid rgba(255,255,255,0.1);">
         <div class="modal-header border-bottom-0">
           <h5 class="modal-title">Confirmación</h5>
           <button type="button" class="btn-close btn-close-white" (click)="cancelLogout()"></button>
@@ -227,7 +226,6 @@
   <div class="conteinerTasks mt-4" *ngIf="!cargando && tareas.length && viewMode==='all'">
     <h2 class="headerTareas">Tareas</h2>
 
-    <swiper-container
     <swiper-container
       class="container"
       slides-per-view="auto"
@@ -560,19 +558,7 @@
         <h3>Resumen de tus tareas</h3>
         <button class="stats-close" type="button" (click)="closeStats()" aria-label="Cerrar">✕</button>
       </div>
-  <div class="stats-backdrop" *ngIf="showStats" (click)="closeStats()">
-    <div class="stats-modal" role="dialog" aria-modal="true" (click)="$event.stopPropagation()">
-      <div class="stats-header">
-        <h3>Resumen de tus tareas</h3>
-        <button class="stats-close" type="button" (click)="closeStats()" aria-label="Cerrar">✕</button>
-      </div>
 
-      <div class="stats-meta">
-        <div class="meta-item"><strong>Total:</strong> {{ totalTareas }}</div>
-        <div class="meta-item" *ngIf="ultimaActualizacion">
-          <strong>Actualizado:</strong> {{ ultimaActualizacion | date:'short' }}
-        </div>
-      </div>
       <div class="stats-meta">
         <div class="meta-item"><strong>Total:</strong> {{ totalTareas }}</div>
         <div class="meta-item" *ngIf="ultimaActualizacion">
@@ -597,29 +583,7 @@
                   [attr.stroke-dashoffset]="seg.offset">
                 </circle>
               </ng-container>
-              <ng-container *ngFor="let seg of donutEstados; let i = index">
-                <circle
-                  class="donut-segment"
-                  cx="21" cy="21" r="15.915"
-                  [attr.stroke]="seg.color"
-                  [attr.stroke-dasharray]="seg.arc + ' ' + (100 - seg.arc)"
-                  [attr.stroke-dashoffset]="seg.offset">
-                </circle>
-              </ng-container>
 
-              <g class="donut-total">
-                <text x="50%" y="50%" text-anchor="middle" dy="0.3em">{{ totalTareas }}</text>
-              </g>
-            </svg>
-            <ul class="legend">
-              <li *ngFor="let e of estadoStats">
-                <span class="swatch" [style.background]="e.color"></span>
-                <span class="label">{{ e.label }}</span>
-                <span class="value">{{ e.count }} ({{ e.percent }}%)</span>
-              </li>
-            </ul>
-          </div>
-        </section>
               <g class="donut-total">
                 <text x="50%" y="50%" text-anchor="middle" dy="0.3em">{{ totalTareas }}</text>
               </g>
@@ -653,31 +617,7 @@
           </div>
         </section>
       </div>
-        <!-- Gráfico 2 -->
-        <section class="chart-card">
-          <h4>Prioridades</h4>
-          <div class="bars">
-            <div class="bar-row" *ngFor="let p of prioridadStats">
-              <div class="bar-label">{{ p.label }}</div>
-              <div class="bar-track">
-                <div
-                  class="bar-fill"
-                  [style.width.%]="p.percent"
-                  [style.background]="p.color"
-                  [attr.aria-label]="p.label + ': ' + p.count + ' (' + p.percent + '%)'">
-                </div>
-              </div>
-              <div class="bar-value">{{ p.count }} ({{ p.percent }}%)</div>
-            </div>
-          </div>
-        </section>
-      </div>
 
-      <div class="stats-footer">
-        <button class="btnSecondary" type="button" (click)="closeStats()">Cerrar</button>
-      </div>
-    </div>
-  </div>
       <div class="stats-footer">
         <button class="btnSecondary" type="button" (click)="closeStats()">Cerrar</button>
       </div>
