@@ -7,6 +7,7 @@ export class Tarea {
     FechaInicio: string; // formato dd/mm/yyyy
     FechaFin: string;    // formato dd/mm/yyyy
     Pasos: string[];
+    PasosCompletados?: boolean[]; // Opcional, ya no se usa en el nuevo enfoque
 
     constructor() {
         this.UsuarioId = "";

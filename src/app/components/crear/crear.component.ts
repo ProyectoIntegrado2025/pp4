@@ -48,6 +48,7 @@ export class CrearComponent implements OnInit {
   async enviar(): Promise<void> {
     if (this.formulario.invalid) return;
 
+    const pasosFiltrados = this.formulario.value.Pasos.filter((p: string) => p.trim() !== '');
     const nuevaTarea: Tarea = {
       UsuarioId: 'test-user', // luego se reemplaza con Cognito
       TareaId: '',
@@ -56,7 +57,7 @@ export class CrearComponent implements OnInit {
       Prioridad: this.formulario.value.Prioridad,
       FechaInicio: this.formulario.value.FechaInicio,
       FechaFin: this.formulario.value.FechaFin,
-      Pasos: this.formulario.value.Pasos.filter((p: string) => p.trim() !== '')
+      Pasos: pasosFiltrados
     };
 
     this.cargando = true;

@@ -286,9 +286,21 @@
         <!-- Pasos -->
         <div class="area-pso pasos-box areaPasos">
           <strong class="pasos-title area-Txt1">Pasos:</strong>
-          <ul class="pasos-list area-Txt2">
-            <li *ngFor="let paso of tarea.Pasos">{{ paso }}</li>
-          </ul>
+          <div *ngIf="tarea.Pasos && tarea.Pasos.length > 0" class="pasos-container">
+            <ul class="pasos-list area-Txt2">
+              <li *ngFor="let paso of tarea.Pasos; let i = index" class="paso-item">
+                <span>{{ paso }}</span>
+                <input 
+                  type="checkbox" 
+                  (change)="completarPaso(tarea, i)"
+                  class="paso-checkbox"
+                  title="Marcar como completado" />
+              </li>
+            </ul>
+          </div>
+          <p *ngIf="!tarea.Pasos || tarea.Pasos.length === 0" class="sin-pasos area-Txt2">
+            Esta tarea no posee pasos a completar
+          </p>
         </div>
 
         <!-- Funcionalidades -->
@@ -356,12 +368,24 @@
           <span class="label area-Txt1">Fin</span>
           <span class="date area-Txt2">{{ tarea.FechaFin }}</span>
         </div>
-        <!-- Pasos --> 
+        <!-- Pasos -->
         <div class="area-pso pasos-box areaPasos">
           <strong class="pasos-title area-Txt1">Pasos:</strong>
-          <ul class="pasos-list area-Txt2">
-            <li *ngFor="let paso of tarea.Pasos">{{ paso }}</li>
-          </ul>
+          <div *ngIf="tarea.Pasos && tarea.Pasos.length > 0" class="pasos-container">
+            <ul class="pasos-list area-Txt2">
+              <li *ngFor="let paso of tarea.Pasos; let i = index" class="paso-item">
+                <span>{{ paso }}</span>
+                <input 
+                  type="checkbox" 
+                  (change)="completarPaso(tarea, i)"
+                  class="paso-checkbox"
+                  title="Marcar como completado" />
+              </li>
+            </ul>
+          </div>
+          <p *ngIf="!tarea.Pasos || tarea.Pasos.length === 0" class="sin-pasos area-Txt2">
+            Esta tarea no posee pasos a completar
+          </p>
         </div>
         <!-- Funcionalidades -->
         <div class="cfg"> 
@@ -425,12 +449,24 @@
           <span class="label area-Txt1">Fin</span>
           <span class="date area-Txt2">{{ tarea.FechaFin }}</span>
         </div>
-        <!-- Pasos --> 
+        <!-- Pasos -->
         <div class="area-pso pasos-box areaPasos">
           <strong class="pasos-title area-Txt1">Pasos:</strong>
-          <ul class="pasos-list area-Txt2">
-            <li *ngFor="let paso of tarea.Pasos">{{ paso }}</li>
-          </ul>
+          <div *ngIf="tarea.Pasos && tarea.Pasos.length > 0" class="pasos-container">
+            <ul class="pasos-list area-Txt2">
+              <li *ngFor="let paso of tarea.Pasos; let i = index" class="paso-item">
+                <span>{{ paso }}</span>
+                <input 
+                  type="checkbox" 
+                  (change)="completarPaso(tarea, i)"
+                  class="paso-checkbox"
+                  title="Marcar como completado" />
+              </li>
+            </ul>
+          </div>
+          <p *ngIf="!tarea.Pasos || tarea.Pasos.length === 0" class="sin-pasos area-Txt2">
+            Esta tarea no posee pasos a completar
+          </p>
         </div>
         <!-- Funcionalidades -->
         <div class="cfg"> 
@@ -495,12 +531,24 @@
           <span class="label area-Txt1">Fin</span>
           <span class="date area-Txt2">{{ tarea.FechaFin }}</span>
         </div>
-        <!-- Pasos --> 
+        <!-- Pasos -->
         <div class="area-pso pasos-box areaPasos">
           <strong class="pasos-title area-Txt1">Pasos:</strong>
-          <ul class="pasos-list area-Txt2">
-            <li *ngFor="let paso of tarea.Pasos">{{ paso }}</li>
-          </ul>
+          <div *ngIf="tarea.Pasos && tarea.Pasos.length > 0" class="pasos-container">
+            <ul class="pasos-list area-Txt2">
+              <li *ngFor="let paso of tarea.Pasos; let i = index" class="paso-item">
+                <span>{{ paso }}</span>
+                <input 
+                  type="checkbox" 
+                  (change)="completarPaso(tarea, i)"
+                  class="paso-checkbox"
+                  title="Marcar como completado" />
+              </li>
+            </ul>
+          </div>
+          <p *ngIf="!tarea.Pasos || tarea.Pasos.length === 0" class="sin-pasos area-Txt2">
+            Esta tarea no posee pasos a completar
+          </p>
         </div>
         <!-- Funcionalidades -->
         <div class="cfg"> 

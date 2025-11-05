@@ -429,6 +429,145 @@ nav {
     /* si el paso tuviera saltos de línea */
 }
 
+/* Estilos para los checkboxes de pasos */
+.paso-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    list-style: disc;
+}
+
+.paso-item span {
+    flex: 1;
+}
+
+.paso-completado {
+    text-decoration: line-through;
+    opacity: 0.6;
+    color: var(--area-Txt2);
+}
+
+.paso-checkbox {
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    flex-shrink: 0;
+}
+
+/* Mensaje cuando no hay pasos */
+.sin-pasos {
+    text-align: center;
+    font-style: italic;
+    padding: 8px;
+    margin: 0;
+    opacity: 0.7;
+}
+
+.pasos-container {
+    min-height: 20px;
+}
+
+/* Estilos responsive para checkboxes y pasos en móviles */
+@media (max-width: 680px) {
+    .paso-item {
+        gap: 6px;
+        padding: 2px 0;
+    }
+    
+    .paso-item span {
+        font-size: 0.9em;
+        word-break: break-word;
+        line-height: 1.3;
+    }
+    
+    .paso-checkbox {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+        flex-shrink: 0;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+    
+    .pasos-box {
+        padding: 6px 8px;
+        max-height: 80px;
+    }
+    
+    .pasos-title {
+        font-size: 0.95em;
+        margin-bottom: 6px;
+    }
+    
+    .sin-pasos {
+        font-size: 0.85em;
+        padding: 6px;
+        line-height: 1.4;
+    }
+    
+    .pasos-list {
+        padding-left: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .paso-item {
+        gap: 4px;
+        padding: 1px 0;
+    }
+    
+    .paso-item span {
+        font-size: 0.85em;
+    }
+    
+    .paso-checkbox {
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+    }
+    
+    .pasos-box {
+        padding: 5px 6px;
+        max-height: 90px;
+    }
+    
+    .pasos-title {
+        font-size: 0.9em;
+        margin-bottom: 4px;
+    }
+    
+    .sin-pasos {
+        font-size: 0.8em;
+        padding: 4px;
+    }
+    
+    .pasos-list {
+        padding-left: 16px;
+    }
+}
+
+@media (max-width: 360px) {
+    .paso-item span {
+        font-size: 0.8em;
+    }
+    
+    .paso-checkbox {
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+    }
+    
+    .pasos-box {
+        padding: 4px 5px;
+    }
+    
+    .sin-pasos {
+        font-size: 0.75em;
+    }
+}
+
 /* Colores para los textos */
 .area-Txt1 {
     color: var(--area-Txt1);  

@@ -152,6 +152,45 @@ export class InicioComponent implements OnInit, OnDestroy {
     }
   }
 
+  async completarPaso(tarea: Tarea, pasoIndex: number): Promise<void> {
+    // Guardar una copia del array original para revertir si falla
+    const pasosOriginales = [...tarea.Pasos];
+    
+    // Eliminar el paso del array
+    tarea.Pasos.splice(pasoIndex, 1);
+    
+    // Crear una copia de la tarea con todos los campos actualizados
+    const tareaActualizada = {
+      UsuarioId: tarea.UsuarioId,
+      TareaId: tarea.TareaId,
+      Titulo: tarea.Titulo,
+      Estado: tarea.Estado,
+      Prioridad: tarea.Prioridad,
+      FechaInicio: tarea.FechaInicio,
+      FechaFin: tarea.FechaFin,
+      Pasos: tarea.Pasos
+    };
+    
+    // Guardar los cambios en el backend
+    try {
+      const obs = await this.apiGatewayService.putTask(tarea.TareaId, tareaActualizada);
+      obs.subscribe({
+        next: (res) => {
+          console.log('✅ Paso completado y eliminado correctamente');
+        },
+        error: (err) => {
+          console.error('❌ Error al completar paso:', err);
+          // Revertir el cambio si falla
+          tarea.Pasos = pasosOriginales;
+        }
+      });
+    } catch (e) {
+      console.error('❌ Error inesperado al completar paso:', e);
+      // Revertir el cambio si falla
+      tarea.Pasos = pasosOriginales;
+    }
+  }
+
     async deleteTask(tareaId: string): Promise<void> {
     /* if (!confirm('¿Seguro que deseas eliminar esta tarea?')) return; */   /* modal localhost */
 
