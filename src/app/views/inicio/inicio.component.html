@@ -293,13 +293,13 @@
 
         <!-- Funcionalidades -->
         <div class="cfg">
-          <button class="btnTaskFunction" (click)="editarTarea(tarea)" *ngIf="tarea.TareaId">
+          <button class="btnTaskFunction" (click)="editarTarea(tarea)" *ngIf="tarea.TareaId" title="Editar Tarea">
             <img class="iconTareaFuncion" src="../../../assets/iconos/editTast.png" alt="Editar Tarea">
           </button>
-          <button class="btnTaskFunction" (click)="capturarYCompartir(tarea.TareaId)">
+          <button class="btnTaskFunction" (click)="capturarYCompartir(tarea.TareaId)" title="Descargar imagen de la tarea">
             <img class="iconTareaFuncion" src="../../../assets/iconos/downloadTask.png" alt="Compartir Tarea" />
           </button>
-          <button class="btnTaskFunction" (click)="openDelete(tarea)">
+          <button class="btnTaskFunction" (click)="openDelete(tarea)" title="Eliminar Tarea">
             <img class="iconTareaFuncion" src="../../../assets/iconos/deleteTask.png" alt="Eliminar Tarea">
           </button>
         </div>

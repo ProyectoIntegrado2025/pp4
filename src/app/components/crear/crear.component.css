@@ -37,6 +37,21 @@ main{
     position: absolute;
     right: 1%;
     top: 1.5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+.global-toggle button,
+.global-toggle input[type="checkbox"] {
+    transform: scale(1.7);
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.global-toggle button:hover,
+.global-toggle input[type="checkbox"]:hover {
+    transform: scale(1.85);
+    box-shadow: 0 0 10px rgba(30, 114, 102, 0.35);
 } 
 /* imagen de fondo */
 .imglogoback {

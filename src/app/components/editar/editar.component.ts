@@ -92,4 +92,9 @@ export class EditarComponent implements OnInit {
       this.cargando = false;
     }
   }
+
+  // Función trackBy para evitar que Angular recree los elementos del DOM
+  trackByIndex(index: number, item: any): number {
+    return index;
+  }
 }
