@@ -21,6 +21,7 @@ export class InicioComponent implements OnInit, OnDestroy {
   cargando = true;
   error = false;
   mensaje = '';
+  mostrandoFavoritos = false;
 
   @ViewChild('errorModal') errorModal?: ElementRef;
   mostrarModalConfirmacion = false;
@@ -444,5 +445,15 @@ get tareasOrdenadas(): Tarea[] {
 
   console.log(tarea.Favorito)
 }
+
+toggleFavoritosFiltro() {
+    this.mostrandoFavoritos = !this.mostrandoFavoritos;
+
+    if (this.mostrandoFavoritos) {
+      this.tareas = this.tareasTotal.filter(t => t.Favorito);
+    } else {
+      this.tareas = [...this.tareasTotal];
+    }
+  }
 
 }

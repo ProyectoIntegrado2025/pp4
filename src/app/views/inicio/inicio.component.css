@@ -847,6 +847,35 @@ nav {
   justify-content: center;
 }
 
+.btnFav {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 2px solid var(--primario, #1E7266);
+  background: var(--bg);
+  color: var(--primario, #1E7266);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+  
+}
+
+.btnFav:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+  background-color: #fff0d1; 
+}
+
+
+.btnFav.active {
+  background-color: #f0c56f; 
+  color: var(--primario, #1E7266);  
+}
+
+
+
 .btnToggle svg{ 
   display:block; 
 }
