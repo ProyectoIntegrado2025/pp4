@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
 import { EliminarTareaComponent } from './components/eliminarTareas/eliminar-tarea/eliminar-tarea.component';
-
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { TareaCardComponent } from './components/tarea-card/tarea-card.component';
 import { DatePipe } from '@angular/common';
@@ -27,10 +27,13 @@ import { ConfirmSignUpComponent } from './views/auth/confirm-sign-up/confirm-sig
 import { ResetPasswordComponent } from './views/auth/reset-password/reset-password.component';
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { ChatAssistantComponent } from './components/chat-assistant/chat-assistant.component'; 
+import { CalendarioComponent } from './views/calendario/calendario.component';
+import { NotificationComponent } from './components/notification/notification.component';
 
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthTokenInterceptor } from './interceptors/auth-token.interceptor';
+import { LandingComponent } from './views/landing/landing.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,11 @@ import { AuthTokenInterceptor } from './interceptors/auth-token.interceptor';
     ResetPasswordComponent,
     ThemeToggleComponent,
     EditarComponent,
-    ChatAssistantComponent
+    ChatAssistantComponent,
+    LandingComponent,
+    NavbarComponent,
+    CalendarioComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,

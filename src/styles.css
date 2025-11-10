@@ -119,10 +119,4 @@ input:-moz-autofill {
 
 /* FUENTES */
 /* src/styles.css */
-@font-face {
-  font-family: "Polya";
-  src: url("/assets/fuentes/POLYA.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap; /* buena práctica para performance */
-}
+/* Todas las fuentes utilizadas son Inter, importada desde index.html */

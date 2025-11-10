@@ -1,0 +1,35 @@
+<nav class="zenki-navbar">
+  <div class="nav-content">
+    <!-- Logo -->
+    <div class="logo-section">
+      <img src="../../../assets/logos/logo+Zenki.png" alt="Zenki" class="logo" />
+    </div>
+
+    <!-- Menú -->
+    <ul class="nav-links" [ngClass]="{ open: menuAbierto }" id="nav-menu">
+      <li><a routerLink="/inicio" routerLinkActive="active" (click)="cerrarMenu()">Mis Tareas</a></li>
+      <li><a routerLink="/calendario" routerLinkActive="active" (click)="cerrarMenu()">Calendario</a></li>
+      <!-- Botón de cerrar sesión en móvil -->
+      <li class="logout-mobile">
+        <button class="btnLogoutMobile" (click)="onLogout(); cerrarMenu()">Cerrar Sesión</button>
+      </li>
+    </ul>
+
+    <!-- Botón de cerrar sesión (desktop) -->
+    <button class="btnLogout btnLogoutDesktop" (click)="onLogout()">Cerrar Sesión</button>
+
+    <!-- Botón Hamburguesa -->
+    <button 
+      class="menu-toggle" 
+      [class.active]="menuAbierto"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuAbierto"
+      aria-label="Menú de navegación"
+      aria-controls="nav-menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Toggle claro/oscuro -->
+<app-theme-toggle class="theme-toggle"></app-theme-toggle>

@@ -1,0 +1,25 @@
+<div class="notification-container">
+  <div 
+    *ngFor="let notification of notifications" 
+    [class]="'notification-alert alert ' + obtenerClaseAlert(notification.type) + ' alert-dismissible fade show'"
+    role="alert">
+    <div class="d-flex align-items-center">
+      <span class="notification-icon me-2">{{ obtenerIconoTexto(notification.type) }}</span>
+      <div class="flex-grow-1">
+        <strong>{{ notification.message }}</strong>
+        <div *ngIf="notification.tareas.length > 1" class="mt-2">
+          <ul class="mb-0 ps-3">
+            <li *ngFor="let tarea of notification.tareas">{{ tarea.Titulo }}</li>
+          </ul>
+        </div>
+      </div>
+      <button 
+        type="button" 
+        class="btn-close notification-close-btn" 
+        (click)="cerrarNotificacion(notification.id)"
+        aria-label="Cerrar">
+      </button>
+    </div>
+  </div>
+</div>
+

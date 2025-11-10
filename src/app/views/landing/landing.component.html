@@ -1,0 +1,87 @@
+<!-- 🔹 NAVBAR -->
+<nav>
+  <div class="logo">ZENKI</div>
+  <ul>
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#caracteristicas">Características</a></li>
+    <li><a href="#equipo">Sobre Nosotros</a></li>
+    <li><a href="#login">Login</a></li>
+  </ul>
+</nav>
+
+<!-- 🔹 HERO -->
+<header id="inicio">
+  <h1>Organizá tus tareas con Zenki</h1>
+  <p>Una app moderna y colaborativa que te permite crear, seguir y completar tus tareas desde cualquier dispositivo.</p>
+  <button class="cta-btn" routerLink="/login">Ingresar</button>
+</header>
+
+<!-- 🔹 SECCIÓN DE CARACTERÍSTICAS -->
+<section id="caracteristicas">
+  <h2>Lo que Zenki te ofrece</h2>
+  <div class="cards">
+    <div class="card">
+      <img id="img1" src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=800&q=80" alt="Gestión de tareas">
+      <h3>Gestión Visual de Tareas</h3>
+      <p>Creá, editá y organizá tus tareas en tarjetas interactivas que te ayudan a visualizar tu progreso fácilmente.</p>
+    </div>
+    <div class="card">
+      <img id="img2" src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?auto=format&fit=crop&w=800&q=80" alt="Usuarios">
+      <h3>Usuarios y Seguridad</h3>
+      <p>Cada usuario tiene su cuenta y acceso seguro mediante AWS Cognito, protegiendo tu información personal.</p>
+    </div>
+    <div class="card">
+      <img id="img3" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80" alt="Escalabilidad">
+      <h3>App Escalable en la Nube</h3>
+      <p>Zenki utiliza AWS Amplify, Lambda y DynamoDB para ofrecer velocidad, estabilidad y crecimiento continuo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 🔹 SECCIÓN SOBRE NOSOTROS -->
+<section id="equipo">
+  <h2>Sobre Nosotros</h2>
+  <div class="team">
+    <div class="member">
+      <img src="assets/team/integrante1.png" alt="Integrante 1">
+      <h4>Nombre 1</h4>
+      <p>Desarrollador Frontend — Apasionado por crear interfaces limpias e intuitivas.</p>
+    </div>
+    <div class="member">
+      <img src="assets/team/integrante2.png" alt="Integrante 2">
+      <h4>Nombre 2</h4>
+      <p>Desarrollador Backend — Experto en Node.js y AWS, garantiza el rendimiento del sistema.</p>
+    </div>
+    <div class="member">
+      <img src="assets/team/integrante3.png" alt="Integrante 3">
+      <h4>Nombre 3</h4>
+      <p>Diseñador UI/UX — Da forma a la experiencia visual de Zenki con un enfoque minimalista.</p>
+    </div>
+    <div class="member">
+      <img src="assets/team/integrante4.png" alt="Integrante 4">
+      <h4>Nombre 4</h4>
+      <p>Tester — Garantiza la calidad del producto, encontrando errores antes que nadie.</p>
+    </div>
+    <div class="member">
+      <img src="assets/team/integrante5.png" alt="Integrante 5">
+      <h4>Nombre 5</h4>
+      <p>Project Manager — Coordina el equipo y asegura que los objetivos se cumplan en tiempo y forma.</p>
+    </div>
+    <div class="member">
+      <img src="assets/team/integrante6.png" alt="Integrante 6">
+      <h4>Nombre 6</h4>
+      <p>Documentación y Presentación — Encargado de la comunicación y las entregas finales del proyecto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 🔹 LOGIN -->
+<section id="login">
+  <h2>Iniciar Sesión</h2>
+  <app-login></app-login>
+</section>
+
+<!-- 🔹 FOOTER -->
+<footer>
+  © 2025 Zenki App — Todos los derechos reservados
+</footer>

@@ -27,7 +27,7 @@ ul li{
     background-color: red;
 } */
 
-@import url('https://fonts.googleapis.com/css2?family=Charm:wght@400;700&family=Inconsolata:wght@200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 
 
@@ -87,7 +87,7 @@ ul li{
 }
 .spanLiTitulo{
     font-size: 111%;
-    font-family: "Charm", cursive;
+    font-family: "Inter", sans-serif;
     font-weight: 700;
     display: block;
     margin: 2.5% 1% 3% 1%;

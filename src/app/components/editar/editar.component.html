@@ -1,5 +1,7 @@
 <main>
   <app-theme-toggle class="global-toggle"></app-theme-toggle>
+  <!-- BUTTON VOLVER -->
+  <a [routerLink]="['/inicio']"><img class="iconVolver" src="../../../assets/iconos/botonVolver.png" alt="Volver"></a>
   <img class="imglogoback" src="../../../assets/Zenkiii.png" alt="logo">
 
   <div class="container mt-4">
@@ -47,8 +49,8 @@
         <div class="mb-3">
           <label class="form-label">Pasos</label>
           <ul class="list-group">
-            <li *ngFor="let paso of tarea.Pasos; let i = index" class="list-group-item d-flex align-items-center">
-              <input [(ngModel)]="tarea.Pasos[i]" name="paso{{i}}" class="form-control" />
+            <li *ngFor="let paso of tarea.Pasos; let i = index; trackBy: trackByIndex" class="list-group-item d-flex align-items-center">
+              <input [(ngModel)]="tarea.Pasos[i]" [name]="'paso' + i" class="form-control" />
             </li>
           </ul>
         </div>

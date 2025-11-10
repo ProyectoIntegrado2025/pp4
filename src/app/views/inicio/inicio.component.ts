@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { Tarea } from 'src/app/models/tarea';
 import { ApiGatewayService } from 'src/app/services/api.gateway.service';
 import { AuthService, AuthenticatedUser } from 'src/app/services/authServices/auth.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
 import html2canvas from 'html2canvas';
 
@@ -33,7 +34,8 @@ export class InicioComponent implements OnInit, OnDestroy {
     private apiGatewayService: ApiGatewayService,
     private datePipe: DatePipe,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
@@ -75,6 +77,9 @@ export class InicioComponent implements OnInit, OnDestroy {
 
           this.tareasTotal = [...this.tareas];
           this.cargando = false;
+
+          // 🔔 Verificar y generar notificaciones de tareas que vencen pronto
+          this.notificationService.generarNotificacionesTareas(this.tareas);
         },
         error: (err) => {
           console.error("❌ Error al obtener tareas:", err);
@@ -144,15 +149,54 @@ export class InicioComponent implements OnInit, OnDestroy {
     this.mostrarModalConfirmacion = false;
     try {
       await this.authService.logout();
-      this.router.navigate(['/login']);
+      this.router.navigate(['/']);
       console.log('👋 Sesión cerrada correctamente');
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
     }
   }
 
+  async completarPaso(tarea: Tarea, pasoIndex: number): Promise<void> {
+    // Guardar una copia del array original para revertir si falla
+    const pasosOriginales = [...tarea.Pasos];
+    
+    // Eliminar el paso del array
+    tarea.Pasos.splice(pasoIndex, 1);
+    
+    // Crear una copia de la tarea con todos los campos actualizados
+    const tareaActualizada = {
+      UsuarioId: tarea.UsuarioId,
+      TareaId: tarea.TareaId,
+      Titulo: tarea.Titulo,
+      Estado: tarea.Estado,
+      Prioridad: tarea.Prioridad,
+      FechaInicio: tarea.FechaInicio,
+      FechaFin: tarea.FechaFin,
+      Pasos: tarea.Pasos
+    };
+    
+    // Guardar los cambios en el backend
+    try {
+      const obs = await this.apiGatewayService.putTask(tarea.TareaId, tareaActualizada);
+      obs.subscribe({
+        next: (res) => {
+          console.log('✅ Paso completado y eliminado correctamente');
+        },
+        error: (err) => {
+          console.error('❌ Error al completar paso:', err);
+          // Revertir el cambio si falla
+          tarea.Pasos = pasosOriginales;
+        }
+      });
+    } catch (e) {
+      console.error('❌ Error inesperado al completar paso:', e);
+      // Revertir el cambio si falla
+      tarea.Pasos = pasosOriginales;
+    }
+  }
+
     async deleteTask(tareaId: string): Promise<void> {
-    if (!confirm('¿Seguro que deseas eliminar esta tarea?')) return;
+    /* if (!confirm('¿Seguro que deseas eliminar esta tarea?')) return; */   /* modal localhost */
 
     this.cargando = true;
     try {
@@ -421,6 +465,21 @@ get tareasOrdenadas(): Tarea[] {
   }
 }
 
+/* MODAL PARA ELIMIAR TAREA */
+showDelete = false;
+tareaIdAEliminar: string | null = null;
+
+openDelete(t: Tarea) {
+  this.tareaIdAEliminar = t.TareaId;
+  this.showDelete = true;
+}
+cancelDelete() { this.showDelete = false; this.tareaIdAEliminar = null; }
+
+onConfirmDelete() {
+  if (this.tareaIdAEliminar) this.deleteTask(this.tareaIdAEliminar);
+  this.showDelete = false;
+  this.tareaIdAEliminar = null;
+}
   async onToggleFavorito(tarea: Tarea) {
   // Cambiás primero en memoria
   console.log(tarea.Favorito)
