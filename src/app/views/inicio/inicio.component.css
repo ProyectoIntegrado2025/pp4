@@ -994,8 +994,10 @@ nav {
   align-items: center;   /* centra verticalmente icono y texto */
   justify-content: center;
 }
-
+/* Clase de la función Favoritos en la barra de funciones */
 .btnFav {
+  height: 42px;     
+  line-height: 1;        
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -1007,7 +1009,7 @@ nav {
   color: var(--primario, #1E7266);
   cursor: pointer;
   transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
-  
+
 }
 
 .btnFav:hover {
@@ -1101,18 +1103,22 @@ nav {
   color: #1E7266;
 }
 
-/* "Por" y "Ver" textos de POR lista, POR estados, Ver estadísticas */
+/* "Por" y "Ver" textos de POR lista, POR estados, Ver estadísticas, Favoritos */
 /* Por defecto, ambos spans visibles */
 .txtPor,
-.txtVer {
+.txtVer,
+.txtSolo,
+.txtMostrar  {
   display: inline;
   transition: opacity .5s ease, width .5s ease;
 }
 
 /* Cuando el viewport es menor a 550px: oculta el primer span */
-@media (max-width: 550px) {
+@media (max-width: 740px) {
   .txtPor,
-  .txtVer {
+  .txtVer,
+  .txtSolo,
+  .txtMostrar {
     opacity: 0;
     width: 0;
     display: inline-block;
@@ -1164,15 +1170,16 @@ span + span {
   line-height: 0;
 }
 
-/* A menos de 500 px: mostrar iconos en lugar de texto */
-@media (max-width: 500px) {
-  .iconMini {
+@media (max-width: 650px) {
+  .iconMini {                      /* muestra los íconos compactos */
     display: inline-block;
   }
 
-  /* Además ocultamos la palabra principal (Lista, Estados, Estadísticas) */
-  .txtPor + span,
-  .txtVer + span {
+  /* oculta las palabras principales */
+  .txtPor + span,                  /* "Lista" */
+  .txtVer + span,                  /* "Estadísticas" */
+  .txtSolo + span,                 /* "Favoritos" cuando no está activo */
+  .txtMostrar + span {             /* "Todas" cuando sí está activo */
     display: none;
   }
 }
@@ -1180,7 +1187,8 @@ span + span {
 @media (max-width: 500px) {
   /* Reducir el espacio entre icono principal (svg) y chevron */
   .btnToggle,
-  .btnStats {
+  .btnStats,
+  .btnFav {
     gap: 2px;                /* antes probablemente 8px, ahora más compacto */
     padding-inline: 10px;    /* opcional: achica horizontalmente el botón */
     color: var(--primario, #1E7266) !important;
@@ -1234,6 +1242,32 @@ span + span {
 
 }
 
+/* botón funcionalidad estrella favoritos */
+/* Botón estrella dentro de la tarjeta */
+.btnStarFav {
+  position: relative;
+  top: -4px;
+  background: transparent;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: transform 0.25s ease, background-color 0.25s ease, color 0.25s ease;
+  border-radius: 30% 30%;
+  padding: 6px;
+  color: #a1a5ab; /* gris base similar a text-slate-400 */
+}
+
+/* Hover con leve aumento */
+.btnStarFav:hover {
+  transform: scale(1.1);
+}
+
+/* Estado activo (favorito marcado) */
+.btnStarFav.active {
+  color: var(--primario, #1E7266);
+  text-shadow: 0 0 8px rgba(236, 185, 83, 0.958); /* brillo en la estrella */
+  transform: scale(1.3);
+}
  
 
 /* 1) Utilidad para ocultar el checkbox manteniendo accesibilidad */
