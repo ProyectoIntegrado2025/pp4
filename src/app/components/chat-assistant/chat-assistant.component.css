@@ -3,8 +3,8 @@
   position: fixed;
   right: 2%;
   bottom: 2%;
-  width: clamp(70px, 15vmin, 7vmax );
-  height: clamp(70px, 15vmin, 7vmax );
+  width: 70px;  /* mismo alto que el botón Crear tarea */
+  height: 70px; /* mismo alto que el botón Crear tarea */
   border: 3px solid #3FAE49;
   border-radius: 50%;
   background: #ffffff;
@@ -205,3 +205,28 @@
     bottom: 14px;
   }
 } */
+
+/* 🔸 Ajuste responsive del botón del chat */
+@media (max-width: 768px) {
+  .zenki-chat-toggle {
+    width: 60px;
+    height: 60px;
+    border-width: 2.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .zenki-chat-toggle {
+    width: 55px;
+    height: 55px;
+    border-width: 2px;
+  }
+}
+
+@media (max-width: 360px) {
+  .zenki-chat-toggle {
+    width: 50px;
+    height: 50px;
+    border-width: 2px;
+  }
+}
