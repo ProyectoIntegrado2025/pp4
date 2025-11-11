@@ -480,30 +480,40 @@ onConfirmDelete() {
   this.showDelete = false;
   this.tareaIdAEliminar = null;
 }
-  async onToggleFavorito(tarea: Tarea) {
-  // Cambiás primero en memoria
-  console.log(tarea.Favorito)
-  tarea.Favorito = !tarea.Favorito;
+  private sincronizarEstadoFavorito(tareaActualizada: Tarea) {
+    const indice = this.tareasTotal.findIndex(t => t.TareaId === tareaActualizada.TareaId);
+    if (indice !== -1) {
+      this.tareasTotal[indice].Favorito = tareaActualizada.Favorito;
+    }
 
-  try {
-    const obs = await this.apiGatewayService.putTask(tarea.TareaId, tarea);
-    obs.subscribe({
-      next: (res) => {
-        console.log('✅ Favorito actualizado en API:', res);
-      },
-      error: (err) => {
-        console.error('❌ Error al actualizar favorito', err);
-        // rollback si falla
-        tarea.Favorito = !tarea.Favorito;
-      }
-    });
-  } catch (e) {
-    console.error('❌ Error inesperado en putTask', e);
-    tarea.Favorito = !tarea.Favorito;
+    if (this.mostrandoFavoritos) {
+      this.tareas = this.tareasTotal.filter(t => t.Favorito);
+    }
   }
 
-  console.log(tarea.Favorito)
-}
+  async onToggleFavorito(tarea: Tarea) {
+    const estadoAnterior = tarea.Favorito;
+    tarea.Favorito = !estadoAnterior;
+    this.sincronizarEstadoFavorito(tarea);
+
+    try {
+      const obs = await this.apiGatewayService.putTask(tarea.TareaId, tarea);
+      obs.subscribe({
+        next: (res) => {
+          console.log('✅ Favorito actualizado en API:', res);
+        },
+        error: (err) => {
+          console.error('❌ Error al actualizar favorito', err);
+          tarea.Favorito = estadoAnterior;
+          this.sincronizarEstadoFavorito(tarea);
+        }
+      });
+    } catch (e) {
+      console.error('❌ Error inesperado en putTask', e);
+      tarea.Favorito = estadoAnterior;
+      this.sincronizarEstadoFavorito(tarea);
+    }
+  }
 
 toggleFavoritosFiltro() {
     this.mostrandoFavoritos = !this.mostrandoFavoritos;
