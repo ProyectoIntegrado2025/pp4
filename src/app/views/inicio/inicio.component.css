@@ -954,6 +954,17 @@ nav {
   transform: translateY(-1px);
 }
 
+.empty-state-message {
+  color: var(--fg);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.theme-dark .empty-state-message {
+  color: var(--fg);
+  opacity: 0.92;
+}
+
 
 
 
