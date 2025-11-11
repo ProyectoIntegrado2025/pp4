@@ -345,11 +345,6 @@
           >
             ★
           </button>
-<!--           <button (click)="onToggleFavorito(tarea)"
-            [ngClass]="tarea.Favorito ? 'text-green-500 drop-shadow' : 'text-slate-400'"
-            class="text-9x1 leading-none transition-transform hover:scale-110" aria-label="Marcar como favorito">
-            ★
-          </button> -->
         </div>
       </swiper-slide>
     </swiper-container>
@@ -434,6 +429,14 @@
           <button class="btnTaskFunction" (click)="openDelete(tarea)">
             <img class="iconTareaFuncion" src="../../../assets/iconos/deleteTask.png" alt="Eliminar Tarea">
           </button>
+          <button 
+            (click)="onToggleFavorito(tarea)"
+            [class.active]="tarea.Favorito"
+            class="btnStarFav"
+            aria-label="Marcar como favorito"
+          >
+            ★
+          </button>
         </div>
       </swiper-slide>
     </swiper-container>
@@ -514,6 +517,14 @@
           </button>
           <button class="btnTaskFunction" (click)="openDelete(tarea)">
             <img class="iconTareaFuncion" src="../../../assets/iconos/deleteTask.png" alt="Eliminar Tarea">
+          </button>
+          <button 
+            (click)="onToggleFavorito(tarea)"
+            [class.active]="tarea.Favorito"
+            class="btnStarFav"
+            aria-label="Marcar como favorito"
+          >
+            ★
           </button>
         </div>
       </swiper-slide>
@@ -596,6 +607,14 @@
           </button>
           <button class="btnTaskFunction" (click)="openDelete(tarea)">
             <img class="iconTareaFuncion" src="../../../assets/iconos/deleteTask.png" alt="Eliminar Tarea">
+          </button>
+          <button 
+            (click)="onToggleFavorito(tarea)"
+            [class.active]="tarea.Favorito"
+            class="btnStarFav"
+            aria-label="Marcar como favorito"
+          >
+            ★
           </button>
         </div>
       </swiper-slide>
