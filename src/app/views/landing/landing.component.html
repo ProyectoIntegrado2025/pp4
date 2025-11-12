@@ -1,12 +1,23 @@
 <!-- 🔹 NAVBAR -->
-<nav>
+<nav #navElement>
   <div class="logo">ZENKI</div>
-  <ul>
-    <li><a href="#inicio">Inicio</a></li>
-    <li><a href="#caracteristicas">Características</a></li>
-    <li><a href="#equipo">Sobre Nosotros</a></li>
-    <li><a href="#login">Login</a></li>
+  <ul class="nav-links" [ngClass]="{ open: menuAbierto }" id="nav-menu">
+    <li><a href="#inicio" (click)="cerrarMenu()">Inicio</a></li>
+    <li><a href="#caracteristicas" (click)="cerrarMenu()">Características</a></li>
+    <li><a href="#equipo" (click)="cerrarMenu()">Sobre Nosotros</a></li>
+    <li><a href="#login" (click)="cerrarMenu()">Login</a></li>
   </ul>
+  <!-- Botón Hamburguesa -->
+  <button 
+    class="menu-toggle" 
+    [class.active]="menuAbierto"
+    (click)="toggleMenu($event)"
+    [attr.aria-expanded]="menuAbierto"
+    aria-label="Menú de navegación"
+    aria-controls="nav-menu"
+    type="button">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- 🔹 HERO -->

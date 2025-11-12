@@ -5,6 +5,7 @@
   --color-acento: #FFC857;
   --color-neutro: #F8F5EF;
   --color-texto: #2D2D2D;
+  --navbar-height: 60px; /* Altura del navbar para cálculo del menú desplegable */
   display: block;
 }
 
@@ -41,23 +42,86 @@ nav .logo {
   font-size: 1.6rem;
   font-weight: 600;
   letter-spacing: 1px;
+  z-index: 101;
 }
 
-nav ul {
+nav .nav-links {
   display: flex;
   list-style: none;
   gap: 2rem;
+  margin: 0;
+  padding: 0;
 }
 
-nav a {
+nav .nav-links a {
   text-decoration: none;
   color: #fff;
   font-weight: 500;
   transition: color 0.3s ease;
 }
 
-nav a:hover {
+nav .nav-links a:hover {
   color: var(--color-acento);
+}
+
+/* 🔹 BOTÓN HAMBURGUESA */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  z-index: 101;
+  padding: 0;
+  transition: transform 0.25s ease;
+}
+
+.menu-toggle span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 3px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.menu-toggle:hover span {
+  background-color: var(--color-acento);
+}
+
+.menu-toggle:active {
+  transform: scale(0.95);
+}
+
+/* Animación del botón hamburguesa cuando está activo (se convierte en X) */
+.menu-toggle.active span:nth-child(1) {
+  transform: translateY(8.5px) rotate(45deg);
+}
+
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.menu-toggle.active span:nth-child(3) {
+  transform: translateY(-8.5px) rotate(-45deg);
+}
+
+/* 🔹 ANIMACIÓN DEL MENÚ DESPLEGABLE */
+@keyframes fadeSlideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* 🔹 HERO */
@@ -72,7 +136,7 @@ header {
   align-items: center;
   text-align: center;
   padding: 2rem;
-  margin-top: 60px;
+  margin-top: var(--navbar-height);
 }
 
 header h1 {
@@ -234,10 +298,64 @@ footer {
   margin-top: 3rem;
 }
 
+/* 🔹 RESPONSIVE - TABLETS Y MÓVILES */
 @media (max-width: 768px) {
   header h1 { font-size: 2.2rem; }
   header p { font-size: 1.1rem; }
-  nav ul { gap: 1rem; }
+  
+  nav {
+    padding: 1rem 1.5rem;
+    position: fixed;
+  }
+
+  /* Mostrar botón hamburguesa en móviles */
+  .menu-toggle {
+    display: flex;
+  }
+
+  /* Ocultar menú por defecto en móviles - DEBE estar oculto */
+  nav .nav-links {
+    display: none !important;
+    position: fixed;
+    top: var(--navbar-height);
+    left: 0;
+    width: 100%;
+    background-color: var(--color-primario);
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    margin: 0;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+    z-index: 99;
+  }
+
+  /* Mostrar menú SOLO cuando tiene la clase .open */
+  nav .nav-links.open {
+    display: flex !important;
+    animation: fadeSlideDown 0.35s ease;
+  }
+
+  /* Estilos para cada item del menú en móvil */
+  nav .nav-links li {
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  nav .nav-links li:last-child {
+    border-bottom: none;
+  }
+
+  nav .nav-links a {
+    display: block;
+    padding: 1rem 1.5rem;
+    width: 100%;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  nav .nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--color-acento);
+  }
 }
 
 #login app-login main {
