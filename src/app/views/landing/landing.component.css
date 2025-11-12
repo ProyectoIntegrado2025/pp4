@@ -313,6 +313,11 @@ footer {
     display: flex;
   }
 
+  /* Asegurar que el menú hamburguesa sea blanco en móvil */
+  .menu-toggle span {
+    background-color: #fff !important;
+  }
+
   /* Ocultar menú por defecto en móviles - DEBE estar oculto */
   nav .nav-links {
     display: none !important;
